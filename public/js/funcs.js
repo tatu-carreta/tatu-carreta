@@ -1,0 +1,171 @@
+/* 
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+
+function borrarData(url, id) {
+    if (confirm("¿Está seguro que desea continuar con la eliminación? Advertencia: no podrá volver las acciones atras."))
+        $.post($.trim(url), {id: id}, function (data) {
+            alert(data.mensaje);
+            if (!data.error)
+            {
+                window.location.reload();
+            }
+        }, "json");
+}
+
+function borrarItemSeccion(url, seccion_id, item_id) {
+    if (confirm("¿Está seguro que desea eliminar este producto?"))
+    {
+        $.post($.trim(url), {item_id: item_id, seccion_id: seccion_id}, function (data) {
+            alert(data.mensaje);
+            if (!data.error)
+            {
+                window.location.reload();
+            }
+        }, "json");
+    }
+}
+
+function borrarImagen(url, id, item_id, load) {
+    $.post($.trim(url), {id: id}, function (data) {
+        alert(data.mensaje);
+        if (!data.error)
+        {
+            $(".modal").load(load + item_id);
+        }
+    }, "json");
+}
+
+function borrarImagenReload(url, id) {
+    $.post($.trim(url), {id: id}, function (data) {
+        alert(data.mensaje);
+        if (!data.error)
+        {
+            window.location.reload();
+        }
+    }, "json");
+}
+
+function destacarItemSeccion(url, seccion_id, item_id) {
+    $.post($.trim(url), {item_id: item_id, seccion_id: seccion_id}, function (data) {
+        //alert(data.mensaje);
+        if (!data.error)
+        {
+            window.location.reload();
+        }
+    }, "json");
+}
+
+function pasarSeccionesCategoria(url, menu_id) {
+    if (confirm("Usted está a punto de convertir todas las secciones de esta categoría en subcategorías. ¿Está seguro que desea continuar?"))
+    {
+        if (confirm("¿Recontra seguro?"))
+        {
+            console.log($.post($.trim(url), {menu_id: menu_id}, function (data) {
+                alert(data.mensaje);
+                if (!data.error)
+                {
+                    //window.location.reload();
+                    window.location.replace(data.url);
+                }
+            }, "json"));
+        }
+    }
+}
+
+$(function () {
+    console.log($(".editarContenidoAdmin").click(function () {
+        var url = $(this).attr("data");
+        $(".cargaContenidoAdmin").load($.trim(url));
+    }));
+});
+
+$(function () {
+    console.log($(".volver").click(function () {
+        window.history.back();
+    }));
+});
+
+function cancelarPopup(modal, seccion_id) {
+
+    if (typeof seccion_id != 'undefined') {
+        console.log($('#' + modal + seccion_id).dialog("close"));
+    }
+    else
+    {
+        console.log($('#' + modal).dialog("close"));
+    }
+
+}
+
+/*
+ * VALIDAR CON JQUERY EL TAMAÑO DEL ARCHIVO
+ */
+
+
+function validar(elem) {
+    var tipos = ['.jpg', '.png', '.gif'];
+    var archivo = $(elem);
+    var nombre = archivo.val();
+    var extension = nombre.substring(nombre.lastIndexOf(".")).toLowerCase();
+
+    if (jQuery.inArray(extension, tipos)) {
+        $("#error").html("<img src='images/cross.png'> El tipo del archivo es incorrecto...");
+        $("#correcto").html("");
+        $("#" + archivo.attr('id')).css("color", "red");
+        archivo.val("");
+        $(".jcrop-holder").remove();
+        //LimpiarInputFile(archivo.attr('id'));
+    }
+    else {
+        if (archivo['0'].files['0'].size > (1024 * 1024) + (1024 * 1024))
+        {
+            alert("El archivo que intenta subir supera el tamaño indicado. Vuelva a intentar.");
+            archivo.val("");
+            $(".jcrop-holder").remove();
+        }
+        $("#error").html("");
+        $("#" + archivo.attr('id')).css("color", "black");
+        //ajaxFileUpload(archivo.attr('id'), archivo.attr('name'), tamanio_val);
+    }
+}
+/*
+ function LimpiarInputFile(id) {
+ id1 = "#" + id;
+ var aux = $(id1).clone();
+ aux.css('display', 'none');
+ aux.val("");
+ $(id1).after(aux);
+ $(id1).remove();
+ aux.attr('id', id)
+ aux.show();
+ }
+ */
+/*
+ function submit_form(form_name)
+ {
+ var form = $("#" + form_name);
+ var post_url = form.attr("action");
+ var post_data = form.serialize();
+ 
+ console.log($.ajax({
+ type: 'POST',
+ url: post_url,
+ data: post_data,
+ dataType: "json",
+ success: function (registro) {
+ if (registro.error)
+ {
+ alert(registro.mensaje);
+ }
+ else
+ {
+ window.location.reload();
+ }
+ }
+ }));
+ return false;
+ }
+ */

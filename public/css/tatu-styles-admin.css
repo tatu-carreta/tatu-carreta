@@ -1,0 +1,165 @@
+/* -------- A D M I N ----------*/
+
+.divAlerta{position: fixed; bottom: 0; right: 0; width: 260px; padding: 1em 1em 1em 3.2em;; z-index: 1000; color: white; font-size: 1.1em; background-size: 90%}
+.divAlerta i.fa-times{position: absolute; top:0.5em; right: 0.5em; }
+.divAlerta i.fa-times:before{color: white !important}
+.ok{background: #599F00 url(../images/ok.png) no-repeat 15px 15px; border:1px solid #007F46;}
+.error{background: #E5352D url(../images/error.png) no-repeat 15px 15px; ; border:1px solid #E2001A;}
+
+/* P R O D U C T O S */
+
+.divLogin{margin: 100px auto 250px auto; width: 300px;  }
+.divLogin input[type="text"], .divLogin input[type="password"] {width: 100%; margin-bottom: 20px}
+.divLogin input[type="submit"]{float:right;}
+
+section.admin h2{font-size: 1.5em; }
+section.admin h3{font-size: 1.250em}
+section.admin h2, section.admin h3 {display: inline-block; padding-right: 0.625em}
+
+/* estilos  A D M I N*/
+.headerAdmin{background: #333; height:2.5em; color: #fff; position: relative; }
+.headerAdmin .divSalir{position: absolute;right: 0}
+.headerAdmin .divAdministrar{position: absolute; left: 0}
+.headerAdmin .salir{color:#fff; padding: 0 1em; margin-left: 1em}
+
+.col70Admin{width: 51.250em; float: left; margin-right: 20px;}
+.col30Admin{width: 21.2em; float: right;}
+
+/* estilos  M O D A L */
+.modal{width: 54.4em; padding: 3.2em; border-radius: 1em; -webkit-border-radius: 1em; -moz-border-radius: 1em; -o-border-radius: 1em;-webkit-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.9); -moz-box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.9); box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.9); margin-top: 8.5em; margin-left: -30.4em; position: absolute; z-index: 999; left:50% }
+
+.divNuevaSeccion{padding-bottom: 1.5em; border-bottom: 1px dashed #C6C6C6; margin-bottom: 2em;}
+.datosProducto label{margin-right: 1em}
+.datosProducto select{font-size: 1em; color:#B2B2B2; margin-right: 0.5em;}
+
+.divVerMarcaPrincipal p{margin-top: 0.5em; }
+.marca_imagen_preview{width: 44px; height: 44px; display: inline-block;vertical-align: middle; padding-bottom: 3px}
+
+.divCargaImgProducto{margin: 0 0 4em 0; position: relative;}
+.divCargaImgProducto:last-child{margin: 0 !important;}
+.divCargaImgProducto .cargar{font-size: 16px !important}
+.divCargaImgProducto .campoNomArchivo{width: 165px}
+.divCargaImgProducto p{margin: 0.3em 0 2em 0}
+.divCargaImgProducto i.fa-times{position: absolute; top: 0.5em; right: 0.5em}
+
+.divCargaImg{height: 19.375em; width: 19.375em; border: 1px solid #ccc; position: relative; box-sizing: border-box;}
+.divCargaImg img{border:0; height: 19.375em; width: 19.375em; display: block}
+
+.divEditorTxt{margin-bottom: 20px;}
+a.btnDestacar{font-size: 1.5em; font-weight: 300; cursor: pointer}
+
+.form-group span{display: inline-block; margin-right: 0.3em; font-size: 2em}
+
+/* Ocultamos el input file */
+.oculto{z-index: 999;line-height: 0;font-size: 30px; position: absolute;opacity: 0;filter: alpha(opacity = 0);-ms-filter: "alpha(opacity=0)";
+margin: 0;padding:0;left:0;top: 0;width: 130px;}
+
+/* Al label lo convertimos en "boton" (en apariencia) */
+.cargar{text-align: center;color: #fff;display: block;border-radius: 3px;font-size: 18px;float: left; position: relative;}
+
+/* Administrador de Menu*/
+.grupoMenuAdmin{}
+.listaMenu li > ul{margin-left: 1.5em}
+.listaMenu li{margin-bottom: 0.4em}
+.listaMenu li .btnSec{padding: 0.2em !important}
+.listaMenu li i{width: 120% !important}
+.listaMenu li span{display: inline-block; background: #DFDFDF; width: 11.8em; padding: 0.6em; }
+.listaMenu span a{display: block; font-size: 0.9em; color:#666}
+.listaMenu span a:hover{color:#999;}
+.menuOrdenar{display: block !important; margin: 0.5em 1.3em 0.3em }
+.menuOrdenar1{display: block !important; margin: 0.5em 1.3em 0.3em 0; padding: 0 !important;}
+
+/* Administrador de Marcas */
+.listaMarcas{margin: 0 -0.65em}
+.listaMarcas li{float: left; margin: 0 0.65em; width: 150px; box-sizing: content-box; position: relative;}
+.listaMarcas li img{width: 100%; height: auto;border: 1px solid #ccc; box-sizing: content-box;}
+.listaMarcas li .marca{display: table; width: 100%; height: 55px; padding: 0.5em 0; margin-top: 0;}
+.listaMarcas p span{display: table-cell; vertical-align: middle; background: #EFEFEF; text-align: center; line-height: 1.1em;}
+
+.divCargaMarca{height: 150px; width: 150px; border: 1px solid #ccc; box-sizing: border-box; position: relative;}
+.divCargaMarca i{position: absolute; top:0.5em; right: 0.5em; cursor: pointer}
+
+/* Genéricos */
+
+.block {display: block}
+.anchoTotal{width: 100%; box-sizing: border-box}
+
+.col50 {width:47%;}/*ver porque no me toma el max-width*/
+.col25 {width:17em }
+.col60 {width: 43.750em}
+.col40 {width: 28.750em}
+
+.menu {text-align: center; padding: 30px} /* revisar los estilos de este menu, NO ME GUSTAN*/
+.menu li {display: inline-block; margin: 5px}
+
+.bgGris {background: #eee; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; padding: 1.250em;margin-bottom: 5em }
+
+.btn, .btnGris, .btnCalado, .btnSec{cursor:pointer; display: inline-block;}
+.btn i, .btnGris i, .btnCalado i, .btnSec i{margin-right: 0.313em}
+
+.btn {background:#3074B1; color:#fff; font-size: 16px; border: 1px solid #255A8B; padding: 0.625em 0.938em; border-radius: 0.250em; -webkit-border-radius: 0.250em;-moz-border-radius: 0.250em;-o-border-radius: 0.250em; }
+.btn:hover {background: #4593D6; border:1px solid #3488D5;}
+
+.btnGris {background:#EFEFEF; color:#0E4B70; border: 1px solid #D1D2D3; padding: 0.625em 0.938em; border-radius: 0.250em; -webkit-border-radius: 0.250em;-moz-border-radius: 0.250em;-o-border-radius: 0.250em;}
+.btnGris:hover {background: #CCCCCC; border:1px solid #999999;}
+
+.btnSec {color:#3074B1; padding: 0.625em 0.938em;}
+.btnSec:hover, .btnSec:hover i:before{color: #53AEFD ;}
+
+.btnCalado {display:inline-block; color:#fff; padding: 0.625em 0.938em;}
+.btnCalado i:before {color:#3074B1;}
+.btnCalado:hover i:before {color: #53AEFD;}
+
+
+
+.alertError {}
+.alertOk{display:block; background: rgba(0,178,0,0.2); border: #008C00 1px solid; border-radius: 0.250em; -webkit-border-radius: 0.250em;-moz-border-radius: 0.250em;-o-border-radius: 0.250em; padding: 0.6em 1em; color: #008C00; margin-bottom: 2em;}
+
+/* elementos de F O R M */
+.grupoForm {}
+.grupoForm p {margin-bottom: 0.8em; margin-top: 0; font-weight: 300}
+.consigna {color:#666; margin-bottom: 1em !important; font-weight: 400 !important}
+
+input[type="text"], input[type="email"], input[type="password"], input[type="date"]  {background: #fff; font-size: 1em; border: 1px solid #C4C6C6;  padding: 0.5em 0.7em; margin-bottom: 0.7em; font-size: 1.125em; box-sizing: border-box;}/* border-radius: 0.250em; -webkit-border-radius: 0.250em;-moz-border-radius: 0.250em;-o-border-radius: 0.250em; */
+
+::-webkit-input-placeholder { font-family: 'Roboto Condensed', sans-serif; font-size: 0.9em; font-weight: 300}
+:-moz-placeholder { /* Firefox 18- */ font-family: 'Roboto Condensed', sans-serif; font-size: 0.9em; font-weight: 300}
+::-moz-placeholder { /* Firefox 19+ */ font-family: 'Roboto Condensed', sans-serif; font-size: 0.9em; font-weight: 300 }
+:-ms-input-placeholder { font-family: 'Roboto Condensed', sans-serif; font-size: 0.9em; font-weight: 300 }
+
+textarea {background: #fff; border: 1px solid #C4C6C6; display: block; padding: 0.5em 0.7em;font-family: 'Source Sans Pro', sans-serif; font-size: 1.125em; box-sizing: border-box; }
+select {background: #fff; border: 1px solid #CBCBCB;  padding: 0.6em 1em; min-width: 13.750em; font-size: 0.95em;
+font-family: 'Source Sans Pro', sans-serif; }
+select option {padding:0.5em 0; border-bottom: 1px solid #333; color:#0e4b70;}
+
+.selectMarca {margin-left: 10px}
+
+.aclaracion {color:#B2B2B2; }
+
+.naranja {color: #D62B0F}
+.borderTop {border-top: 1px solid #DEDFE0}
+.fondoDestacado {background: #EFEFEF}
+
+.floatRight {float: right;}
+.floatLeft {float: left}
+
+.marginRight5 {margin-right: 0.5em;}
+.marginRight {margin-right: 1em;}
+.marginRight1-5 {margin-right: 1.5em;}
+.marginBottom05 {margin-bottom: 0.5em !important}
+.marginBottom1 {margin-bottom: 1em !important}
+.marginBottom2 {margin-bottom: 2em !important;}
+
+.padding1 {padding: 1em; box-sizing:border-box !important;}
+.sinPadding {padding-right: 0 !important}
+
+
+
+.descargarPDF {background: url(../images/pdficon_large.png) no-repeat;color:#0e4b70; padding: 10px 0 0 40px; height: 32px;display: inline-block;margin-right: 0.5em;}
+.descargarPDF:hover {color:#0B83B2;}
+
+a.laura {display:block; width:210px; height:15px; background:url(../images/laura-chuburu.png); position:absolute; bottom: 0; right:20px;}
+a.laura span {display:none}
+a.laura:hover {background-position:bottom}
+
+.sortable{cursor:move;}

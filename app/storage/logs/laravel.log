@@ -1,0 +1,106 @@
+[2015-02-19 11:13:00] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '>'' in C:\xampp\htdocs\tatu-carreta\app\storage\views\cfa18aeeebacf6c324e9012bd0abd1c8:8
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-02-19 11:13:22] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'syntax error, unexpected '>'' in C:\xampp\htdocs\tatu-carreta\app\storage\views\cfa18aeeebacf6c324e9012bd0abd1c8:9
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-02-19 11:13:54] production.ERROR: exception 'InvalidArgumentException' with message 'View [menu.tatu-desplegar-menu] not found.' in C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php:9499
+Stack trace:
+#0 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9472): Illuminate\View\FileViewFinder->findInPaths('menu.tatu-despl...', Array)
+#1 C:\xampp\htdocs\tatu-carreta\vendor\laravel\framework\src\Illuminate\View\Factory.php(124): Illuminate\View\FileViewFinder->find('menu.tatu-despl...')
+#2 C:\xampp\htdocs\tatu-carreta\app\storage\views\f5571f23d3634676fa2d3c77802b1b3b(84): Illuminate\View\Factory->make('menu.tatu-despl...', Array)
+#3 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9868): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\tatu-carreta\vendor\laravel\framework\src\Illuminate\View\Engines\CompilerEngine.php(56): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\xampp\\htdocs...', Array)
+#5 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9746): Illuminate\View\Engines\CompilerEngine->get('C:\\xampp\\htdocs...', Array)
+#6 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9733): Illuminate\View\View->getContents()
+#7 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9724): Illuminate\View\View->renderContents()
+#8 C:\xampp\htdocs\tatu-carreta\app\storage\views\a4fe229992a73eb40997ff0893f02130(42): Illuminate\View\View->render()
+#9 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9868): include('C:\\xampp\\htdocs...')
+#10 C:\xampp\htdocs\tatu-carreta\vendor\laravel\framework\src\Illuminate\View\Engines\CompilerEngine.php(56): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\xampp\\htdocs...', Array)
+#11 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9746): Illuminate\View\Engines\CompilerEngine->get('C:\\xampp\\htdocs...', Array)
+#12 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9733): Illuminate\View\View->getContents()
+#13 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9724): Illuminate\View\View->renderContents()
+#14 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(10426): Illuminate\View\View->render()
+#15 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9956): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#16 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(5246): Symfony\Component\HttpFoundation\Response->__construct(Object(Illuminate\View\View))
+#17 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(5055): Illuminate\Routing\Router->prepareResponse(Object(Illuminate\Http\Request), Object(Illuminate\View\View))
+#18 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(5041): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#19 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(715): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#20 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(696): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#21 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(7813): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#22 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(8420): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#23 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(8367): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#24 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(11030): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#25 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(657): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#26 C:\xampp\htdocs\tatu-carreta\public\index.php(49): Illuminate\Foundation\Application->run()
+#27 {main}
+
+Next exception 'ErrorException' with message 'View [menu.tatu-desplegar-menu] not found. (View: C:\xampp\htdocs\tatu-carreta\app\views\tatu-master.blade.php)' in C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php:9499
+Stack trace:
+#0 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9870): Illuminate\View\Engines\CompilerEngine->handleViewException(Object(InvalidArgumentException), 1)
+#1 C:\xampp\htdocs\tatu-carreta\vendor\laravel\framework\src\Illuminate\View\Engines\CompilerEngine.php(56): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\xampp\\htdocs...', Array)
+#2 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9746): Illuminate\View\Engines\CompilerEngine->get('C:\\xampp\\htdocs...', Array)
+#3 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9733): Illuminate\View\View->getContents()
+#4 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9724): Illuminate\View\View->renderContents()
+#5 C:\xampp\htdocs\tatu-carreta\app\storage\views\a4fe229992a73eb40997ff0893f02130(42): Illuminate\View\View->render()
+#6 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9868): include('C:\\xampp\\htdocs...')
+#7 C:\xampp\htdocs\tatu-carreta\vendor\laravel\framework\src\Illuminate\View\Engines\CompilerEngine.php(56): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\xampp\\htdocs...', Array)
+#8 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9746): Illuminate\View\Engines\CompilerEngine->get('C:\\xampp\\htdocs...', Array)
+#9 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9733): Illuminate\View\View->getContents()
+#10 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9724): Illuminate\View\View->renderContents()
+#11 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(10426): Illuminate\View\View->render()
+#12 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9956): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#13 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(5246): Symfony\Component\HttpFoundation\Response->__construct(Object(Illuminate\View\View))
+#14 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(5055): Illuminate\Routing\Router->prepareResponse(Object(Illuminate\Http\Request), Object(Illuminate\View\View))
+#15 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(5041): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#16 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(715): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#17 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(696): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#18 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(7813): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#19 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(8420): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#20 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(8367): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#21 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(11030): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#22 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(657): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#23 C:\xampp\htdocs\tatu-carreta\public\index.php(49): Illuminate\Foundation\Application->run()
+#24 {main}
+
+Next exception 'ErrorException' with message 'View [menu.tatu-desplegar-menu] not found. (View: C:\xampp\htdocs\tatu-carreta\app\views\tatu-master.blade.php) (View: C:\xampp\htdocs\tatu-carreta\app\views\tatu-master.blade.php)' in C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php:9499
+Stack trace:
+#0 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9870): Illuminate\View\Engines\CompilerEngine->handleViewException(Object(ErrorException), 1)
+#1 C:\xampp\htdocs\tatu-carreta\vendor\laravel\framework\src\Illuminate\View\Engines\CompilerEngine.php(56): Illuminate\View\Engines\PhpEngine->evaluatePath('C:\\xampp\\htdocs...', Array)
+#2 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9746): Illuminate\View\Engines\CompilerEngine->get('C:\\xampp\\htdocs...', Array)
+#3 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9733): Illuminate\View\View->getContents()
+#4 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9724): Illuminate\View\View->renderContents()
+#5 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(10426): Illuminate\View\View->render()
+#6 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(9956): Illuminate\Http\Response->setContent(Object(Illuminate\View\View))
+#7 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(5246): Symfony\Component\HttpFoundation\Response->__construct(Object(Illuminate\View\View))
+#8 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(5055): Illuminate\Routing\Router->prepareResponse(Object(Illuminate\Http\Request), Object(Illuminate\View\View))
+#9 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(5041): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#10 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(715): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#11 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(696): Illuminate\Foundation\Application->dispatch(Object(Illuminate\Http\Request))
+#12 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(7813): Illuminate\Foundation\Application->handle(Object(Illuminate\Http\Request), 1, true)
+#13 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(8420): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#14 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(8367): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#15 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(11030): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#16 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(657): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#17 C:\xampp\htdocs\tatu-carreta\public\index.php(49): Illuminate\Foundation\Application->run()
+#18 {main} [] []
+[2015-02-19 11:31:38] production.ERROR: exception 'ErrorException' with message 'file_put_contents(C:\xampp\htdocs\tatu-carreta\app\storage/sessions/c103a740a4c60a2e3e2ac223f0ada349f191ab70): failed to open stream: Invalid argument' in C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php:4212
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleError(2, 'file_put_conten...', 'C:\\xampp\\htdocs...', 4212, Array)
+#1 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(4212): file_put_contents('C:\\xampp\\htdocs...', 'a:5:{s:6:"_toke...')
+#2 C:\xampp\htdocs\tatu-carreta\vendor\laravel\framework\src\Illuminate\Session\FileSessionHandler.php(69): Illuminate\Filesystem\Filesystem->put('C:\\xampp\\htdocs...', 'a:5:{s:6:"_toke...')
+#3 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(7987): Illuminate\Session\FileSessionHandler->write('c103a740a4c60a2...', 'a:5:{s:6:"_toke...')
+#4 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(7837): Illuminate\Session\Store->save()
+#5 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(7815): Illuminate\Session\Middleware->closeSession(Object(Illuminate\Session\Store))
+#6 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(8420): Illuminate\Session\Middleware->handle(Object(Illuminate\Http\Request), 1, true)
+#7 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(8367): Illuminate\Cookie\Queue->handle(Object(Illuminate\Http\Request), 1, true)
+#8 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(11030): Illuminate\Cookie\Guard->handle(Object(Illuminate\Http\Request), 1, true)
+#9 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(657): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
+#10 C:\xampp\htdocs\tatu-carreta\public\index.php(49): Illuminate\Foundation\Application->run()
+#11 {main} [] []
+[2015-02-19 12:24:36] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function imagenes_producto() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\46409d564f17b57097021b4d10e110b3:6
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
