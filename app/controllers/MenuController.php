@@ -7,9 +7,9 @@ class MenuController extends BaseController {
         $categorias = parent::desplegarCategoria();
 
         $this->array_view['categorias'] = $categorias;
-        
+
         $modulos = Modulo::all();
-        
+
         $this->array_view['modulos'] = $modulos;
 
         //return View::make('menu.lista', array('menus' => $menus, 'categorias' => $categorias));
@@ -59,10 +59,13 @@ class MenuController extends BaseController {
                     $marcas_principales = array();
                 }
 
-
-
                 $this->array_view['marcas_principales'] = $marcas_principales;
                 $this->array_view['ancla'] = Session::get('ancla');
+
+                if ($menu->modulo()->nombre == 'noticia') {
+                    $this->array_view['ancla'] = "#".$menu->estado . $menu->id;
+                }
+
                 return View::make('menu.' . $this->project_name . '-ver-menu', $this->array_view);
             } else {
                 return View::make('menu.' . $this->project_name . '-ver-menu-estatico', $this->array_view);

@@ -21,8 +21,19 @@
                 <input class="block anchoTotal marginBottom" type="text" name="titulo" placeholder="Título" required="true" maxlength="100">
 
                 <h3>Fecha</h3>
-                <input class="block anchoTotal marginBottom" type="date" name="fecha" placeholder="Fecha" required="true" maxlength="50">
+                <input class="block anchoTotal marginBottom fecha" type="date" name="fecha" placeholder="Fecha" required="true" maxlength="50" data-date-time="yyyy-mm-dd">
 
+                <script>
+                    $(function(){
+                        $('.fecha').datepicker({
+                            format: "dd/mm/yyyy",
+                            todayBtn: "linked",
+                            language: "es",
+                            todayHighlight: true
+                         }); 
+                    });
+                </script>
+                
                 <h3>Fuente</h3>
                 <input class="block anchoTotal marginBottom" type="text" name="fuente" placeholder="Fuente" required="true" maxlength="50">
 

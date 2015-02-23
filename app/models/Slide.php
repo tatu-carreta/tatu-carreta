@@ -45,7 +45,11 @@ class Slide extends Eloquent {
                 if (is_array($input['file'])) {
                     foreach ($input['file'] as $key => $imagen) {
                         if ($imagen != "") {
-                            $imagen_creada = Imagen::agregarImagen($imagen, $input['epigrafe'][$key]);
+                            if ($input['tipo'] == "I") {
+                                $imagen_creada = Imagen::agregarImagenSlideHome($imagen, $input['epigrafe'][$key]);
+                            } else {
+                                $imagen_creada = Imagen::agregarImagen($imagen, $input['epigrafe'][$key]);
+                            }
 
                             if (!$imagen_creada['error']) {
 

@@ -34,7 +34,7 @@
 
                     <span class="floatRight">
                         @if(Auth::user()->can("editar_item"))
-                            <a href="{{URL::to('admin/producto/editar/'.$i->producto()->id)}}" data='{{$seccion->id}}'><i class="fa fa-pencil fa-lg"></i></a>
+                            <a href="{{URL::to('admin/producto/editar/'.$i->producto()->id.'/seccion')}}" data='{{$seccion->id}}'><i class="fa fa-pencil fa-lg"></i></a>
                         @endif
                         @if(Auth::user()->can("borrar_item"))
                             <i onclick="borrarData('../admin/item/borrar', '{{$i->id}}');" class="fa fa-times fa-lg"></i>

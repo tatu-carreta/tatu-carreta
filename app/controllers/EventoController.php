@@ -82,7 +82,7 @@ class EventoController extends BaseController {
             $this->array_view['evento'] = $evento;
             $this->array_view['secciones'] = $secciones;
             $this->array_view['continue'] = $next;
-            return View::make('evento.editar', $this->array_view);
+            return View::make('evento.agregar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Página de Error!!';
             return View::make($this->project_name . '-error', $this->array_view);

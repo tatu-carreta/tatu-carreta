@@ -12,13 +12,13 @@
 </style>
 
 <div class="marginBottom">
-    <input id="imagen" type="file" name="file" onChange="validar(this);" required="true">
+    <input id="imagen" type="file" name="imagen_portada" onChange="validar(this);" required="true">
 </div>
 
 <div class="divCargaImg">
     <img id="cropbox" style="width: auto; max-height: 600px;">
 </div>
-<input class="block anchoTotal marginBottom" type="text" name="epigrafe" placeholder="epígrafe">
+<input class="block anchoTotal marginBottom" type="text" name="epigrafe_imagen_portada" placeholder="Ingrese una descripción de la foto">
 <input type="hidden" id="x" name="x">
 <input type="hidden" id="y" name="y">
 <input type="hidden" id="w" name="w">

@@ -23,53 +23,9 @@
 }
 
 </style>
-    @if (Session::has('mensaje'))
-    <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
-    @endif
-    <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
-    <script>
-        $(function(){
-            console.log($('.class_checkbox').click(function(e){
-                e.preventDefault();
-                if (!$('.precioDisabled').attr('checked'))
-                {
-                    $(this).children(":first").addClass('tocado');
-                    $(this).children(":first").removeClass('noTocado');
-                    $('.precioAble').removeAttr('disabled');
-                    $('.precioAble').attr('required','true');
-                    $('.precioDisabled').attr('checked', 'true');
-                    $('.precioAble').focus();
-                }
-                else
-                {
-                    $(this).children(":first").addClass('noTocado');
-                    $(this).children(":first").removeClass('tocado');
-                    $('.precioAble').attr('disabled','disabled');
-                    $('.precioAble').removeAttr('required');
-                    $('.precioDisabled').removeAttr('checked');
-                    $('.precioAble').focusout();
-                }
-            }));
-            
-            $(".selectMarca").change(function(){
-                var id = $(".selectMarca option:selected").val();
-                if(id != "")
-                {
-                    console.log($.post("{{URL::to('admin/marca/imagen')}}", {'marca_id': id}, function(data) {
-                        $(".marca_imagen_preview").html(data);
-                    }));
-                }
-                else
-                {
-                    $(".marca_imagen_preview").html("");
-                }
-            });
-        });
-    </script>
-    <section class="container">
-        @if (Session::has('mensaje'))
-            <div class="divAlerta error alert-success">{{ Session::get('mensaje') }}<i onclick="" class="cerrarDivAlerta fa fa-times fa-lg"></i></div>
-        @endif
+<script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
+<script src="{{URL::to('js/producto-funcs.js')}}"></script>
+<section>
         {{ Form::open(array('url' => 'admin/producto/agregar', 'files' => true)) }}
             <h2 class="marginBottom2"><span>Carga y modificación de productos</span></h2>
             <div id="error" class="error" style="display:none"><span></span></div>
@@ -136,9 +92,9 @@
             </div>
 
             <!-- Abre columna de imágenes -->
-            <div class="col30 fondoDestacado padding1 cargaImg">
+            <div class="col30Admin fondoDestacado padding1 cargaImg">
                 <h3>Imagen principal</h3>
-                @include('imagen.modulo-imagen-producto-maxi')
+                @include('imagen.modulo-imagen-euge')
                 @include('imagen.modulo-galeria-producto-maxi')
             </div>
 

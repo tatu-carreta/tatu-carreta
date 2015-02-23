@@ -137,12 +137,14 @@ class Imagen extends Eloquent {
                 $x = round($coordenadas['x']);
                 $y = round($coordenadas['y']);
 
-                $upload = Image::make(public_path() . "/temporary/" . $file)->crop($w, $h, $x, $y)->resize(220, 220)->save($directory . $filename);
+                $upload = Image::make(public_path() . "/temporary/" . $file)->crop($w, $h, $x, $y)->resize(230, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                        })->save($directory . $filename);
             } else {
                 //para relacion height auto
                 $upload = Image::make(public_path() . "/temporary/" . $file)->resize(230, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })->save($directory . $filename);
+                            $constraint->aspectRatio();
+                        })->save($directory . $filename);
                 //para cuadrado
                 //$upload = Image::make(public_path() . "/temporary/" . $file)->resize(340, 340)->save($directory . $filename);
             }
@@ -154,6 +156,84 @@ class Imagen extends Eloquent {
                     'carpeta' => $carpeta,
                     'tipo' => 'C',
                     'ampliada' => $imagen_ampliada,
+                    'estado' => 'A',
+                    'fecha_carga' => date("Y-m-d H:i:s"),
+                    'usuario_id_carga' => Auth::user()->id
+                );
+
+                $imagen = static::create($datos);
+
+                //Mensaje correspondiente a la agregacion exitosa
+                $respuesta['mensaje'] = 'Imagen creada.';
+                $respuesta['error'] = false;
+                $respuesta['data'] = $imagen;
+                //return Response::json('success', 200);
+            } else {
+                //Mensaje correspondiente a la agregacion exitosa
+                $respuesta['mensaje'] = 'Imagen errónea.';
+                $respuesta['error'] = true;
+                $respuesta['data'] = null;
+                //return Response::json('error', 400);
+            }
+        }
+
+        return $respuesta;
+    }
+
+    public static function agregarImagenSlideHome($imagen = null, $epigrafe = null, $coordenadas = null) {
+
+        $respuesta = array();
+
+        $datos = array(
+            'imagen' => $imagen,
+            'epigrafe' => $epigrafe
+        );
+
+        $rules = array(
+            'imagen' => array('mimes:jpeg,png,gif'),
+        );
+
+        $validator = Validator::make($datos, $rules);
+
+        if ($validator->fails()) {
+            //return Response::make($validator->errors->first(), 400);
+            //Si está todo mal, carga lo que corresponde en el mensaje.
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = 'no pasa';
+        } else {
+
+
+            $file = $imagen;
+
+            $count = count($file->getClientOriginalName()) - 4;
+
+            $filename = Str::limit(Str::slug($file->getClientOriginalName()), $count, "");
+            $extension = $file->getClientOriginalExtension(); //if you need extension of the file
+            //$extension = File::extension($file['name']);
+
+            $carpeta = '/uploads/';
+            $directory = public_path() . $carpeta;
+            //$filename = sha1(time() . Hash::make($filename) . time()) . ".{$extension}";
+            //Pregunto para que no se repita el nombre de la imagen
+            if (!is_null(Imagen::imagenPorNombre($filename . ".{$extension}"))) {
+
+                $filename = $filename . "(" . Str::limit(sha1(time()), 3, "") . ")" . ".{$extension}";
+            } else {
+                $filename = $filename . ".{$extension}";
+            }
+
+            //$upload_success = $file->move($directory, $filename);
+
+            if (Image::make($file)->resize(2000, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+                    })->save($directory . $filename)) {
+                $datos = array(
+                    'nombre' => $filename,
+                    'epigrafe' => $epigrafe,
+                    'carpeta' => $carpeta,
+                    'tipo' => 'G',
+                    'ampliada' => '',
                     'estado' => 'A',
                     'fecha_carga' => date("Y-m-d H:i:s"),
                     'usuario_id_carga' => Auth::user()->id

@@ -18,6 +18,8 @@
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/tatu-styles.css')}}"> 
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/jquery-ui.css')}}">
         <link rel="stylesheet" href="{{URL::to('font-awesome-4.2.0/css/font-awesome.css')}}">
+        <link href="{{URL::to('css/jquery.Jcrop.css')}}" rel="stylesheet" />
+        <link href="{{URL::to('css/datepicker3.css')}}" rel="stylesheet" />
         
         <!-- abre SCRIPT -->
         <script src="{{URL::to('js/jquery-1.11.0.min.js')}}"></script>
@@ -94,6 +96,9 @@
         <script src="{{URL::to('js/jquery.previewInputFileImage.js')}}"></script>
         <script src="{{URL::to('js/jquery.lazyload.js')}}"></script>
         <script src="{{URL::to('js/jquery-ui.min.js')}}"></script>
+        <script src="{{URL::to('js/jquery.Jcrop.min.js')}}"></script>
+        <script src="{{URL::to('js/datepicker.js')}}"></script>
+        <script src="{{URL::to('js/datepicker.es.js')}}"></script>
 
         <script>
             $(function () {

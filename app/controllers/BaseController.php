@@ -112,7 +112,7 @@ class BaseController extends Controller {
     }
 
     protected function slideIndex() {
-        return Slide::where('estado', 'A')->where('tipo', 'I')->first();
+        return Slide::where('estado', 'A')->where('tipo', 'I')->orderBy('id', 'desc')->first();
     }
 
     protected function seccionesDinamicas() {

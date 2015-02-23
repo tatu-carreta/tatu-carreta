@@ -48,7 +48,7 @@ return array(
         'mysql' => array(
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database'  => 'jma_tatu',
+            'database'  => 'tatu_carreta',
             //'database' => 'perfiles_jma_tatu',
             'username'  => 'root',
             //'username' => 'perfiles_jmatatu',

@@ -120,7 +120,13 @@ class Item extends Eloquent {
                     $epigrafe_imagen_portada = NULL;
                 }
 
-                $imagen_creada = Imagen::agregarImagen($input['imagen_portada'], $epigrafe_imagen_portada);
+                if (isset($input['x']) && ($input['x'])) {
+                    $coordenadas = array("x" => $input['x'], "y" => $input['y'], "w" => $input['w'], "h" => $input['h']);
+                } else {
+                    $coordenadas = NULL;
+                }
+
+                $imagen_creada = Imagen::agregarImagen($input['imagen_portada'], $epigrafe_imagen_portada, $coordenadas);
 
                 $item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
             }
@@ -297,7 +303,19 @@ class Item extends Eloquent {
             }
 
             if (isset($input['imagen_portada']) && ($input['imagen_portada'] != "")) {
-                $imagen_creada = Imagen::agregarImagen($input['imagen_portada']);
+                if (isset($input['epigrafe_imagen_portada']) && ($input['epigrafe_imagen_portada'] != "")) {
+                    $epigrafe_imagen_portada = $input['epigrafe_imagen_portada'];
+                } else {
+                    $epigrafe_imagen_portada = NULL;
+                }
+                
+                if (isset($input['x']) && ($input['x'])) {
+                    $coordenadas = array("x" => $input['x'], "y" => $input['y'], "w" => $input['w'], "h" => $input['h']);
+                } else {
+                    $coordenadas = NULL;
+                }
+                
+                $imagen_creada = Imagen::agregarImagen($input['imagen_portada'], $epigrafe_imagen_portada, $coordenadas);
 
                 $item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));
             }

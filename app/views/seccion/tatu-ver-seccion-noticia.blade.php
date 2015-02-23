@@ -1,8 +1,12 @@
-<div>
+<div id="{{$menu->estado.$menu->id}}">
     @if(($seccion->titulo != "") || (Auth::check()))
         <h3 class="floatLeft marginRight" id="{{$seccion->estado.$seccion->id}}">
             @if($seccion->titulo != "")
-                {{ $seccion -> titulo }} 
+                {{ $seccion -> titulo }}
+            @else 
+                @if(Auth::check()) 
+                    Sección sin título {{ $seccion->id }}
+                @endif 
             @endif
         </h3>
     @endif

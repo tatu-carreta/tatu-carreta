@@ -11,9 +11,9 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Volcando estructura de base de datos para jma_tatu
-DROP DATABASE IF EXISTS `jma_tatu`;
-CREATE DATABASE IF NOT EXISTS `jma_tatu` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
-USE `jma_tatu`;
+DROP DATABASE IF EXISTS `tatu_carreta`;
+CREATE DATABASE IF NOT EXISTS `tatu_carreta` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+USE `tatu_carreta`;
 
 
 -- Volcando estructura para tabla jma_tatu.acceso_ilegal

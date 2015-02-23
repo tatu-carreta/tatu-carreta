@@ -1,6 +1,12 @@
 @extends($project_name.'-master')
 
 @section('contenido')
+    @if(isset($page) && ($page != ""))
+        @if(isset($ancla) && ($ancla != ""))
+            <script src="{{URL::to('js/anclaFuncs.js')}}"></script>
+            <a id="ancla" href="{{ $ancla }}" style="display: none;">Ancla</a>
+        @endif
+    @endif
     @if(Auth::check())
         @if(isset($ancla) && ($ancla != ""))
             <script src="{{URL::to('js/anclaFuncs.js')}}"></script>
