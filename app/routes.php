@@ -13,7 +13,7 @@
 
 Route::get('/', 'HomeController@inicio');
 
-Route::get('contacto', 'HomeController@contacto');
+Route::get('/contacto', 'HomeController@contacto');
 
 Route::group(array('before' => 'guest'), function() {
 
@@ -33,9 +33,7 @@ Route::get('categoria/{url}', 'CategoriaController@mostrarInfoCategoria');
 //Ruteo de Item
 Route::get('item/{url}', 'ItemController@mostrarInfoItem');
 
-//Ruteo de Menu
-Route::get('menu/{url}', 'MenuController@mostrarInfoMenu');
-Route::get('menu/{url}/{marca}', 'MenuController@mostrarInfoMenuPorMarca');
+
 
 //Ruteo de Seccion
 Route::get('seccion/{id}', 'SeccionController@mostrarInfoSeccion');
@@ -64,6 +62,16 @@ Route::post('admin/producto/consulta-general', 'ProductoController@consultaGener
 Route::post('consulta', 'ClienteController@consultaContacto');
 
 Route::post('registrar-newsletter', 'ClienteController@registrar');
+
+Route::get('/carrito', 'CarritoController@vistaListado');
+
+Route::get('carrito/agregar/{producto_id}', 'CarritoController@agregarProducto');
+
+Route::get('carrito/editar/{producto_id}/{rowId}', 'CarritoController@editarProducto');
+
+Route::get('carrito/borrar/{producto_id}/{rowId}', 'CarritoController@borrarProducto');
+
+Route::get('carrito/borrar', 'CarritoController@borrar');
 
 // Para todas estas rutas el usuario debe haber iniciado sesión. 
 Route::group(array('before' => 'auth'), function() {
@@ -328,6 +336,10 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::get('logout', 'UsuarioController@logout');
 });
+
+//Ruteo de Menu
+Route::get('/{url}', 'MenuController@mostrarInfoMenu');
+Route::get('/{url}/{marca}', 'MenuController@mostrarInfoMenuPorMarca');
 
 App::missing(function($exception) {
 

@@ -35,7 +35,7 @@ class ItemController extends BaseController {
             $menu = $respuesta['data']->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->seccionItem()->estado . $respuesta['data']->seccionItem()->id;
 
-            return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
         }
     }
 
@@ -76,7 +76,7 @@ class ItemController extends BaseController {
             $menu = $respuesta['data']->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->seccionItem()->estado . $respuesta['data']->seccionItem()->id;
 
-            return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
         }
     }
 
@@ -118,7 +118,7 @@ class ItemController extends BaseController {
         $menu = $seccion->menuSeccion()->url;
         $ancla = '#' . $seccion->estado . $seccion->id;
 
-        return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
     }
 
     public function destacarItemSeccion() {

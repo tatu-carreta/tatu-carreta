@@ -27,7 +27,10 @@
             @if(Auth::user()->can("agregar_pagina_contacto"))
                 <option value="2">Es página de Contacto</option>
             @endif
-            <option value="3">Es página de Contenido</option>
+            @if(Auth::user()->can("agregar_pagina_carrito"))
+                <option value="3">Es página de Carrito</option>
+            @endif
+            <option value="4">Es página de Contenido</option>
         </select>
     </div>
 

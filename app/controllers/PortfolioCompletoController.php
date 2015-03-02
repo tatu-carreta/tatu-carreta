@@ -67,7 +67,7 @@ class PortfolioCompletoController extends BaseController {
             $menu = $respuesta['data']->portfolio_simple()->item()->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->portfolio_simple()->item()->seccionItem()->estado . $respuesta['data']->portfolio_simple()->item()->seccionItem()->id;
 
-            return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
         }
     }
 
@@ -113,7 +113,7 @@ class PortfolioCompletoController extends BaseController {
                 $menu = $respuesta['data']->portfolio_simple()->item()->seccionItem()->menuSeccion()->url;
                 $ancla = '#' . $respuesta['data']->portfolio_simple()->item()->seccionItem()->estado . $respuesta['data']->portfolio_simple()->item()->seccionItem()->id;
 
-                return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
             }
         }
     }
@@ -184,7 +184,7 @@ class PortfolioCompletoController extends BaseController {
                 $menu = $respuesta['data']->portfolio_simple()->item()->seccionItem()->menuSeccion()->url;
                 $ancla = '#' . $respuesta['data']->portfolio_simple()->item()->seccionItem()->estado . $respuesta['data']->portfolio_simple()->item()->seccionItem()->id;
 
-                return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
             }
         }
     }

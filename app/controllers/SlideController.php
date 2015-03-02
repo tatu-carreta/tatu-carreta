@@ -28,7 +28,7 @@ class SlideController extends BaseController {
             $menu = $respuesta['data']->seccion->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->seccion->estado . $respuesta['data']->seccion->id;
 
-            return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
         }
     }
 

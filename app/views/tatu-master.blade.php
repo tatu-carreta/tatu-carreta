@@ -35,7 +35,9 @@
             <div class="headerAdmin">
                 @if((Auth::user()->hasRole('Superadmin')) || (Auth::user()->hasRole('Administrador')))
                 <div class="divAdministrar">
-                    <a href="{{URL::to('admin/exportar-clientes')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Exportar Clientes</a>
+                    @if(Auth::user()->can("exportar_clientes"))
+                        <a href="{{URL::to('admin/exportar-clientes')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Exportar Clientes</a>
+                    @endif
                     @if(Auth::user()->can("ver_menu_admin"))
                         <a href="{{URL::to('admin/menu')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Menú</a>
                     @endif

@@ -306,5 +306,9 @@ class Producto extends Item {
     public function item() {
         return Item::find($this->item_id);
     }
+    
+    public function carritos() {
+        return $this->belongsToMany('Carrito', 'carrito_producto', 'carrito_id', 'producto_id');
+    }
 
 }

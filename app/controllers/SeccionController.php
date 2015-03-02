@@ -27,7 +27,7 @@ class SeccionController extends BaseController {
             $menu = $respuesta['data']->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-            return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
         }
     }
 
@@ -61,7 +61,7 @@ class SeccionController extends BaseController {
             $menu = $respuesta['data']->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-            return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
         }
     }
 
@@ -90,7 +90,7 @@ class SeccionController extends BaseController {
         $menu = $respuesta['data']->menuSeccion()->url;
         $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-        return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
 
         //return Redirect::action('SeccionController@vistaOrdenar', array(Input::get('menu_id')));
     }

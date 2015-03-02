@@ -40,7 +40,7 @@
                 <ul class="listaMenu">
                 @foreach($menus as $m)
                     <li>
-                        <span><a href="{{URL::to('menu/'.$m->url)}}">{{$m->nombre}}</a></span>
+                        <span><a href="{{URL::to('/'.$m->url)}}">{{$m->nombre}}</a></span>
                         @if(Auth::user()->can("editar_menu_principal"))
                             <a data="@if(!is_null($m->categoria())) {{URL::to('admin/categoria/editar/'.$m->categoria()->id)}} @else {{URL::to('admin/menu/editar/'.$m->id)}} @endif" class="btnSec editarContenidoAdmin"><i class="fa fa-pencil fa-lg"></i></a>
                         @endif
@@ -55,7 +55,7 @@
                         <ul>
                             @foreach($m->children as $menu2)
                                 <li>
-                                    <span><a href="{{URL::to('menu/'.$menu2->url)}}">{{$menu2->nombre}}</a></span>
+                                    <span><a href="{{URL::to('/'.$menu2->url)}}">{{$menu2->nombre}}</a></span>
                                     @if(Auth::user()->can("editar_menu_interno"))
                                         <a data="@if(!is_null($menu2->categoria())) {{URL::to('admin/categoria/editar/'.$menu2->categoria()->id)}} @else {{URL::to('admin/menu/editar/'.$menu2->id)}} @endif" class="btnSec editarContenidoAdmin"><i class="fa fa-pencil fa-lg"></i></a>
                                     @endif
@@ -70,7 +70,7 @@
                                     <ul>
                                     @foreach($menu2->children as $menu3)
                                         <li>
-                                            <span><a href="{{URL::to('menu/'.$menu3->url)}}">{{$menu3->nombre}}</a></span>
+                                            <span><a href="{{URL::to('/'.$menu3->url)}}">{{$menu3->nombre}}</a></span>
                                             @if(Auth::user()->can("editar_menu_interno"))
                                                 <a data="@if(!is_null($menu3->categoria())) {{URL::to('admin/categoria/editar/'.$menu3->categoria()->id)}} @else {{URL::to('admin/menu/editar/'.$menu3->id)}} @endif" class="btnSec editarContenidoAdmin"><i class="fa fa-pencil fa-lg"></i></a>
                                             @endif
@@ -85,7 +85,7 @@
                                             <ul>
                                                 @foreach($menu3->children as $menu4)
                                                     <li>
-                                                    <span><a href="{{URL::to('menu/'.$menu4->url)}}">{{$menu4->nombre}}</a></span>
+                                                    <span><a href="{{URL::to('/'.$menu4->url)}}">{{$menu4->nombre}}</a></span>
                                                     @if(Auth::user()->can("editar_menu_interno"))
                                                         <a data="@if(!is_null($menu4->categoria())) {{URL::to('admin/categoria/editar/'.$menu4->categoria()->id)}} @else {{URL::to('admin/menu/editar/'.$menu4->id)}} @endif" class="btnSec editarContenidoAdmin"><i class="fa fa-pencil fa-lg"></i></a>
                                                     @endif

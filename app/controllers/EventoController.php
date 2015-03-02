@@ -67,7 +67,7 @@ class EventoController extends BaseController {
             $menu = $respuesta['data']->texto()->item()->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->texto()->item()->seccionItem()->estado . $respuesta['data']->texto()->item()->seccionItem()->id;
 
-            return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
         }
     }
 
@@ -113,7 +113,7 @@ class EventoController extends BaseController {
                 $menu = $respuesta['data']->texto()->item()->seccionItem()->menuSeccion()->url;
                 $ancla = '#' . $respuesta['data']->texto()->item()->seccionItem()->estado . $respuesta['data']->texto()->item()->seccionItem()->id;
 
-                return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
             }
         }
     }
@@ -184,7 +184,7 @@ class EventoController extends BaseController {
                 $menu = $respuesta['data']->texto()->item()->seccionItem()->menuSeccion()->url;
                 $ancla = '#' . $respuesta['data']->texto()->item()->seccionItem()->estado . $respuesta['data']->texto()->item()->seccionItem()->id;
 
-                return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
             }
         }
     }

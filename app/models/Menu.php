@@ -26,12 +26,16 @@ class Menu extends Eloquent {
             if (isset($input['tipo_pagina']) && ($input['tipo_pagina'])) {
                 switch ($input['tipo_pagina']) {
                     case 1:
-                        $url = "../";
+                        $url = "";
                         $orden = -1;
                         break;
                     case 2:
-                        $url = "../contacto";
+                        $url = "contacto";
                         $orden = 99;
+                        break;
+                    case 3:
+                        $url = "carrito";
+                        $orden = 98;
                         break;
                 }
             }

@@ -17,25 +17,25 @@
                                                 @if(count($c2->children) > 0)
                                                     <li>{{ HTML::link('#', $c2->nombre) }}</li>
                                                 @else
-                                                    <li>{{ HTML::link('menu/'.$c2->url, $c2->nombre) }}</li>
+                                                    <li>{{ HTML::link('/'.$c2->url, $c2->nombre) }}</li>
                                                 @endif
                                             @endforeach
                                         </ul>
                                     </li>
                                 @else
-                                    <li>{{ HTML::link('menu/'.$c1->url, $c1->nombre) }}</li>
+                                    <li>{{ HTML::link('/'.$c1->url, $c1->nombre) }}</li>
                                 @endif
                             @endforeach
                         </ul>
                     </li>
                 @else
-                    <li>{{ HTML::link('menu/'.$c->url, $c->nombre) }}</li>
+                    <li>{{ HTML::link('/'.$c->url, $c->nombre) }}</li>
                 @endif
             @endforeach
         </ul>
     @else
         <li>
-        {{ HTML::link('menu/'.$m->url, $m->nombre) }}
+        {{ HTML::link('/'.$m->url, $m->nombre) }}
     @endif
     </li>
 @endforeach

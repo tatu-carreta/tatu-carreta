@@ -20,21 +20,21 @@
                                                     <li>{{ HTML::link('#', $c2->nombre) }}</li>
                                                 @else
                                                     <li>
-                                                        <a href="{{URL::to('menu/'.$c2->url)}}" class="btn1">{{$c2->nombre}}</a></li>
+                                                        <a href="{{URL::to('/'.$c2->url)}}" class="btn1">{{$c2->nombre}}</a></li>
                                                 @endif
                                             @endforeach
                                         </ul>
                                     </li>
                                 @else
                                     <li>
-                                        <a href="{{URL::to('menu/'.$c1->url)}}" class="btn1">{{$c1->nombre}}</a>
+                                        <a href="{{URL::to('/'.$c1->url)}}" class="btn1">{{$c1->nombre}}</a>
                                 @endif
                             @endforeach
                         </ul>
                     </li>
                 @else
                     <li>
-                        <a href="{{URL::to('menu/'.$c->url)}}" class="btn{{$i}}">{{$c->nombre}}</a>
+                        <a href="{{URL::to('/'.$c->url)}}" class="btn{{$i}}">{{$c->nombre}}</a>
                     </li>
                 @endif
                 <?php $i++; ?>
@@ -42,7 +42,7 @@
         </ul>
     @else
         <li>
-            <a href="{{URL::to('menu/'.$m->url)}}" class="btn1">{{$m->nombre}}</a>
+            <a href="{{URL::to('/'.$m->url)}}" class="btn1">{{$m->nombre}}</a>
     @endif
     </li>
 @endforeach

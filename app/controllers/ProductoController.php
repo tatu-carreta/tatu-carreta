@@ -73,7 +73,7 @@ class ProductoController extends BaseController {
             $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-            return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
         }
     }
 
@@ -123,7 +123,7 @@ class ProductoController extends BaseController {
                 $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
                 $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-                return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
             }
         }
     }
@@ -191,7 +191,7 @@ class ProductoController extends BaseController {
                 $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
                 $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-                return Redirect::to('menu/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
             }
         }
     }
@@ -230,7 +230,7 @@ class ProductoController extends BaseController {
                         $menu = $producto->item()->seccionItem()->menuSeccion()->url;
                         $ancla = '#' . $producto->item()->seccionItem()->estado . $producto->item()->seccionItem()->id;
 
-                        return Redirect::to('menu/' . $menu)->with('mensaje', $mensaje)->with('ancla', $ancla);
+                        return Redirect::to('/' . $menu)->with('mensaje', $mensaje)->with('ancla', $ancla);
                         break;
                 }
             }
@@ -269,7 +269,7 @@ class ProductoController extends BaseController {
                 case "menu":
                     $menu = Menu::find($data['menu_id']);
 
-                    return Redirect::to('menu/' . $menu->url)->with('mensaje', $mensaje);
+                    return Redirect::to('/' . $menu->url)->with('mensaje', $mensaje);
                     break;
             }
         }

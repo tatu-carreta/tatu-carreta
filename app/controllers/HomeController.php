@@ -29,7 +29,7 @@ class HomeController extends BaseController {
     }
 
     public function contacto() {
-
+        
         return View::make($this->project_name . '-contacto', $this->array_view);
     }
 
@@ -48,11 +48,11 @@ class HomeController extends BaseController {
         $this->array_view['data'] = $data;
 
         Mail::send('emails.consulta-contacto', $this->array_view, function($message) use($data) {
-                    $message->from($data['email'], $data['nombre'])
-                            ->to('max.-ang@hotmail.com.ar')
-                            ->subject('Consulta')
-                    ;
-                });
+            $message->from($data['email'], $data['nombre'])
+                    ->to('max.-ang@hotmail.com.ar')
+                    ->subject('Consulta')
+            ;
+        });
 
         if (count(Mail::failures()) > 0) {
             $mensaje = 'El mail no pudo enviarse.';
@@ -68,7 +68,7 @@ class HomeController extends BaseController {
                 case "menu":
                     $menu = Menu::find($data['menu_id']);
 
-                    return Redirect::to('menu/' . $menu->url)->with('mensaje', $mensaje);
+                    return Redirect::to('/' . $menu->url)->with('mensaje', $mensaje);
                     break;
             }
         }
@@ -76,4 +76,5 @@ class HomeController extends BaseController {
         return Redirect::to("/")->with('mensaje', $mensaje);
         //return View::make('producto.editar', $this->array_view);
     }
+
 }
