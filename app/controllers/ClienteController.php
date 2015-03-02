@@ -52,7 +52,7 @@ class ClienteController extends BaseController {
                 case "menu":
                     $menu = Menu::find($data['menu_id']);
 
-                    return Redirect::to('menu/' . $menu->url)->with('mensaje', $mensaje);
+                    return Redirect::to('/' . $menu->url)->with('mensaje', $mensaje);
                     break;
             }
         }
