@@ -6,7 +6,6 @@
         <title>TATU</title>
 
         <!-- abre LINK -->
-
         <link href="favicon.ico" rel="shortcut icon">
         <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'>
         <meta name="description" content="">

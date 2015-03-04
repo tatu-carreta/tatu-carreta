@@ -29,7 +29,7 @@ class HomeController extends BaseController {
     }
 
     public function contacto() {
-        
+
         return View::make($this->project_name . '-contacto', $this->array_view);
     }
 

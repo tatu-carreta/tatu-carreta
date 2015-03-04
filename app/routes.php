@@ -310,6 +310,12 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::post('admin/marca/imagen', 'MarcaController@vistaImagen');
 
+    //DIRECCION
+    
+    Route::get('admin/direccion/alta', 'DireccionController@vistaAgregar');
+
+    Route::post('admin/direccion/agregar', 'DireccionController@agregar');
+    
     /*
      * Ruteo de Usuario
      */
