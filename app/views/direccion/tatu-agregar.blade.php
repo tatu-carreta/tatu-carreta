@@ -1,5 +1,76 @@
 @extends($project_name.'-master')
 
+@section('head')
+    @parent
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAn5w3k9P2ISxdcfYba-sPxrGrz3W9-Jqk&sensor=false"></script>
+    <script type="text/javascript">
+        var geocoder = new google.maps.Geocoder();
+        var map;
+        var infowindow = new google.maps.InfoWindow({
+            content: ""
+        });
+        function initialize() {
+            var mapOptions = {
+                center: new google.maps.LatLng(-34.92125, -57.95433329999997),
+                zoom: 13,
+            };
+            map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+            
+            
+        }
+        function codificarGeo(address){
+            var address;
+            
+            address += $("input[name='numero']").val();
+            address += " Calle "+$("input[name='numero']").val();
+            address += " "+$("input[name='ciudad']").val()+", ";
+            address += $("input[name='provincia']").val()+", ";
+            address += $("input[name='pais']").val();
+            
+            geocoder.geocode({'address': address}, function(results, status) {
+                //alert(status);
+                if (status == google.maps.GeocoderStatus.OK) {
+
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map,
+                        title: 'Dirección'
+                    });
+                    
+                    $("input[name='longitud']").val(results[0].geometry.location.lng());
+                    $("input[name='latitud']").val(results[0].geometry.location.lat());
+
+                    bindInfoWindow(marker, map, infowindow, 'Holi');
+                }
+                else
+                {
+                    alert("some problem in geocode" + status);
+                }
+            });
+/*
+            var latLng = new google.maps.LatLng(data.latitud, data.longitud);
+            // Creating a marker and putting it on the map
+            var marker = new google.maps.Marker({
+                 position: latLng,
+                 map: map,
+                 title: data.nombreMiembro
+            });
+            
+            bindInfoWindow(marker, map, infowindow, data.description);
+            */
+        }
+    function bindInfoWindow(marker, map, infowindow, strDescription) {
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.setContent(strDescription);
+            infowindow.open(map, marker);
+        });
+    }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+@stop
+
 @section('contenido')
     @if (Session::has('mensaje'))
     <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
@@ -32,7 +103,9 @@
                 <h3>Ciudad</h3>
                 <input class="block anchoTotal marginBottom" type="text" name="ciudad_id" placeholder="Ciudad ID" required="true" maxlength="200">
             </div>
+            <div id="map_canvas" style="width:500px; height:500px"></div>
             
+            <a onclick="codificarGeo('563 Calle 11 Tolosa, Buenos Aires, Argentina')" class="btnGris">Codificar</a>
             <div class="clear"></div>
             <!-- cierran columnas -->
             

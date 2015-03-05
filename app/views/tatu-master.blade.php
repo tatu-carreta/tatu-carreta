@@ -24,6 +24,8 @@
         <script src="{{URL::to('js/jquery-1.11.0.min.js')}}"></script>
         <script src="{{URL::to('js/jquery-ui.min.js')}}"></script>
         <script src="{{URL::to('js/funcs.js')}}"></script>
+        
+        
         @show
     </head>
     <body>
@@ -70,9 +72,9 @@
 
             <!-- abre nuevo slide -->
 
-            <!-- S L I D E -->
+            <!-- S L I D E 
             @include($project_name.'-slide-home')
-
+-->
             <!-- N A V -->
             <nav>
                 <div class="menu">
@@ -113,5 +115,7 @@
         @include($project_name.'-div-alerta')
         
         @show
+        
+    
     </body>
 </html>

@@ -14,9 +14,9 @@ class Direccion extends Eloquent {
         $respuesta = array();
 
         $reglas = array(
-            'calle' => array('require'),
-            'numero' => array('require'),
-            'ciudad_id' => array('require'),
+            'calle' => array('required'),
+            'numero' => array('required'),
+            'ciudad_id' => array('required'),
         );
 
         $validator = Validator::make($input, $reglas);
