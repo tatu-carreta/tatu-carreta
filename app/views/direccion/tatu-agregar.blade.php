@@ -105,7 +105,7 @@
             </div>
             <div id="map_canvas" style="width:500px; height:500px"></div>
             
-            <a onclick="codificarGeo('563 Calle 11 Tolosa, Buenos Aires, Argentina')" class="btnGris">Codificar</a>
+            <a onclick="codificarGeo('667 Calle 49 La Plata, Buenos Aires, Argentina')" class="btnGris">Codificar</a>
             <div class="clear"></div>
             <!-- cierran columnas -->
             

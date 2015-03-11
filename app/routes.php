@@ -316,6 +316,14 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::post('admin/direccion/agregar', 'DireccionController@agregar');
     
+    //PERSONA
+    
+    Route::get('admin/persona/alta', 'PersonaController@vistaAgregar');
+
+    Route::post('admin/persona/agregar', 'PersonaController@agregar');
+
+    Route::get('admin/persona/{id}', 'PersonaController@mostrarInfo');
+    
     /*
      * Ruteo de Usuario
      */

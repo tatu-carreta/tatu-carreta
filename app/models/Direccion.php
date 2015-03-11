@@ -121,5 +121,9 @@ class Direccion extends Eloquent {
     public function ciudad() {
         return $this->belongsTo('Ciudad');
     }
+    
+    public function persona() {
+        return $this->belongsTo('Persona');
+    }
 
 }
