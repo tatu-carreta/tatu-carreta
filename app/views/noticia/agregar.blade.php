@@ -21,7 +21,7 @@
                 <input class="block anchoTotal marginBottom" type="text" name="titulo" placeholder="Título" required="true" maxlength="100">
 
                 <h3>Fecha</h3>
-                <input class="block anchoTotal marginBottom" type="date" name="fecha" placeholder="Fecha" required="true" maxlength="50">
+                <input class="block anchoTotal marginBottom" type="text" name="fecha" placeholder="Fecha" required="true" maxlength="50">
                 
                 <h3>Fuente</h3>
                 <input class="block anchoTotal marginBottom" type="text" name="fuente" placeholder="Fuente" required="true" maxlength="50">
@@ -33,6 +33,18 @@
                 <div class="divEditorTxt marginBottom2">
                     <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
                 </div>
+                
+                <h3>Secciones</h3>
+                @foreach($menu_dinamico as $menu)
+                    @if($menu->modulo()->nombre == $seccion->menuSeccion()->modulo()->nombre)
+                        <h5>{{$menu->nombre}}</h5>
+                        
+                        @foreach($menu->secciones as $seccion)
+                            <input type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if($seccion->id == $seccion_id) checked="true" disabled @endif>@if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif
+                        @endforeach
+                    @endif
+                @endforeach
+                
             </div>
 
             <!-- Abre columna de imágenes -->

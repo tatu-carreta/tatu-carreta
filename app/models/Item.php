@@ -135,8 +135,19 @@ class Item extends Eloquent {
                 $item->categorias()->attach($input['categoria_id']);
             }
 
+            $secciones = array();
+
+            if (isset($input['secciones']) && (is_array($input['secciones'])) && (count($input['secciones']) > 0)) {
+                $secciones = $input['secciones'];
+            }
+
+            if (isset($input['seccion_id']) && ($input['seccion_id'] != "")) {
+                array_push($secciones, $input['seccion_id']);
+            }
+
             //Le asocia la seccion y por lo tanto la categoria correspondiente
-            if ($input['seccion_id'] != "") {
+            //if ($input['seccion_id'] != "") {
+            if (count($secciones) > 0) {
 
                 if (isset($input['item_destacado']) && ($input['item_destacado'] == 'A')) {
                     $destacado = 'A';
@@ -149,29 +160,31 @@ class Item extends Eloquent {
                     'destacado' => $destacado
                 );
 
-                $item->secciones()->attach($input['seccion_id'], $info);
+                $item->secciones()->attach($secciones, $info);
 
-                //ME QUEDO CON LA SECCION CORRESPONDIENTE
+                foreach ($secciones as $seccion_id) {
+                    //ME QUEDO CON LA SECCION CORRESPONDIENTE
+                    //$seccion = Seccion::find($input['seccion_id']);
+                    $seccion = Seccion::find($seccion_id);
 
-                $seccion = Seccion::find($input['seccion_id']);
+                    //ME QUEDO CON EL MENU AL CUAL PERTENECE LA SECCION
 
-                //ME QUEDO CON EL MENU AL CUAL PERTENECE LA SECCION
+                    foreach ($seccion->menu as $menu) {
+                        $menu_id = $menu->id;
+                    }
 
-                foreach ($seccion->menu as $menu) {
-                    $menu_id = $menu->id;
-                }
+                    $menu = Menu::find($menu_id);
 
-                $menu = Menu::find($menu_id);
+                    //ME QUEDO CON LA CATEGORIA AL CUAL PERTENECE EL MENU
+                    foreach ($menu->categorias as $categoria) {
+                        $categoria_id = $categoria->id;
+                    }
 
-                //ME QUEDO CON LA CATEGORIA AL CUAL PERTENECE EL MENU
-                foreach ($menu->categorias as $categoria) {
-                    $categoria_id = $categoria->id;
-                }
+                    //IMPACTO AL ITEM CON LA CATEGORIA CORRESPONDIENTE
 
-                //IMPACTO AL ITEM CON LA CATEGORIA CORRESPONDIENTE
-
-                if (isset($categoria_id)) {
-                    $item->categorias()->attach($categoria_id);
+                    if (isset($categoria_id)) {
+                        $item->categorias()->attach($categoria_id);
+                    }
                 }
             }
 
@@ -308,13 +321,13 @@ class Item extends Eloquent {
                 } else {
                     $epigrafe_imagen_portada = NULL;
                 }
-                
+
                 if (isset($input['x']) && ($input['x'])) {
                     $coordenadas = array("x" => $input['x'], "y" => $input['y'], "w" => $input['w'], "h" => $input['h']);
                 } else {
                     $coordenadas = NULL;
                 }
-                
+
                 $imagen_creada = Imagen::agregarImagen($input['imagen_portada'], $epigrafe_imagen_portada, $coordenadas);
 
                 $item->imagenes()->attach($imagen_creada['data']->miniatura()->id, array("destacado" => "A"));

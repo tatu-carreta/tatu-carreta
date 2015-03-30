@@ -37,6 +37,10 @@ class NoticiaController extends BaseController {
     public function vistaAgregar($seccion_id) {
 
         $this->array_view['seccion_id'] = $seccion_id;
+        
+        $seccion = Seccion::find($seccion_id);
+        
+        $this->array_view['seccion'] = $seccion;
 
         return View::make('noticia.agregar', $this->array_view);
     }
