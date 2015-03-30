@@ -222,18 +222,21 @@ class Seccion extends Eloquent {
 
     public function items_noticias() {
         $noticias = Noticia::orderBy('fecha', 'DESC')->simplePaginate(10);
-        
+
         $items = array();
 
         foreach ($noticias as $noticia) {
-            array_push($items, Item::find($noticia->texto()->item()->id));
+            $item = Item::find($noticia->texto()->item()->id);
+            if (in_array($this->id, $item->secciones->lists('id'))) {
+                array_push($items, $item);
+            }
         }
 
         $result = array(
             'paginador' => $noticias,
             'noticias' => $items
         );
-        
+
         return $result;
     }
 
