@@ -12,36 +12,57 @@ class Noticia extends Texto {
     //Función de Agregación de Item
     public static function agregar($input) {
 
+        $respuesta = array();
 
-        //Lo crea definitivamente
-        $texto = Texto::agregar($input);
+        $reglas = array(
+            'titulo' => array('required', 'max:100'),
+            'fecha' => array('required', 'date_format:"d/m/Y"')
+        );
 
-        if (isset($input['fecha'])) {
+        $validator = Validator::make($input, $reglas);
 
-            $fecha = $input['fecha'];
-        } else {
-            $fecha = NULL;
-        }
-
-        if (isset($input['fuente'])) {
-
-            $fuente = $input['fuente'];
-        } else {
-            $fuente = NULL;
-        }
-
-        if (!$texto['error']) {
-
-            $noticia = static::create(['texto_id' => $texto['data']->id, 'fecha' => $fecha, 'fuente' => $fuente]);
-
-            $respuesta['data'] = $noticia;
-            $respuesta['error'] = false;
-            $respuesta['mensaje'] = "Noticia creada.";
-        } else {
+        if ($validator->fails()) {
+            if ($validator->messages()->first('titulo') != "") {
+                $respuesta['mensaje'] = $validator->messages()->first('titulo');
+            } elseif ($validator->messages()->first('fecha') != "") {
+                $respuesta['mensaje'] = $validator->messages()->first('fecha');
+            } else {
+                $respuesta['mensaje'] = "Hubo un error al agregar la noticia. Vuelva a intentarlo en unos minutos.";
+            }
             $respuesta['error'] = true;
-            $respuesta['mensaje'] = "La noticia no pudo ser creado. Compruebe los campos.";
-        }
+        } else {
+            //Lo crea definitivamente
+            $texto = Texto::agregar($input);
 
+            if (isset($input['fecha'])) {
+
+                $fec_noticia = new DateTime(str_replace('/', '-', $input['fecha']));
+                $fecha = $fec_noticia->format('Y-m-d');
+                //$fecha = date('Y-m-d', strtotime($input['fecha']));
+                //$fecha = $input['fecha'];
+            } else {
+                $fecha = NULL;
+            }
+
+            if (isset($input['fuente'])) {
+
+                $fuente = $input['fuente'];
+            } else {
+                $fuente = NULL;
+            }
+
+            if (!$texto['error']) {
+
+                $noticia = static::create(['texto_id' => $texto['data']->id, 'fecha' => $fecha, 'fuente' => $fuente]);
+
+                $respuesta['data'] = $noticia;
+                $respuesta['error'] = false;
+                $respuesta['mensaje'] = "Noticia creada.";
+            } else {
+                $respuesta['error'] = true;
+                $respuesta['mensaje'] = $texto['mensaje'];
+            }
+        }
 
         return $respuesta;
     }
@@ -50,13 +71,20 @@ class Noticia extends Texto {
         $respuesta = array();
 
         $reglas = array(
-            'titulo' => array('required', 'max:50', 'unique:item,titulo,' . $input['id']),
+            'titulo' => array('required', 'max:100', 'unique:item,titulo,' . $input['id']),
+            'fecha' => array('required', 'date_format:"d/m/Y"')
         );
 
         $validator = Validator::make($input, $reglas);
 
         if ($validator->fails()) {
-            $respuesta['mensaje'] = $validator->messages()->first('titulo');
+            if ($validator->messages()->first('titulo') != "") {
+                $respuesta['mensaje'] = $validator->messages()->first('titulo');
+            } elseif ($validator->messages()->first('fecha') != "") {
+                $respuesta['mensaje'] = $validator->messages()->first('fecha');
+            } else {
+                $respuesta['mensaje'] = "Hubo un error al editar la noticia. Vuelva a intentarlo en unos minutos.";
+            }
             $respuesta['error'] = true;
         } else {
 
@@ -64,11 +92,14 @@ class Noticia extends Texto {
 
             if (isset($input['fecha'])) {
 
-                $fecha = $input['fecha'];
+                $fec_noticia = new DateTime(str_replace('/', '-', $input['fecha']));
+
+                $fecha = $fec_noticia->format('Y-m-d');
+                //$fecha = date('Y-m-d', strtotime($input['fecha']));
+                //$fecha = $input['fecha'];
             } else {
                 $fecha = NULL;
             }
-
             if (isset($input['fuente'])) {
 
                 $fuente = $input['fuente'];

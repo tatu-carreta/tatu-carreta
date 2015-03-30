@@ -40,33 +40,56 @@ class MenuController extends BaseController {
             $this->array_view['menu'] = $menu;
 
             if (!is_null($menu->categoria())) {
-                $marcas = array();
-                foreach ($menu->secciones as $seccion) {
-                    if (count($seccion->items) > 0) {
-                        foreach ($seccion->items as $item) {
-                            if (!is_null($item->producto())) {
-                                if (!is_null($item->producto()->marca_principal())) {
-                                    array_push($marcas, $item->producto()->marca_principal()->id);
+                $this->array_view['ancla'] = Session::get('ancla');
+
+                switch ($menu->modulo()->nombre) {
+                    case "producto":
+                        $marcas = array();
+                        foreach ($menu->secciones as $seccion) {
+                            if (count($seccion->items) > 0) {
+                                foreach ($seccion->items as $item) {
+                                    if (!is_null($item->producto())) {
+                                        if (!is_null($item->producto()->marca_principal())) {
+                                            array_push($marcas, $item->producto()->marca_principal()->id);
+                                        }
+                                    }
                                 }
                             }
                         }
-                    }
+
+                        if (count($marcas) > 0) {
+                            $marcas_principales = Marca::where('tipo', 'P')->whereIn('id', $marcas)->where('estado', 'A')->orderBy('nombre')->get();
+                        } else {
+                            $marcas_principales = array();
+                        }
+
+                        $this->array_view['marcas_principales'] = $marcas_principales;
+
+                        $textoAgregar = "Nuevo Producto";
+                        break;
+                    case "noticia":
+                        $this->array_view['ancla'] = "#" . $menu->estado . $menu->id;
+
+                        $textoAgregar = "Nueva Noticia";
+                        break;
+                    case "evento":
+                        $textoAgregar = "Nuevo Evento";
+                        break;
+                    case "portfolio_simple":
+                        $textoAgregar = "Nuevo Portfolio Simple";
+                        break;
+                    case "portfolio_completo":
+                        $textoAgregar = "Nuevo Portfolio Completo";
+                        break;
+                    default :
+                        $textoAgregar = "Nuevo Item";
+                        break;
                 }
 
-                if (count($marcas) > 0) {
-                    $marcas_principales = Marca::where('tipo', 'P')->whereIn('id', $marcas)->where('estado', 'A')->orderBy('nombre')->get();
-                } else {
-                    $marcas_principales = array();
-                }
+                $this->array_view['html'] = $menu->modulo()->nombre . ".listado";
+                $this->array_view['texto_agregar'] = $textoAgregar;
 
-                $this->array_view['marcas_principales'] = $marcas_principales;
-                $this->array_view['ancla'] = Session::get('ancla');
-
-                if ($menu->modulo()->nombre == 'noticia') {
-                    $this->array_view['ancla'] = "#".$menu->estado . $menu->id;
-                }
-
-                return View::make('menu.' . $this->project_name . '-ver-menu', $this->array_view);
+                return View::make("menu.menu-contenedor", $this->array_view);
             } else {
                 return View::make('menu.' . $this->project_name . '-ver-menu-estatico', $this->array_view);
             }

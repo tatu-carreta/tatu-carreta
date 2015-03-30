@@ -30,7 +30,12 @@ class Texto extends Item {
             $cuerpo = NULL;
         }
 
-        $texto = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
+        if (!isset($item['data'])) {
+            $texto = false;
+            $respuesta['mensaje'] = $item['mensaje'];
+        } else {
+            $texto = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
+        }
 
         if ($texto) {
             $respuesta['error'] = false;
@@ -38,7 +43,9 @@ class Texto extends Item {
             $respuesta['data'] = $texto;
         } else {
             $respuesta['error'] = true;
-            $respuesta['mensaje'] = "Error en el texto. Compruebe los campos.";
+            if (!isset($respuesta['mensaje'])) {
+                $respuesta['mensaje'] = "Error en el texto. Compruebe los campos.";
+            }
         }
 
         return $respuesta;
@@ -87,7 +94,7 @@ class Texto extends Item {
     public function noticia() {
         return Noticia::where('texto_id', $this->id)->first();
     }
-    
+
     public function evento() {
         return Evento::where('texto_id', $this->id)->first();
     }
