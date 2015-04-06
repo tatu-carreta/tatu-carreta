@@ -40,6 +40,17 @@
                 </div>
 
             </div>
+            
+            <h3>Secciones</h3>
+            @foreach($menu_dinamico as $menu)
+                @if($menu->modulo()->nombre == $seccion->menuSeccion()->modulo()->nombre)
+                    <h5>{{$menu->nombre}}</h5>
+
+                    @foreach($menu->secciones as $seccion)
+                        <input type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if(in_array($seccion->id, $item->secciones->lists('id'))) checked="true" disabled @endif>@if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif
+                    @endforeach
+                @endif
+            @endforeach
             <!-- Cierra columna ancha -->
 
 
