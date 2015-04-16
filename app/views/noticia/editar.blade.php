@@ -11,7 +11,7 @@
         @endif
         {{ Form::open(array('url' => 'admin/noticia/editar', 'files' => true)) }}
             <h2 class="marginBottom2"><span>Carga y modificación de noticias</span></h2>
-
+{{--
         @if(Auth::user()->can('cambiar_seccion_item'))
             <select name="seccion_nueva_id">
                 <option value="">Seleccione Nueva Sección</option>
@@ -20,6 +20,7 @@
                 @endforeach
             </select>
         @endif
+--}}
             <!-- abre datos del Producto-->
             <div class="col70Admin datosProducto">
                 <h3>Título de la noticia</h3>
@@ -43,7 +44,7 @@
             
             <h3>Secciones</h3>
             @foreach($menu_dinamico as $menu)
-                @if($menu->modulo()->nombre == $seccion->menuSeccion()->modulo()->nombre)
+                @if($menu->modulo()->nombre == $item->seccionItem()->menuSeccion()->modulo()->nombre)
                     <h5>{{$menu->nombre}}</h5>
 
                     @foreach($menu->secciones as $seccion)

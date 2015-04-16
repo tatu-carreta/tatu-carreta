@@ -875,3 +875,11 @@ Stack trace:
 #16 C:\xampp\htdocs\tatu-carreta\bootstrap\compiled.php(657): Stack\StackedHttpKernel->handle(Object(Illuminate\Http\Request))
 #17 C:\xampp\htdocs\tatu-carreta\public\index.php(49): Illuminate\Foundation\Application->run()
 #18 {main} [] []
+[2015-04-16 11:35:36] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\07e0dce527f294aa0cfa5670fb9c8c94:38
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-04-16 11:35:36] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\07e0dce527f294aa0cfa5670fb9c8c94:38
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []

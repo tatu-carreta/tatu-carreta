@@ -5,7 +5,7 @@
                 <div class="iconos">
                     @if(!$i->destacado())
                         @if(Auth::user()->can("destacar_item"))
-                            <a href="{{URL::to('admin/producto/destacar/'.$i->producto()->id)}}" class="destacarProducto"><i  class="fa fa-thumb-tack fa-lg"></i></a><!-- onclick="destacarItemSeccion('../admin/item/destacar', '{{$seccion->id}}', '{{$i->id}}');" -->
+                            <i onclick="destacarItemSeccion('{{URL::to('admin/item/destacar')}}', '{{$seccion->id}}', '{{$i->id}}');" class="fa fa-thumb-tack fa-lg"></i>
                         @endif
                     @else
                         @if(Auth::user()->can("quitar_destacado_item"))
@@ -25,18 +25,17 @@
             @endif
 
             @if(!Auth::check())
-                <a href="{{URL::to('producto/'.$i->url)}}">
+                <a href="{{URL::to('persona/'.$i->url)}}">
             @endif
                     <img class="lazy" data-original="@if(!is_null($i->imagen_destacada())){{ URL::to($i->imagen_destacada()->carpeta.$i->imagen_destacada()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$i->titulo}}">
             @if(!Auth::check())
                 </a>
             @endif
 
-            <p class="tituloProducto"><span>{{ $i->titulo }}</span></p>
-            <p class="marca">Marca: @if(!is_null($i->producto()->marca_principal())){{$i->producto()->marca_principal()->nombre}}@endif</p>
-            <span class="precio">Precio: ${{$i->producto()->precio(2)}}</span>
-            <a class="carrito" href="{{URL::to('carrito/agregar/'.$i->producto()->id)}}">Agregar Carrito</a>	
-            <a class="detalle" href="{{URL::to('producto/'.$i->url)}}">Detalle</a>	
+            <p><span>{{ $persona->apellido }} {{ $persona->nombre }}</span></p>
+            <p>Email: {{ $persona->email }}</p>
+            <span>Fecha de Nacimiento: {{ $persona->fecha_nacimiento }}</span>
+            <a class="detalle" href="{{URL::to('persona/'.$i->url)}}">Detalle</a>	
             @if(Auth::check())
                 <input type="hidden" name="orden[]" value="{{$i->id}}">
             @endif            		

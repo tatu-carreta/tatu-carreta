@@ -5,11 +5,11 @@
             <div class="iconos">
                 @if(!$i->destacado())
                     @if(Auth::user()->can("destacar_item"))
-                        <i onclick="destacarItemSeccion('../admin/item/destacar', '{{$seccion->id}}', '{{$i->id}}');" class="fa fa-thumb-tack fa-lg"></i>
+                        <i onclick="destacarItemSeccion('{{URL::to('admin/item/destacar')}}', '{{$seccion->id}}', '{{$i->id}}');" class="fa fa-thumb-tack fa-lg"></i>
                     @endif
                 @else
                     @if(Auth::user()->can("quitar_destacado_item"))
-                        <i onclick="destacarItemSeccion('../admin/item/quitar-destacado', '{{$seccion->id}}', '{{$i->id}}');" class="fa fa-thumb-tack prodDestacado fa-lg"></i>
+                        <i onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', '{{$seccion->id}}', '{{$i->id}}');" class="fa fa-thumb-tack prodDestacado fa-lg"></i>
                     @endif
                 @endif
 
@@ -18,7 +18,7 @@
                     <a href="{{URL::to('admin/portfolio_completo/editar/'.$i->portfolio()->portfolio_completo()->id.'/seccion')}}" data='{{$seccion->id}}'><i class="fa fa-pencil fa-lg"></i></a>
                     @endif
                     @if(Auth::user()->can("borrar_item"))
-                        <i onclick="borrarData('../admin/item/borrar', '{{$i->id}}');" class="fa fa-times fa-lg"></i>
+                        <i onclick="borrarData('{{URL::to('admin/item/borrar')}}', '{{$i->id}}');" class="fa fa-times fa-lg"></i>
                     @endif
                 </span>
             </div>
