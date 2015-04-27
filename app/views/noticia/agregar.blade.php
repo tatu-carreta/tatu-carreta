@@ -35,13 +35,15 @@
                 </div>
                 
                 <h3>Secciones</h3>
-                @foreach($menu_dinamico as $menu)
-                    @if($menu->modulo()->nombre == $seccion->menuSeccion()->modulo()->nombre)
-                        <h5>{{$menu->nombre}}</h5>
-                        
-                        @foreach($menu->secciones as $seccion)
-                            <input type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if($seccion->id == $seccion_id) checked="true" disabled @endif>@if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif
-                        @endforeach
+                @foreach($secciones as $s)
+                    @if($s->menuSeccion()->modulo()->nombre == $seccion->menuSeccion()->modulo()->nombre)
+                        @if(count($s->menuSeccion()->children) == 0)
+                            <h5>{{$s->menuSeccion()->nombre}}</h5>
+
+                            @foreach($s->menuSeccion()->secciones as $seccion)
+                                <input type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if($seccion->id == $seccion_id) checked="true" disabled @endif>@if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif
+                            @endforeach
+                        @endif
                     @endif
                 @endforeach
                 

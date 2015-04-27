@@ -1,5 +1,5 @@
-# jma
-JMA Proyecto Inicial
+# TATU
+TATU CARRETA 2.0
 
 ## Laravel PHP Framework
 
@@ -26,3 +26,14 @@ Documentation for the entire framework can be found on the [Laravel website](htt
 ### License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
+Tatu Carreta 2.0 incluye:
+
+- Módulo Producto: destacados, código, marca, precios, carrito.
+- Módulo Noticia: destacados, título, fecha, info.
+- Módulo Portfolios: destacados, imágenes.
+- Módulo Evento: destacados, título, fechas, info.
+- Módulo Texto: destacados, título, info.
+- Módulo Item general: imágenes, asociación a secciones, modificación entre secciones.
+- Módulo Sección: creación, modificación, borrado, conversión en subcategorías.
+- Módulo Menú: creación de la estructura.
