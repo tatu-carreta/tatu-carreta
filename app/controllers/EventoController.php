@@ -2,6 +2,8 @@
 
 class EventoController extends BaseController {
 
+    protected $folder_name = 'evento';
+
     public function vistaListado() {
 
         $items_borrados = Item::where('estado', 'B')->lists('id');
@@ -21,7 +23,7 @@ class EventoController extends BaseController {
 
         //Hace que se muestre el html lista.blade.php de la carpeta item
         //con los parametros pasados por el array
-        return View::make('evento.lista', $this->array_view);
+        return View::make($this->folder_name . '.lista', $this->array_view);
     }
 
     public function mostrarInfo($url) {
@@ -31,14 +33,14 @@ class EventoController extends BaseController {
 
         $this->array_view['item'] = $item;
 
-        return View::make('evento.' . $this->project_name . '-ver', $this->array_view);
+        return View::make($this->folder_name . '.' . $this->project_name . '-ver', $this->array_view);
     }
 
     public function vistaAgregar($seccion_id) {
 
         $this->array_view['seccion_id'] = $seccion_id;
 
-        return View::make('evento.agregar', $this->array_view);
+        return View::make($this->folder_name . '.agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -61,7 +63,7 @@ class EventoController extends BaseController {
             $menu = $seccion->menuSeccion()->url;
             $ancla = '#' . $seccion->estado . $seccion->id;
 
-            return Redirect::to('admin/evento/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje']); //->with('ancla', $ancla);
+            return Redirect::to('admin/' . $this->folder_name . '/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje']); //->with('ancla', $ancla);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             $menu = $respuesta['data']->texto()->item()->seccionItem()->menuSeccion()->url;
@@ -82,9 +84,9 @@ class EventoController extends BaseController {
             $this->array_view['evento'] = $evento;
             $this->array_view['secciones'] = $secciones;
             $this->array_view['continue'] = $next;
-            return View::make('evento.agregar', $this->array_view);
+            return View::make($this->folder_name . '.agregar', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Página de Error!!';
+            $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);
         }
     }
@@ -104,7 +106,7 @@ class EventoController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/evento/editar/' . Input::get('evento_id'))->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('evento_id'))->with('mensaje', $respuesta['mensaje']);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
@@ -154,7 +156,7 @@ class EventoController extends BaseController {
       $this->array_view['continue'] = $next;
       return View::make('producto.destacar', $this->array_view);
       } else {
-      $this->array_view['texto'] = 'Página de Error!!';
+      $this->array_view['texto'] = 'Error al cargar la página.';
       return View::make($this->project_name . '-error', $this->array_view);
       }
       }
@@ -176,7 +178,7 @@ class EventoController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/evento')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
                 return Redirect::to('/')->with('mensaje', $respuesta['mensaje']);
@@ -232,7 +234,7 @@ class EventoController extends BaseController {
       return Redirect::to('/')->with('mensaje', $mensaje);
       //return View::make('producto.editar', $this->array_view);
       } else {
-      $this->array_view['texto'] = 'Página de Error!!';
+      $this->array_view['texto'] = 'Error al cargar la página.';
       return View::make($this->project_name . '-error', $this->array_view);
       }
       }

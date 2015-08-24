@@ -2,6 +2,8 @@
 
 class ProductoController extends BaseController {
 
+    protected $folder_name = 'producto';
+
     public function vistaListado() {
 
         $items_borrados = Item::where('estado', 'B')->lists('id');
@@ -21,7 +23,7 @@ class ProductoController extends BaseController {
 
         //Hace que se muestre el html lista.blade.php de la carpeta item
         //con los parametros pasados por el array
-        return View::make('producto.lista', $this->array_view);
+        return View::make($this->folder_name . '.lista', $this->array_view);
     }
 
     public function mostrarInfoProducto($url) {
@@ -31,12 +33,21 @@ class ProductoController extends BaseController {
 
         $this->array_view['item'] = $item;
 
-        return View::make('producto.' . $this->project_name . '-ver', $this->array_view);
+        return View::make($this->folder_name . '.' . $this->project_name . '-ver', $this->array_view);
     }
 
     public function vistaAgregar($seccion_id) {
 
+
         $this->array_view['seccion_id'] = $seccion_id;
+
+        $seccion = Seccion::find($seccion_id);
+
+        $modulo = $seccion->menuSeccion()->modulo();
+
+        $this->array_view['menues'] = $modulo->menus;
+
+        $this->array_view['seccion'] = $seccion;
 
         $marcas_principales = Marca::where('tipo', 'P')->where('estado', 'A')->orderBy('nombre')->get();
         $marcas_secundarias = Marca::where('tipo', 'S')->where('estado', 'A')->orderBy('nombre')->get();
@@ -44,7 +55,7 @@ class ProductoController extends BaseController {
         $this->array_view['marcas_principales'] = $marcas_principales;
         $this->array_view['marcas_secundarias'] = $marcas_secundarias;
 
-        return View::make('producto.agregar', $this->array_view);
+        return View::make($this->folder_name . '.agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -67,17 +78,19 @@ class ProductoController extends BaseController {
             $menu = $seccion->menuSeccion()->url;
             $ancla = '#' . $seccion->estado . $seccion->id;
 
-            return Redirect::to('admin/producto/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje']); //->with('ancla', $ancla);
+            return Redirect::to('admin/' . $this->folder_name . '/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje'])->with('error', true);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
-            $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
-            $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
+            $seccion = Seccion::find(Input::get('seccion_id'));
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            $menu = $seccion->menuSeccion()->url;
+            $ancla = '#' . $seccion->estado . $seccion->id;
+
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
-    public function vistaEditar($id, $next) {
+    public function vistaEditar($id, $next, $seccion_next) {
 
         //Me quedo con el item, buscando por id
         $producto = Producto::find($id);
@@ -89,13 +102,21 @@ class ProductoController extends BaseController {
             $this->array_view['marcas_principales'] = $marcas_principales;
             $this->array_view['marcas_secundarias'] = $marcas_secundarias;
 
+            $seccion = $producto->item()->seccionItem();
+
+            $modulo = $seccion->menuSeccion()->modulo();
+
+            $this->array_view['menues'] = $modulo->menus;
+
             $this->array_view['item'] = $producto->item();
             $this->array_view['producto'] = $producto;
             $this->array_view['continue'] = $next;
-            return View::make('producto.editar', $this->array_view);
+            $this->array_view['seccion_next'] = $seccion_next;
+            return View::make($this->folder_name . '.editar', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Página de Error!!';
-            return View::make($this->project_name . '-error', $this->array_view);
+            $this->array_view['texto'] = 'Error al cargar la página.';
+            //return View::make($this->project_name . '-error', $this->array_view);
+            return Redirect::to('/');
         }
     }
 
@@ -113,17 +134,28 @@ class ProductoController extends BaseController {
           }
          * 
          */
+        if (Input::get('seccion_id') !== null) {
+            $seccion_id = Input::get('seccion_id');
+        } else {
+            $seccion_id = 'null';
+        }
+
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/producto/editar/' . Input::get('producto_id'))->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('producto_id') . '/' . Input::get('continue') . '/' . $seccion_id)->with('mensaje', $respuesta['mensaje'])->with('error', true);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
-                return Redirect::to('/')->with('mensaje', $respuesta['mensaje']);
+                $anclaProd = '#Pr' . $respuesta['data']->id;
+                
+                return Redirect::to('/')->with('mensaje', $respuesta['mensaje'])->with('ok', true)->with('anclaProd', $anclaProd);
             } else {
-                $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
-                $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
+                $seccion = Seccion::find(Input::get('seccion_id'));
 
-                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+                $menu = $seccion->menuSeccion()->url;
+                $ancla = '#' . $seccion->estado . $seccion->id;
+
+                $anclaProd = '#Pr' . $respuesta['data']->id;
+                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true)->with('anclaProd', $anclaProd);
             }
         }
     }
@@ -161,10 +193,11 @@ class ProductoController extends BaseController {
             $this->array_view['item'] = $producto->item();
             $this->array_view['producto'] = $producto;
             $this->array_view['continue'] = $next;
-            return View::make('producto.destacar', $this->array_view);
+            return View::make($this->folder_name . '.destacar', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Página de Error!!';
+            $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);
+            //return Redirect::to('/');
         }
     }
 
@@ -183,15 +216,99 @@ class ProductoController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             if (Input::get('continue') == "home") {
-                return Redirect::to('/')->with('mensaje', $respuesta['mensaje']);
+                return Redirect::to('/')->with('mensaje', $respuesta['mensaje'])->with('ok', true);
             } else {
                 $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
                 $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
+            }
+        }
+    }
+
+    public function nuevo() {
+
+        //Aca se manda a la funcion editarItem de la clase Item
+        //y se queda con la respuesta para redirigir cual sea el caso
+        $respuesta = Producto::ponerNuevo(Input::all());
+
+        /*
+          if ($respuesta['error'] == true) {
+          return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
+          } else {
+          return Redirect::to('admin/producto')->with('mensaje', $respuesta['mensaje']);
+          }
+         * 
+         */
+        /*
+          if ($respuesta['error'] == true) {
+          return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
+          } else {
+          if (Input::get('continue') == "home") {
+          return Redirect::to('/')->with('mensaje', $respuesta['mensaje']);
+          } else {
+          $seccion = Seccion::find(Input::get('seccion_id'));
+
+          $menu = $seccion->menuSeccion()->url;
+          $ancla = '#' . $seccion->estado . $seccion->id;
+
+          return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+          }
+          }
+         * 
+         */
+        return $respuesta;
+    }
+
+    public function vistaOferta($id, $seccion_id, $next) {
+
+        //Me quedo con el item, buscando por id
+        $producto = Producto::find($id);
+
+        if ($producto) {
+            $this->array_view['seccion_id'] = $seccion_id;
+
+            $this->array_view['item'] = $producto->item();
+            $this->array_view['producto'] = $producto;
+            $this->array_view['continue'] = $next;
+            return View::make($this->folder_name . '.oferta', $this->array_view);
+        } else {
+            $this->array_view['texto'] = 'Error al cargar la página.';
+            return View::make($this->project_name . '-error', $this->array_view);
+            //return Redirect::to('/');
+        }
+    }
+
+    public function oferta() {
+
+        //Aca se manda a la funcion editarItem de la clase Item
+        //y se queda con la respuesta para redirigir cual sea el caso
+        $respuesta = Producto::ponerOferta(Input::all());
+
+        /*
+          if ($respuesta['error'] == true) {
+          return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
+          } else {
+          return Redirect::to('admin/producto')->with('mensaje', $respuesta['mensaje']);
+          }
+         * 
+         */
+        if ($respuesta['error'] == true) {
+            return Redirect::to('admin/' . $this->folder_name);//->with('mensaje', $respuesta['mensaje'])->with('error', true);
+        } else {
+            if (Input::get('continue') == "home") {
+                $anclaProd = '#Pr' . $respuesta['data']->id;
+                return Redirect::to('/')->with('anclaProd', $anclaProd);//->with('mensaje', $respuesta['mensaje'])->with('ok', true);
+            } else {
+                $seccion = Seccion::find(Input::get('seccion_id'));
+                $menu = $seccion->menuSeccion()->url;
+                $ancla = '#' . $seccion->estado . $seccion->id;
+
+                $anclaProd = '#Pr' . $respuesta['data']->id;
+                return Redirect::to('/' . $menu)->with('ancla', $ancla)->with('anclaProd', $anclaProd);//->with('mensaje', $respuesta['mensaje'])->with('ok', true);
             }
         }
     }
@@ -209,11 +326,11 @@ class ProductoController extends BaseController {
             $this->array_view['data'] = $data;
 
             Mail::send('emails.consulta-producto-listado', $this->array_view, function($message) use($data) {
-                        $message->from($data['email'], $data['nombre'])
-                                ->to('info@coarse.com.ar')
-                                ->subject('Consulta de producto')
-                        ;
-                    });
+                $message->from($data['email'], $data['nombre'])
+                        ->to('info@coarse.com.ar')
+                        ->subject('Consulta de producto')
+                ;
+            });
 
             if (count(Mail::failures()) > 0) {
                 $mensaje = 'El mail no pudo enviarse.';
@@ -238,8 +355,9 @@ class ProductoController extends BaseController {
             return Redirect::to('/')->with('mensaje', $mensaje);
             //return View::make('producto.editar', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Página de Error!!';
+            $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);
+            //return Redirect::to('/');
         }
     }
 
@@ -249,11 +367,11 @@ class ProductoController extends BaseController {
         $this->array_view['data'] = $data;
 
         Mail::send('emails.consulta-general', $this->array_view, function($message) use($data) {
-                    $message->from($data['email'], $data['nombre'])
-                            ->to('info@coarse.com.ar')
-                            ->subject('Consulta')
-                    ;
-                });
+            $message->from($data['email'], $data['nombre'])
+                    ->to('info@coarse.com.ar')
+                    ->subject('Consulta')
+            ;
+        });
 
         if (count(Mail::failures()) > 0) {
             $mensaje = 'El mail no pudo enviarse.';

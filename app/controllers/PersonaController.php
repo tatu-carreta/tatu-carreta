@@ -1,6 +1,9 @@
 <?php
 
 class PersonaController extends BaseController {
+
+    protected $folder_name = 'persona';
+
     /*
       public function vistaListado() {
       $secciones = Seccion::where('estado', 'A')->get();
@@ -14,7 +17,7 @@ class PersonaController extends BaseController {
 
     public function vistaAgregar() {
 
-        return View::make('persona.' . $this->project_name . '-agregar', $this->array_view);
+        return View::make($this->folder_name . '.' . $this->project_name . '-agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -42,7 +45,7 @@ class PersonaController extends BaseController {
         $this->array_view['persona'] = $persona;
         $this->array_view['data'] = json_encode($data);
 
-        return View::make('persona.' . $this->project_name . '-ver', $this->array_view);
+        return View::make($this->folder_name . '.' . $this->project_name . '-ver', $this->array_view);
     }
 
     /*
@@ -54,7 +57,7 @@ class PersonaController extends BaseController {
       $this->array_view['seccion'] = $seccion;
       return View::make('seccion.editar-seccion', $this->array_view);
       } else {
-      $this->array_view['texto'] = 'Página de Error!!';
+      $this->array_view['texto'] = 'Error al cargar la página.';
       return View::make($this->project_name . '-error', $this->array_view);
       }
       }
@@ -104,4 +107,30 @@ class PersonaController extends BaseController {
       }
      * 
      */
+
+    public function exportarEmail() {
+        Excel::create('Clientes' . date('Ymd'), function($excel) {
+            $excel->sheet('Clientes', function($sheet) {
+
+                $personas = Persona::select('apellido', 'nombre', 'email')->distinct()->get();
+
+                $datos = array(
+                    array('Apellido', 'Nombre', 'Email'),
+                );
+
+                foreach ($personas as $persona) {
+                    array_push($datos, array($persona->apellido, $persona->nombre, $persona->email));
+                }
+
+                $sheet->fromModel($datos, null, 'A1', false, false);
+
+                $sheet->row(1, function($row) {
+
+                    // call cell manipulation methods
+                    $row->setFontWeight('bold');
+                });
+            });
+        })->download('xls');
+    }
+
 }

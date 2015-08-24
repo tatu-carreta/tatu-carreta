@@ -56,6 +56,9 @@ Route::get('portfolio/{url}', 'PortfolioController@mostrarInfo');
 //Ruteo de PortfolioCompleto
 Route::get('portfolio_completo/{url}', 'PortfolioCompletoController@mostrarInfo');
 
+//Ruteo de Muestra
+Route::get('muestra/{url}', 'MuestraController@mostrarInfo');
+
 Route::post('admin/producto/producto-consulta', 'ProductoController@consultarProductoLista');
 Route::post('admin/producto/consulta-general', 'ProductoController@consultaGeneral');
 
@@ -63,21 +66,25 @@ Route::post('consulta', 'ClienteController@consultaContacto');
 
 Route::post('registrar-newsletter', 'ClienteController@registrar');
 
-Route::get('/carrito', 'CarritoController@vistaListado');
+Route::get('carrito', 'CarritoController@vistaListado');
 
-Route::get('carrito/agregar/{producto_id}', 'CarritoController@agregarProducto');
+Route::get('carrito/agregar/{producto_id}/{continue}/{sec_id}', 'CarritoController@agregarProducto');
 
-Route::get('carrito/editar/{producto_id}/{rowId}', 'CarritoController@editarProducto');
+Route::post('carrito/editar/{producto_id}/{rowId}', 'CarritoController@editarProducto');
 
-Route::get('carrito/borrar/{producto_id}/{rowId}', 'CarritoController@borrarProducto');
+Route::get('carrito/borrar/{producto_id}/{rowId}/{continue}/{sec_id}', 'CarritoController@borrarProducto');
 
 Route::get('carrito/borrar', 'CarritoController@borrar');
+
+Route::post('pedido/agregar', 'PedidoController@agregarPedido');
 
 // Para todas estas rutas el usuario debe haber iniciado sesión. 
 Route::group(array('before' => 'auth'), function() {
 
     Route::get('admin/exportar-clientes', 'ClienteController@exportarEmail');
 
+    Route::get('admin/exportar-personas', 'PersonaController@exportarEmail');
+    
     /*
      * Ruteo de Categoría
      */
@@ -98,6 +105,8 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('admin/imagen/borrar', 'ImagenController@borrar');
 
     Route::post('admin/archivo/borrar', 'ArchivoController@borrar');
+    
+    Route::post('admin/video/borrar', 'VideoController@borrar');
     /*
      * Ruteo de Item
      */
@@ -123,6 +132,26 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::post('admin/item/quitar-destacado', 'ItemController@quitarDestacadoItemSeccion');
 
+    /*
+     * Ruteo Imagen 
+     */
+    
+    Route::post('admin/imagen/crop/upload', 'ImagenController@uploadImagenCrop');
+    
+    Route::post('admin/imagen/slide/upload', 'ImagenController@uploadGaleriaSlideHome');
+    
+    Route::post('admin/imagen/ordenar-por-item', 'ImagenController@ordenar');
+    
+    /*
+     * Ruteo Video 
+     */
+    
+    Route::get('admin/video', 'VideoController@verListado');
+    
+    Route::get('admin/video/agregar', 'VideoController@vistaAgregar');
+    
+    Route::post('admin/video/agregar/youtube', 'VideoController@agregarYoutube');
+    
     /*
      * Ruteo de Menu
      */
@@ -180,6 +209,10 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::post('admin/slide/agregar', 'SlideController@agregar');
 
+    Route::get('admin/slide/editar/{id}/{next}', 'SlideController@vistaEditar');
+
+    Route::post('admin/slide/editar', 'SlideController@editar');
+
     /*
      * Ruteo de Galeria
      */
@@ -225,7 +258,7 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::post('admin/producto/agregar', 'ProductoController@agregar');
 
-    Route::get('admin/producto/editar/{id}/{next}', 'ProductoController@vistaEditar');
+    Route::get('admin/producto/editar/{id}/{next}/{seccion_next}', 'ProductoController@vistaEditar');
 
     Route::post('admin/producto/editar', 'ProductoController@editar');
 
@@ -233,6 +266,11 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::post('admin/producto/destacar', 'ProductoController@destacar');
 
+    Route::post('admin/producto/nuevo', 'ProductoController@nuevo');
+    
+    Route::get('admin/producto/oferta/{id}/{seccion_id}/{next}', 'ProductoController@vistaOferta');
+    
+    Route::post('admin/producto/oferta', 'ProductoController@oferta');
     /*
      * Ruteo de Noticia
      */
@@ -267,15 +305,15 @@ Route::group(array('before' => 'auth'), function() {
     /*
      * Ruteo de Portfolio
      */
-    Route::get('admin/portfolio', 'PortfolioController@vistaListado');
+    Route::get('admin/portfolio_simple', 'PortfolioController@vistaListado');
 
-    Route::get('admin/portfolio/agregar/{seccion_id}', 'PortfolioController@vistaAgregar');
+    Route::get('admin/portfolio_simple/agregar/{seccion_id}', 'PortfolioController@vistaAgregar');
 
-    Route::post('admin/portfolio/agregar', 'PortfolioController@agregar');
+    Route::post('admin/portfolio_simple/agregar', 'PortfolioController@agregar');
 
-    Route::get('admin/portfolio/editar/{id}/{next}', 'PortfolioController@vistaEditar');
+    Route::get('admin/portfolio_simple/editar/{id}/{next}', 'PortfolioController@vistaEditar');
 
-    Route::post('admin/portfolio/editar', 'PortfolioController@editar');
+    Route::post('admin/portfolio_simple/editar', 'PortfolioController@editar');
 
     /*
      * Ruteo de PortfolioCompleto
@@ -289,6 +327,19 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('admin/portfolio_completo/editar/{id}/{next}', 'PortfolioCompletoController@vistaEditar');
 
     Route::post('admin/portfolio_completo/editar', 'PortfolioCompletoController@editar');
+
+    /*
+     * Ruteo de Muestra
+     */
+    Route::get('admin/muestra', 'MuestraController@vistaListado');
+
+    Route::get('admin/muestra/agregar/{seccion_id}', 'MuestraController@vistaAgregar');
+
+    Route::post('admin/muestra/agregar', 'MuestraController@agregar');
+
+    Route::get('admin/muestra/editar/{id}/{next}', 'MuestraController@vistaEditar');
+
+    Route::post('admin/muestra/editar', 'MuestraController@editar');
 
 
     /*
@@ -315,6 +366,12 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('admin/direccion/alta', 'DireccionController@vistaAgregar');
 
     Route::post('admin/direccion/agregar', 'DireccionController@agregar');
+    
+    //TELEFONO
+    
+    Route::get('admin/telefono/alta', 'TelefonoController@vistaAgregar');
+
+    Route::post('admin/telefono/agregar', 'TelefonoController@agregar');
     
     //PERSONA
     

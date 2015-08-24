@@ -1,6 +1,9 @@
 <?php
 
 class DireccionController extends BaseController {
+
+    protected $folder_name = 'direccion';
+
     /*
       public function vistaListado() {
       $secciones = Seccion::where('estado', 'A')->get();
@@ -14,7 +17,7 @@ class DireccionController extends BaseController {
 
     public function vistaAgregar() {
 
-        return View::make('direccion.' . $this->project_name . '-agregar', $this->array_view);
+        return View::make($this->folder_name . '.' . $this->project_name . '-agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -32,8 +35,9 @@ class DireccionController extends BaseController {
 
         $direccion = Direccion::find($id);
 
-        return View::make('direccion.'.$this->project_name.'ver', array('direccion' => $direccion));
+        return View::make($this->folder_name . '.' . $this->project_name . 'ver', array('direccion' => $direccion));
     }
+
 /*
     public function vistaEditar($id) {
 
@@ -43,7 +47,7 @@ class DireccionController extends BaseController {
             $this->array_view['seccion'] = $seccion;
             return View::make('seccion.editar-seccion', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Página de Error!!';
+            $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);
         }
     }
@@ -93,5 +97,4 @@ class DireccionController extends BaseController {
     }
  * 
  */
-
 }

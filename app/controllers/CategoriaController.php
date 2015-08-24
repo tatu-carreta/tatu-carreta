@@ -2,6 +2,8 @@
 
 class CategoriaController extends BaseController {
 
+    protected $folder_name = 'categoria';
+
     public function vistaListado() {
 
         //Este arreglo es para seleccionar la categoria padre cuando estoy agregando una
@@ -9,7 +11,7 @@ class CategoriaController extends BaseController {
 
         //Hace que se muestre el html lista.blade.php de la carpeta categoria
         //con los parametros pasados por el array
-        return View::make('categoria.lista', $this->array_view);
+        return View::make($this->folder_name . '.lista', $this->array_view);
     }
 
     public function vistaAgregar() {
@@ -20,7 +22,7 @@ class CategoriaController extends BaseController {
         
         $this->array_view['modulos'] = $modulos;
 
-        return View::make('categoria.crear', $this->array_view);
+        return View::make($this->folder_name . '.crear', $this->array_view);
     }
 
     public function agregar() {
@@ -43,7 +45,7 @@ class CategoriaController extends BaseController {
 
         $this->array_view['categoria'] = $categoria;
 
-        return View::make('categoria.ver', $this->array_view);
+        return View::make($this->folder_name . '.ver', $this->array_view);
     }
 
     public function vistaEditar($id) {
@@ -57,9 +59,9 @@ class CategoriaController extends BaseController {
         $this->array_view['categorias'] = $categorias;
 
         if ($categoria) {
-            return View::make('categoria.editar', $this->array_view);
+            return View::make($this->folder_name . '.editar', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Página de Error!!';
+            $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);
         }
     }

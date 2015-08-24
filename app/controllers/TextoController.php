@@ -2,6 +2,8 @@
 
 class TextoController extends BaseController {
 
+    protected $folder_name = 'texto';
+
     public function vistaAgregar($menu_id) {
 
         $datos = array(
@@ -13,7 +15,7 @@ class TextoController extends BaseController {
 
         $this->array_view['seccion_id'] = $seccion['data']->id;
 
-        return View::make('item.texto.agregar', $this->array_view);
+        return View::make('item.' . $this->folder_name . '.agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -23,12 +25,15 @@ class TextoController extends BaseController {
         $respuesta = Texto::agregar(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/item')->withErrors($respuesta['mensaje'])->withInput();
+            $seccion = Seccion::find(Input::get('seccion_id'));
+            $menu = $seccion->menuSeccion()->url;
+            $ancla = '#' . $seccion->estado . $seccion->id;
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('error', true);
         } else {
             $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -38,9 +43,9 @@ class TextoController extends BaseController {
         if ($texto) {
             $this->array_view['item'] = $texto->item();
             $this->array_view['texto'] = $texto;
-            return View::make('item.texto.editar-texto', $this->array_view);
+            return View::make('item.' . $this->folder_name . '.editar-texto', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Página de Error!!';
+            $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);
         }
     }
@@ -51,12 +56,12 @@ class TextoController extends BaseController {
         $respuesta = Texto::editar(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/item')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/item')->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 

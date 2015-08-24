@@ -2,19 +2,21 @@
 
 class SeccionController extends BaseController {
 
+    protected $folder_name = 'seccion';
+
     public function vistaListado() {
         $secciones = Seccion::where('estado', 'A')->get();
 
         $this->array_view['secciones'] = $secciones;
 
-        return View::make('seccion.lista', $this->array_view);
+        return View::make($this->folder_name . '.lista', $this->array_view);
     }
 
     public function vistaAgregar($menu_id) {
 
         $this->array_view['menu_id'] = $menu_id;
 
-        return View::make('seccion.agregar', $this->array_view);
+        return View::make($this->folder_name . '.agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -22,12 +24,12 @@ class SeccionController extends BaseController {
         $respuesta = Seccion::agregarSeccion(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/seccion')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             $menu = $respuesta['data']->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -35,7 +37,7 @@ class SeccionController extends BaseController {
 
         $seccion = Seccion::find($id);
 
-        return View::make('seccion.ver', array('seccion' => $seccion));
+        return View::make($this->folder_name . '.ver', array('seccion' => $seccion));
     }
 
     public function vistaEditar($id) {
@@ -44,9 +46,9 @@ class SeccionController extends BaseController {
 
         if ($seccion) {
             $this->array_view['seccion'] = $seccion;
-            return View::make('seccion.editar-seccion', $this->array_view);
+            return View::make($this->folder_name . '.editar-seccion', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Página de Error!!';
+            $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);
         }
     }
@@ -56,12 +58,12 @@ class SeccionController extends BaseController {
         $respuesta = Seccion::editarSeccion(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/seccion')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             $menu = $respuesta['data']->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -78,7 +80,7 @@ class SeccionController extends BaseController {
         $this->array_view['secciones'] = $menu->secciones;
         $this->array_view['menu'] = $menu;
 
-        return View::make('seccion.lista-por-menu', $this->array_view);
+        return View::make($this->folder_name . '.lista-por-menu', $this->array_view);
     }
 
     public function ordenar() {
@@ -90,7 +92,7 @@ class SeccionController extends BaseController {
         $menu = $respuesta['data']->menuSeccion()->url;
         $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
 
         //return Redirect::action('SeccionController@vistaOrdenar', array(Input::get('menu_id')));
     }

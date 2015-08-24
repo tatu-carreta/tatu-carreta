@@ -24,6 +24,32 @@ class ClienteController extends BaseController {
     public function consultaContacto() {
 
         $data = Input::all();
+
+        Input::flashOnly('nombre', 'email', 'telefono', 'consulta');
+
+        $reglas = array(
+            'email' => array('required', 'email'),
+            'nombre' => array('required'),
+            //'telefono' => array('required'),
+        );
+
+        $validator = Validator::make($data, $reglas);
+
+        if ($validator->fails()) {
+            $messages = $validator->messages();
+            if ($messages->has('nombre')) {
+                $mensaje = $messages->first('nombre');
+            } elseif ($messages->has('email')) {
+                $mensaje = $messages->first('email');
+            } /*elseif ($messages->has('telefono')) {
+                $mensaje = $messages->first('telefono');
+            } */else {
+                $mensaje = 'Los datos de contacto para el envio del presupuesto son erróneos.';
+            }
+
+            return Redirect::to('/contacto')->with('mensaje', $mensaje)->with('error', true)->withInput();
+        } else {
+
         $this->array_view['data'] = $data;
 
         Mail::send('emails.consulta-contacto', $this->array_view, function($message) use($data) {
@@ -37,9 +63,14 @@ class ClienteController extends BaseController {
             $mensaje = 'El mail no pudo enviarse.';
         } else {
 
-            $data['nombre_apellido'] = $data['nombre'];
+                $datos_persona = array(
+                    'email' => $data['email'],
+                    'apellido' => $data['nombre'],
+                    'tipo_telefono_id' => 2,
+                    'telefono' => $data['telefono']
+                );
 
-            Cliente::agregar($data);
+                Persona::agregar($datos_persona);
 
             $mensaje = 'El mail se envió correctamente';
         }
@@ -59,6 +90,7 @@ class ClienteController extends BaseController {
 
         return Redirect::to("/")->with('mensaje', $mensaje);
         //return View::make('producto.editar', $this->array_view);
+    }
     }
 
     public function exportarEmail() {

@@ -2,6 +2,8 @@
 
 class ItemController extends BaseController {
 
+    protected $folder_name = 'item';
+
     public function vistaListado() {
 
         $items = Item::where('estado', 'A')->get();
@@ -11,15 +13,15 @@ class ItemController extends BaseController {
         $this->array_view['items'] = $items;
         $this->array_view['categorias'] = $categorias;
         $this->array_view['secciones'] = $secciones;
-        
+
         //Hace que se muestre el html lista.blade.php de la carpeta item
         //con los parametros pasados por el array
-        return View::make('item.lista', $this->array_view);
+        return View::make($this->folder_name . '.lista', $this->array_view);
     }
 
     public function vistaAgregar($seccion_id) {
         $this->array_view['seccion_id'] = $seccion_id;
-        return View::make('item.agregar', $this->array_view);
+        return View::make($this->folder_name . '.agregar', $this->array_view);
     }
 
     public function agregar() {
@@ -30,12 +32,12 @@ class ItemController extends BaseController {
         $respuesta = Item::agregarItem(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/item')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             $menu = $respuesta['data']->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->seccionItem()->estado . $respuesta['data']->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -43,23 +45,23 @@ class ItemController extends BaseController {
 
         //Me quedo con el item, buscando por url
         $item = Item::where('url', $url)->first();
-        
+
         $this->array_view['item'] = $item;
-        
-        return View::make('item.ver', $this->array_view);
+
+        return View::make($this->folder_name . '.ver', $this->array_view);
     }
 
     public function vistaEditar($id) {
 
         //Me quedo con el item, buscando por id
         $item = Item::find($id);
-        
+
         if ($item) {
             $this->array_view['item'] = $item;
-            return View::make('item.editar-item', $this->array_view);
+            return View::make($this->folder_name . '.editar-item', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Página de Error!!';
-            return View::make($this->project_name . '-error',$this->array_view);
+            $this->array_view['texto'] = 'Error al cargar la página.';
+            return View::make($this->project_name . '-error', $this->array_view);
         }
     }
 
@@ -71,12 +73,12 @@ class ItemController extends BaseController {
         $respuesta = Item::editarItem(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/item')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             $menu = $respuesta['data']->seccionItem()->menuSeccion()->url;
             $ancla = '#' . $respuesta['data']->seccionItem()->estado . $respuesta['data']->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -100,11 +102,11 @@ class ItemController extends BaseController {
 
     public function vistaOrdenar($seccion_id) {
         $seccion = Seccion::find($seccion_id);
-        
+
         $this->array_view['items'] = $seccion->items;
         $this->array_view['seccion'] = $seccion;
-        
-        return View::make('item.lista-por-seccion', $this->array_view);
+
+        return View::make($this->folder_name . '.lista-por-seccion', $this->array_view);
     }
 
     public function ordenar() {
@@ -118,7 +120,7 @@ class ItemController extends BaseController {
         $menu = $seccion->menuSeccion()->url;
         $ancla = '#' . $seccion->estado . $seccion->id;
 
-        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+        return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
     }
 
     public function destacarItemSeccion() {

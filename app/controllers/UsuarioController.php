@@ -2,13 +2,15 @@
 
 class UsuarioController extends BaseController {
 
+    protected $folder_name = 'usuario';
+
     public function login() {
 
         $url = Request::header('referer');
 
         $this->array_view['url'] = $url;
 
-        return View::make('usuario.' . $this->project_name . '-login', $this->array_view);
+        return View::make($this->folder_name . '.' . $this->project_name . '-login', $this->array_view);
     }
 
     public function registro() {
@@ -17,7 +19,7 @@ class UsuarioController extends BaseController {
 
         $this->array_view['perfiles'] = $perfiles;
 
-        return View::make('usuario.registro', $this->array_view);
+        return View::make($this->folder_name . '.registro', $this->array_view);
     }
 
     public function registrarUsuario() {
@@ -71,7 +73,7 @@ class UsuarioController extends BaseController {
         $this->array_view['perfiles'] = $perfiles;
         $this->array_view['permisos'] = $permisos;
 
-        return View::make('usuario.permiso.asignar-usuario-permiso', $this->array_view);
+        return View::make($this->folder_name . '.permiso.asignar-usuario-permiso', $this->array_view);
     }
 
 }
