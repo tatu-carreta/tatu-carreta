@@ -8,7 +8,6 @@
         <!-- abre LINK -->
         <link href="favicon.ico" rel="shortcut icon">
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
         <meta name="description" content="">
         <meta name="Keywords" content="">
         <meta property="og:image" content="" />
@@ -20,7 +19,6 @@
         
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/jquery-ui.css')}}">
         <link rel="stylesheet" href="{{URL::to('font-awesome-4.2.0/css/font-awesome.css')}}">
-        <!--<link rel="stylesheet" href="{{URL::to('css/jquery.Jcrop.css')}}">
         <!-- <link rel="stylesheet" href="{{URL::to('css/flexslider.css')}}">-->
         <!--<link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
         <link rel="stylesheet" href="{{URL::to('css/owl.theme.css')}}">-->
@@ -172,26 +170,12 @@
         <script src="{{URL::to('js/jquery.previewInputFileImage.js')}}"></script>
         <script src="{{URL::to('js/jquery.lazyload.js')}}"></script>
         <script src="{{URL::to('js/jquery-ui.min.js')}}"></script>
-        <script src="{{URL::to('js/jquery.Jcrop.min.js')}}"></script>
         <script src="{{URL::to('js/div-ventana-carrito.js')}}"></script>
         
         <script>
             $(function () {
                 $("img.lazy").lazyload({
                     effect: "fadeIn"
-                });
-            });
-        </script>
-
-        <script type="text/javascript" src="{{URL::to('js/jquery.eislideshow.js')}}"></script>
-        <script type="text/javascript" src="{{URL::to('js/jquery.easing.1.3.js')}}"></script>
-        <script type="text/javascript">
-            $(function() {
-                $('#ei-slider').eislideshow({
-                    animation           : 'center',
-                    autoplay            : true,
-                    slideshow_interval  : 3000,
-                    titlesFactor        : 0
                 });
             });
         </script>

@@ -1,32 +1,10 @@
 @extends($project_name.'-master')
 
 @section('contenido')
-<style>
-    .check_box {
-    display:none;
-}
-
-.noTocado{
-    background:url('{{URL::to("images/destacadoAzul.png")}}') no-repeat;
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    padding: 0 0 0 2em;
-}
-
-.tocado{
-    background:url('{{URL::to("images/destacadoRojo.png")}}') no-repeat;
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    padding: 0 0 0 2em;
-}
-
-</style>
 <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
 <script src="{{URL::to('js/producto-funcs.js')}}"></script>
     <section class="container">    
-        {{ Form::open(array('url' => 'admin/producto/agregar', 'files' => true, 'role' => 'form', 'onsubmit' => 'return validatePrecioProd(this);')) }}
+        {{ Form::open(array('url' => 'admin/producto/agregar', 'files' => true, 'role' => 'form')) }}
         <h2><span>Nuevo producto</span></h2>
         <div class="marginBottom2">
             <a class="volveraSeccion" href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ Seccion::find($seccion_id) -> menuSeccion() -> nombre }}</a>

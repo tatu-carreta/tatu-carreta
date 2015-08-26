@@ -48,7 +48,7 @@
 
         @else
             @if(Auth::check())
-                <div class="sinProductos">Sin productos</div>
+            <div class="sinContenido">Sin {{$texto_modulo}}</div>
             @endif
         @endif
 

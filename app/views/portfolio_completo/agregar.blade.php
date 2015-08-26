@@ -27,6 +27,7 @@
                 <div class="col-md-12 cargaImg">
                 	<div class="fondoDestacado">
 	                    <h3>Recorte de imágenes</h3>
+                            <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
 	                    @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
     	                <div class="row">
                             <div class="col-md-12" ng-show='imagenes_seleccionadas.length > 0'>
