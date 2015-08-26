@@ -12,9 +12,17 @@ class TextoHtml extends Item {
     //Función de Agregación de Item
     public static function agregar($input) {
         //Lo crea definitivamente
+        //Lo crea definitivamente
 
-        $input['descripcion'] = NULL;
-        
+        if (isset($input['descripcion'])) {
+
+            $input['descripcion'] = $input['descripcion'];
+        } else {
+            $input['descripcion'] = NULL;
+        }
+
+        $input['es_texto'] = true;
+
         $item = Item::agregarItem($input);
 
         if (isset($input['cuerpo'])) {
@@ -24,15 +32,22 @@ class TextoHtml extends Item {
             $cuerpo = NULL;
         }
 
-        $html = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
+        if (!isset($item['data'])) {
+            $html = false;
+            $respuesta['mensaje'] = $item['mensaje'];
+        } else {
+            $html = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
+        }
 
         if ($html) {
             $respuesta['error'] = false;
-            $respuesta['mensaje'] = "HTML Creado!!";
+            $respuesta['mensaje'] = "Html publicado.";
             $respuesta['data'] = $html;
         } else {
             $respuesta['error'] = true;
-            $respuesta['mensaje'] = "EROOR HTML!!";
+            if (!isset($respuesta['mensaje'])) {
+                $respuesta['mensaje'] = "Error en el html. Compruebe los campos.";
+            }
         }
 
         return $respuesta;

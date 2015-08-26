@@ -153,6 +153,10 @@ class Menu extends Eloquent {
 
             $menu->save();
 
+            foreach ($menu->secciones as $seccion) {
+                Seccion::borrarSeccion(array('id' => $seccion->id));
+            }
+
             $respuesta['mensaje'] = 'Menú eliminado.';
             $respuesta['error'] = false;
             $respuesta['data'] = $menu;
@@ -258,6 +262,8 @@ class Menu extends Eloquent {
 
     public function parent(){
     return $this->belongsToMany('Menu', 'menu_asociado', 'menu_id_asociado');
+
+
 
 
     }

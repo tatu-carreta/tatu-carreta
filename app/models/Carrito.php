@@ -62,7 +62,7 @@ class Carrito extends Eloquent {
             //return Response::make($validator->errors->first(), 400);
             //Si está todo mal, carga lo que corresponde en el mensaje.
             $respuesta['mensaje'] = $validator;
-            $respuesta['error'] = 'no pasa';
+            $respuesta['error'] = true;
         } else {
 
             if (is_null(Session::get('carrito'))) {
@@ -120,7 +120,7 @@ class Carrito extends Eloquent {
             Cart::associate('Producto')->add($producto->id, $producto->item()->titulo, $cantidad, $producto->precio(2));
 
             //Mensaje correspondiente a la agregacion exitosa
-            $respuesta['mensaje'] = 'Producto agregado.';
+            $respuesta['mensaje'] = 'El producto fue agregado al presupuesto.';
             $respuesta['error'] = false;
             $respuesta['data'] = $carrito;
         }
@@ -206,10 +206,12 @@ class Carrito extends Eloquent {
 
             Cart::remove($input['rowId']);
 
-            $respuesta['mensaje'] = 'Producto carrito borrado.';
+            $respuesta['mensaje'] = 'El producto fue quitado del presupuesto.';
             $respuesta['error'] = false;
             $respuesta['data'] = $carrito;
         }
+        
+        return $respuesta;
     }
 
     public static function borrar() {

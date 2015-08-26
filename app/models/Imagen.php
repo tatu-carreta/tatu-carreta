@@ -55,6 +55,7 @@ class Imagen extends Eloquent {
             }
 
             //$upload_success = $file->move($directory, $filename);
+            //resize(width, height)
 
             if (Image::make($file)->resize(490, null, function ($constraint) {
                         $constraint->aspectRatio();
@@ -176,6 +177,136 @@ class Imagen extends Eloquent {
                 //return Response::json('error', 400);
             }
         }
+
+        return $respuesta;
+    }
+
+    public static function agregarImagenCropped($imagen_portada_crop, $ampliada, $epigrafe_imagen_portada) {
+
+        $respuesta = array();
+
+        $carpeta = "/uploads/";
+
+        $datos_ampliada = array(
+            'nombre' => $ampliada,
+            'epigrafe' => $epigrafe_imagen_portada,
+            'carpeta' => $carpeta,
+            'tipo' => 'G',
+            'ampliada' => '',
+            'estado' => 'A',
+            'fecha_carga' => date("Y-m-d H:i:s"),
+            'usuario_id_carga' => Auth::user()->id
+        );
+
+        $imagen = static::create($datos_ampliada);
+
+        $datos_chica = array(
+            'nombre' => $imagen_portada_crop,
+            'epigrafe' => $epigrafe_imagen_portada,
+            'carpeta' => $carpeta,
+            'tipo' => 'C',
+            'ampliada' => $imagen->id,
+            'estado' => 'A',
+            'fecha_carga' => date("Y-m-d H:i:s"),
+            'usuario_id_carga' => Auth::user()->id
+        );
+
+        $imagen_chica = static::create($datos_chica);
+
+        //Mensaje correspondiente a la agregacion exitosa
+        $respuesta['mensaje'] = 'Imagen creada.';
+        $respuesta['error'] = false;
+        $respuesta['data'] = $imagen_chica;
+        //return Response::json('success', 200);
+
+        return $respuesta;
+    }
+
+    public static function uploadImageAngular($imagen_crop, $imagen_ampliada) {
+
+        $count = count($imagen_ampliada->getClientOriginalName()) - 4;
+
+        $filename = Str::limit(Str::slug($imagen_ampliada->getClientOriginalName()), $count, "");
+        $extension = $imagen_ampliada->getClientOriginalExtension(); //if you need extension of the file
+        //$extension = File::extension($file['name']);
+
+        $carpeta = '/uploads/';
+        $directory = public_path() . $carpeta;
+        //$filename = sha1(time() . Hash::make($filename) . time()) . ".{$extension}";
+        //Pregunto para que no se repita el nombre de la imagen
+        if (!is_null(Imagen::imagenPorNombre($filename . ".{$extension}"))) {
+
+            $filename = $filename . "(" . Str::limit(sha1(time()), 3, "") . ")" . ".{$extension}";
+        } else {
+            $filename = $filename . ".{$extension}";
+        }
+
+        Image::make($imagen_ampliada)->resize(null, 800, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->save($directory . $filename);
+
+        $imagen_crop_name = "small_" . $filename;
+
+        $imagen_crop->move($directory, $imagen_crop_name);
+        $answer = array('answer' => 'File transfer completed', 'imagen_path' => $imagen_crop_name, 'imagen_ampliada' => $filename);
+
+        return $answer;
+    }
+
+    public static function uploadImageAngularSlide($imagen_slide) {
+
+        $count = count($imagen_slide->getClientOriginalName()) - 4;
+
+        $filename = Str::limit(Str::slug($imagen_slide->getClientOriginalName()), $count, "");
+        $extension = $imagen_slide->getClientOriginalExtension(); //if you need extension of the file
+        //$extension = File::extension($file['name']);
+
+        $carpeta = '/uploads/';
+        $directory = public_path() . $carpeta;
+        //$filename = sha1(time() . Hash::make($filename) . time()) . ".{$extension}";
+        //Pregunto para que no se repita el nombre de la imagen
+        if (!is_null(Imagen::imagenPorNombre($filename . ".{$extension}"))) {
+
+            $filename = $filename . "(" . Str::limit(sha1(time()), 3, "") . ")" . ".{$extension}";
+        } else {
+            $filename = $filename . ".{$extension}";
+        }
+
+        Image::make($imagen_slide)->resize(570, null, function ($constraint) {
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        })->save($directory . $filename);
+
+
+        $answer = array('answer' => 'File transfer completed', 'imagen_path' => $filename);
+
+        return $answer;
+    }
+
+    public static function agregarImagenAngularSlideHome($imagen, $epigrafe) {
+        $respuesta = array();
+
+        $carpeta = "/uploads/";
+
+        $datos = array(
+            'nombre' => $imagen,
+            'epigrafe' => $epigrafe,
+            'carpeta' => $carpeta,
+            'tipo' => 'G',
+            'ampliada' => '',
+            'estado' => 'A',
+            'fecha_carga' => date("Y-m-d H:i:s"),
+            'usuario_id_carga' => Auth::user()->id
+        );
+
+        $imagen = static::create($datos);
+
+        //Mensaje correspondiente a la agregacion exitosa
+        $respuesta['mensaje'] = 'Imagen creada.';
+        $respuesta['error'] = false;
+        $respuesta['data'] = $imagen;
+        //return Response::json('success', 200);
 
         return $respuesta;
     }
@@ -327,6 +458,44 @@ class Imagen extends Eloquent {
             $respuesta['mensaje'] = 'Imagen eliminada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $imagen;
+        }
+
+        return $respuesta;
+    }
+
+    public static function ordenarImagenItem($imagen_id, $orden, $item_id, $destacado) {
+        $respuesta = array();
+
+        $datos = array(
+            'imagen_id' => $imagen_id,
+            'orden' => $orden,
+            'item_id' => $item_id
+        );
+
+        $reglas = array(
+            'imagen_id' => array('integer'),
+            'orden' => array('integer'),
+            'item_id' => array('integer')
+        );
+
+        $validator = Validator::make($datos, $reglas);
+
+        if ($validator->fails()) {
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = true;
+        } else {
+
+            $input = array(
+                'item_id' => $item_id,
+                'imagen_id' => $imagen_id
+            );
+
+            $magen = DB::table('item_imagen')->where(
+                            $input)->update(array('orden' => $orden, 'destacado' => $destacado));
+
+            $respuesta['mensaje'] = 'Las imágenes han sido ordenadas.';
+            $respuesta['error'] = false;
+            $respuesta['data'] = $magen;
         }
 
         return $respuesta;

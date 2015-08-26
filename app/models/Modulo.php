@@ -11,7 +11,7 @@ class Modulo extends Eloquent {
 
     //Me quedo con las categorias a las que pertenece el Item
     public function menus() {
-        return $this->belongsToMany('Modulo', 'menu_modulo', 'menu_id', 'modulo_id');
+        return $this->belongsToMany('Menu', 'menu_modulo', 'modulo_id')->where('menu.estado', 'A');
     }
 
 }

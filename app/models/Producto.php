@@ -36,6 +36,37 @@ class Producto extends Item {
                     $producto->precios()->attach(2, $valores);
                 }
 
+                if (isset($input['item_destacado']) && ($input['item_destacado'] == 'O')) {
+                    if (isset($input['precio_antes']) && ($input['precio_antes'] != "")) {
+
+                        $datos = array(
+                            "producto_id" => $producto->id,
+                            "tipo_precio_id" => 1,
+                        );
+                        $baja_producto_precio = DB::table('producto_precio')->where($datos)->update(array('estado' => 'B'));
+
+                        $valores = array(
+                            "valor" => $input['precio_antes'],
+                            "estado" => "A"
+                        );
+                        $producto->precios()->attach(1, $valores);
+                    }
+                    if (isset($input['precio_actual']) && ($input['precio_actual'] != "")) {
+
+                        $datos = array(
+                            "producto_id" => $producto->id,
+                            "tipo_precio_id" => 2,
+                        );
+                        $baja_producto_precio = DB::table('producto_precio')->where($datos)->update(array('estado' => 'B'));
+
+                        $valores = array(
+                            "valor" => $input['precio_actual'],
+                            "estado" => "A"
+                        );
+                        $producto->precios()->attach(2, $valores);
+                    }
+                }
+
                 if (isset($input['marca_principal']) && ($input['marca_principal'] != "")) {
                     $valores = array(
                         "producto_id" => $producto->id,
@@ -59,7 +90,7 @@ class Producto extends Item {
 
                 $respuesta['data'] = $producto;
                 $respuesta['error'] = false;
-                $respuesta['mensaje'] = "Producto creado.";
+                $respuesta['mensaje'] = "Producto publicado.";
             } else {
                 $respuesta['error'] = true;
                 $respuesta['mensaje'] = "El producto no pudo ser creado. Compruebe los campos.";
@@ -75,13 +106,24 @@ class Producto extends Item {
         $respuesta = array();
 
         $reglas = array(
-            'titulo' => array('required', 'max:50', 'unique:item,titulo,'.$input['id']),
+            'titulo' => array('required', 'max:9', 'unique:item,titulo,' . $input['id']),
         );
+
+        if (isset($input['imagen_portada_crop'])) {
+            $reglas['imagen_portada_crop'] = array('required');
+        }
 
         $validator = Validator::make($input, $reglas);
 
         if ($validator->fails()) {
-            $respuesta['mensaje'] = $validator->messages()->first('titulo');
+            $messages = $validator->messages();
+            if ($messages->has('titulo')) {
+                $respuesta['mensaje'] = $messages->first('titulo');
+            } elseif ($messages->has('imagen_portada_crop')) {
+                $respuesta['mensaje'] = 'Se olvidó de guardar la imagen recortada.';
+            } else {
+                $respuesta['mensaje'] = 'Los datos necesario para el producto son erróneos.';
+            }
             $respuesta['error'] = true;
         } else {
 
@@ -112,6 +154,39 @@ class Producto extends Item {
                 );
                 $producto->precios()->attach(2, $valores);
             }
+
+
+            if (isset($input['item_destacado']) && ($input['item_destacado'] == 'O')) {
+                if (isset($input['precio_antes']) && ($input['precio_antes'] != "")) {
+
+                    $datos = array(
+                        "producto_id" => $producto->id,
+                        "tipo_precio_id" => 1,
+                    );
+                    $baja_producto_precio = DB::table('producto_precio')->where($datos)->update(array('estado' => 'B'));
+
+                    $valores = array(
+                        "valor" => $input['precio_antes'],
+                        "estado" => "A"
+                    );
+                    $producto->precios()->attach(1, $valores);
+                }
+                if (isset($input['precio_actual']) && ($input['precio_actual'] != "")) {
+
+                    $datos = array(
+                        "producto_id" => $producto->id,
+                        "tipo_precio_id" => 2,
+                    );
+                    $baja_producto_precio = DB::table('producto_precio')->where($datos)->update(array('estado' => 'B'));
+
+                    $valores = array(
+                        "valor" => $input['precio_actual'],
+                        "estado" => "A"
+                    );
+                    $producto->precios()->attach(2, $valores);
+                }
+            }
+
 
             if (isset($input['marca_principal']) && ($input['marca_principal'] != "")) {
                 $datos = array(
@@ -256,6 +331,86 @@ class Producto extends Item {
         return $respuesta;
     }
 
+    public static function ponerNuevo($input) {
+        $respuesta = array();
+
+        $reglas = array();
+
+        $validator = Validator::make($input, $reglas);
+
+        if ($validator->fails()) {
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = true;
+        } else {
+
+            $item = Item::ponerNuevo($input);
+
+            $respuesta['mensaje'] = 'Producto nuevo.';
+            $respuesta['error'] = false;
+            $respuesta['data'] = $item;
+        }
+
+        return $respuesta;
+    }
+
+    public static function ponerOferta($input) {
+        $respuesta = array();
+
+        $reglas = array();
+
+        $validator = Validator::make($input, $reglas);
+
+        if ($validator->fails()) {
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = true;
+        } else {
+
+            $producto = Producto::find($input['producto_id']);
+
+            if (isset($input['precio_antes']) && ($input['precio_antes'] != "")) {
+
+                $datos = array(
+                    "producto_id" => $input['producto_id'],
+                    "tipo_precio_id" => 1,
+                );
+                $baja_producto_precio = DB::table('producto_precio')->where($datos)->update(array('estado' => 'B'));
+
+                $valores = array(
+                    "valor" => $input['precio_antes'],
+                    "estado" => "A"
+                );
+                $producto->precios()->attach(1, $valores);
+            }
+            if (isset($input['precio_actual']) && ($input['precio_actual'] != "")) {
+
+                $datos = array(
+                    "producto_id" => $input['producto_id'],
+                    "tipo_precio_id" => 2,
+                );
+                $baja_producto_precio = DB::table('producto_precio')->where($datos)->update(array('estado' => 'B'));
+
+                $valores = array(
+                    "valor" => $input['precio_actual'],
+                    "estado" => "A"
+                );
+                $producto->precios()->attach(2, $valores);
+            }
+
+            $data = array(
+                'item_id' => $producto->item()->id,
+                'seccion_id' => $input['seccion_id']
+            );
+
+            $item = Item::ponerOferta($data);
+
+            $respuesta['mensaje'] = 'Producto destacado.';
+            $respuesta['error'] = false;
+            $respuesta['data'] = $producto;
+        }
+
+        return $respuesta;
+    }
+
     //Me quedo con los precios del Producto
     public function precios() {
         return $this->belongsToMany('TipoPrecio', 'producto_precio', 'producto_id', 'tipo_precio_id')->where('producto_precio.estado', 'A')->select('tipo_precio.nombre', 'tipo_precio.id', 'producto_precio.valor');
@@ -306,9 +461,43 @@ class Producto extends Item {
     public function item() {
         return Item::find($this->item_id);
     }
-    
+
     public function carritos() {
         return $this->belongsToMany('Carrito', 'carrito_producto', 'carrito_id', 'producto_id');
+    }
+
+    public function pedidos() {
+        return $this->belongsToMany('Pedido', 'pedido_producto', 'pedido_id', 'producto_id');
+    }
+
+    public function nuevo() {
+        if (DB::table('item_seccion')
+                        ->join('seccion', 'item_seccion.seccion_id', '=', 'seccion.id')
+                        ->join('item', 'item_seccion.item_id', '=', 'item.id')
+                        ->where('item_seccion.estado', 'A')
+                        ->where('item_seccion.item_id', $this->item()->id)
+                        ->where('item.estado', 'A')
+                        ->where('seccion.estado', 'A')
+                        ->where('item_seccion.destacado', 'N')
+                        ->get()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function oferta() {
+        if (DB::table('item_seccion')
+                        ->join('seccion', 'item_seccion.seccion_id', '=', 'seccion.id')
+                        ->join('item', 'item_seccion.item_id', '=', 'item.id')
+                        ->where('item_seccion.estado', 'A')
+                        ->where('item_seccion.item_id', $this->item()->id)
+                        ->where('item.estado', 'A')
+                        ->where('seccion.estado', 'A')
+                        ->where('item_seccion.destacado', 'O')
+                        ->get()) {
+            return true;
+        }
+        return false;
     }
 
 }
