@@ -25,130 +25,152 @@
 </style>
 <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
 <script src="{{URL::to('js/producto-funcs.js')}}"></script>
-<section>
-    {{ Form::open(array('url' => 'admin/producto/editar', 'files' => true)) }}
-        <h2 class="marginBottom2"><span>Carga y modificación de productos</span></h2>
+<section class="container">    
+        {{ Form::open(array('url' => 'admin/producto/editar', 'files' => true, 'role' => 'form', 'onsubmit' => 'return validatePrecioProd(this);')) }}
+        <h2><span>Editar producto</span></h2>
+        <div class="marginBottom2">
+            <a class="volveraSeccion" href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif"><i class="fa fa-caret-left"></i>Volver a @if($seccion_next != 'null'){{ Seccion::find($seccion_next) -> menuSeccion() -> nombre }}@else Home @endif</a>
+        </div>
+        <div class="row datosProducto marginBottom2">
+            <!-- Abre columna de descripción de Producto -->
+            <div class="col-md-6">
 
-        <!-- abre datos del Producto-->
-        <div class="col70Admin datosProducto">
-            <h3>Nombre y modelo del producto</h3>
-            <input class="block anchoTotal marginBottom" type="text" name="titulo" placeholder="Título" required="true" value="{{ $item->titulo }}" maxlength="50">
-            <div class="divVerMarcaPrincipal marginBottom2">
-                <h3>Marca del producto</h3>
-                <select class="form-control selectMarca" name="marca_principal">
-                    <option value="">Seleccione una Marca</option>
-                    @foreach($marcas_principales as $marca)
-                        <option value="{{$marca->id}}" @if(!is_null($producto->marca_principal())) @if($marca->id == $producto->marca_principal()->id) selected @endif @endif>{{$marca->nombre}}</option>
-                    @endforeach
-                </select>
-                <div class="marca_imagen_preview">
-                    @if(!is_null($producto->marca_principal()))
-                        @if(!is_null($producto->marca_principal()->imagen()))
-                            <img src="{{ URL::to($producto->marca_principal()->imagen()->carpeta.$producto->marca_principal()->imagen()->nombre) }}" alt="{{$producto->marca_principal()->nombre}}">
-                        @endif
-                    @endif
-                </div>
-                <div class="clear"></div>
-                <p>Si la marca que busca no está en el listado anterior, deberá agregarla desde el <a href="{{URL::to('admin/marca')}}">administrador de marcas</a></p>
-            </div>
-
-            <div class="fondoDestacado padding1 marginBottom2">
-                <div class="marginBottom1 class_checkbox">
-                    <label for="destacarProducto" class="destacarProducto @if($item->destacado()) tocado @else noTocado @endif">
-                        <input id="destacarProducto" class="precioDisabled check_box" type="checkbox" name="item_destacado" value="A" @if($item->destacado())checked="true"@endif>
-                        <span class="spanDestacarProd">Destacar este producto</span>
-                    </label>
-                </div>
-                <p>Los últimos 5 productos destacados se muestran en la home.<br>
-                    Los productos destacados deben tener precio</p>
-
-                <div class="form-group">
-                    <label for="precio">Precio</label><span>$</span>
-                    <input type="text" name="precio" placeholder="Precio" disabled="true" class="precioAble" value="@if($item->destacado()){{ $producto->precio(2) }}@endif">
-                </div>
-
-            </div>
-
-            <h3>Detalles técnicos</h3>
-            <div class="divEditorTxt marginBottom2">
-                <textarea id="texto" contenteditable="true" class="" name="cuerpo">{{ $producto->cuerpo }}</textarea>
-            </div>
-
-            <div class="marginBottom2">
-                <h3>Marcas Técnicas</h3>
-                    @foreach($marcas_secundarias as $marca)
-                    <div class="boxMarcaTecnica">
-                        <input type="checkbox" name="marcas_secundarias[]" value="{{$marca->id}}" id="{{$marca->nombre}}{{$marca->id}}" @if(in_array($marca->id, $producto->marcas_secundarias_editar()))checked="true"@endif><label for="{{$marca->nombre}}{{$marca->id}}"><span>{{$marca->nombre}}</span> <img style="width: 50px; height: 50px;" class="lazy" data-original="@if(!is_null($marca->imagen())){{ URL::to($marca->imagen()->carpeta.$marca->imagen()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$marca->nombre}}"></label>
+                <!-- Nombre del producto -->
+                <div>
+                    <h3>Código del producto</h3>
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9" value="{{ $item->titulo }}">
+                        <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual código. Máximo 9 caracteres.</p>
                     </div>
-                @endforeach
-            </div>
+                </div>
 
-            <h3>Archivos PDF</h3>
-            <div  class="marginBottom2">
-                <div class="">
-                    @if(count($item->archivos) > 0)
-                        @foreach($item->archivos as $archivo)
-                        <div class="archivoCargado">
-                            <a class="descargarPDF">{{$archivo->titulo}}</a>
-                            <i onclick="borrarImagenReload('{{ URL::to('admin/archivo/borrar') }}', '{{$archivo->id}}');" class="fa fa-times fa-lg"></i>
+                <!-- Estado  -->
+                <h3>Estado</h3>
+                <div class="marginBottom2">
+                    <!--
+                    <div class="fondoDestacado marginBottom05">
+                        <div class="radio">
+                            <label>
+                                <input id="" class="" type="checkbox" name="item_destacado" value="B" checked="true">
+                                Normal
+                            </label>
                         </div>
-                        @endforeach
-                    @endif
+                    </div>
+                    -->
+                    <div class="fondoDestacado marginBottom05">
+                        <div class="radio">
+                            <label>
+                                <input id="" class="" type="checkbox" name="item_destacado" value="N" @if($item->producto()->nuevo()) checked="true" @endif>
+                                 <i class="fa fa-tag prodDestacado fa-lg"></i>
+                                Nuevo
+                            </label>
+                        </div>
+                    </div>
+                    <div class="fondoDestacado marginBottom05">
+                       <div class="divEstado">
+                            <div class="estado">
+                                <div class="radio">
+                                    <label>
+                                        
+                                        <input id="" class=" precioDisabled" type="checkbox" name="item_destacado" value="O">
+                                        <i  class="fa fa-usd prodDestacado fa-lg"></i>
+                                        Oferta
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="divPrecio">
+                                <label for="" >
+                                    <span>Precio después $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_antes" value="">
+                                </label>
+                            </div>
+                            <div class="divPrecio">
+                                <label for="" >
+                                    <span>Precio antes $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_actual" value="">
+                                </label>
+                            </div>   
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p>
                 </div>
-                @include('archivo.modulo-archivo-maxi')
+
+                @if($seccion_next != 'null')
+                    <div class="fondoDestacado modIndicarSeccion">
+                        <h3>Ubicación</h3>
+                            @foreach($menues as $men)
+                            <div class="cadaSeccion">
+                                @if(count($men->children) == 0)
+                                    <div>
+                                        @foreach($men->secciones as $seccion)
+                                            <span><input id="menu{{$men->id}}" type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if(in_array($seccion->id, $item->secciones->lists('id'))) checked="true" @endif @if($seccion->id == $seccion_next) disabled @endif>{{-- @if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif --}}</span>
+                                        @endforeach
+                                    </div>
+                                    <div><label for="menu{{$men->id}}">{{$men->nombre}}</label></div>
+                                @endif
+                            </div>
+                            @endforeach
+                    </div>
+                @else
+                    @foreach($item->secciones as $seccion)
+                        <input type="hidden" name="secciones[]" value="{{$seccion->id}}">
+                    @endforeach
+                @endif
+            </div><!--cierra columna datos de producto-->
+
+            <!-- Abre columna de imágenes -->
+           
+                <h3>Imagen principal</h3>
+                <div class="col-md-6 fondoDestacado cargaImg">
+                    <h3>Carga y recorte de la imagen</h3>
+                    <p class="infoTxt"><i class="fa fa-info-circle">
+                </i>La imagen original puede ser vertical u horizontal pero no debe exceder los 500kb de peso.</p>
+                @if(!is_null($item->imagen_destacada()))
+                    <div class="divCargaImgProducto">
+                        <div class="marginBottom1 divCargaImg">
+                            <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
+                            <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
+                        </div>
+                        <input type="hidden" name="imagen_portada_editar" value="{{$item->imagen_destacada()->id}}">
+                        <input class="form-control" type="text" name="epigrafe_imagen_portada_editar" placeholder="Ingrese una descripción de la foto" value="{{ $item->imagen_destacada()->epigrafe }}">
+                    </div>
+                @else
+                    @include('imagen.modulo-imagen-angular-crop')
+                @endif
+                
             </div>
 
-        </div>
-        <!-- Cierra columna ancha -->
-
-
-        <!-- Columna 60% imágenes-->
-        <div class="col30Admin fondoDestacado padding1 cargaImg">
-            <h3>Imagen principal</h3>
-            @if(!is_null($item->imagen_destacada()))
-                <div class="divCargaImgProducto">
-                    <div class="marginBottom1 divCargaImg">
-                        <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
-                        <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times fa-lg"></i>
-                    </div>
-                    <input type="hidden" name="imagen_producto_editar" value="{{$item->imagen_destacada()->id}}">
-                    <input class="block anchoTotal marginBottom" type="text" name="epigrafe_imagen_producto_editar" placeholder="Ingrese una descripción de la foto" value="{{ $item->imagen_destacada()->epigrafe }}">
-                </div>
-            @else
-                @include('imagen.modulo-imagen-euge')
-            @endif
-
-            <h3>Imágenes secundarias</h3>
-            @if(count($item->imagenes_producto_editar()) > 0)
-                <div class="divCargaImgProducto">
-                    @foreach($item->imagenes_producto_editar() as $img)
-                    <div class="marginBottom1 divCargaImg">
-                        <img 
-                        src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
-                        <i onclick="borrarImagenReload('{{URL::to('admin/imagen/borrar')}}', '{{$img->id}}');" class="fa fa-times fa-lg"></i>
-                    </div>
-                    <input type="hidden" name="imagenes_editar[]" value="{{$img->id}}">
-                    <input class="block anchoTotal marginBottom" type="text" name="epigrafe_imagen_editar[]" placeholder="Ingrese una descripción de la foto" value="{{ $img->epigrafe }}">
-                    @endforeach
-                </div>
-            @endif
-            @include('imagen.modulo-galeria-producto-maxi')
             <div class="clear"></div>
-        </div>
-        <!-- fin Columna imágenes-->
+            <!-- cierran columnas -->
 
-        <div class="clear"></div>
 
-        <div class="punteado">
-            <input type="submit" value="Guardar" class="btn marginRight5">
-            <a onclick="window.history.back();" class="btnGris">Cancelar</a>
-        </div>
+        </div>  
+            
 
-        {{Form::hidden('continue', $continue)}}
-        {{Form::hidden('id', $item->id)}}
-        {{Form::hidden('producto_id', $producto->id)}}
-        {{Form::hidden('descripcion', '')}}
-        {{Form::hidden('tipo_precio_id[]', '2')}}
-    {{Form::close()}}
-</section>
+            <div class="border-top">
+                <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
+                <a href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif" class="btn btn-default">Cancelar</a>
+            </div>
+
+
+            {{Form::hidden('continue', $continue)}}
+            {{Form::hidden('id', $item->id)}}
+            {{Form::hidden('producto_id', $producto->id)}}
+            {{Form::hidden('descripcion', '')}}
+            {{Form::hidden('tipo_precio_id[]', '2')}}
+            @if($seccion_next != 'null')
+                {{Form::hidden('seccion_id', $seccion_next)}}
+            @endif
+        {{Form::close()}}
+    </section>
+@stop
+
+@section('footer')
+
+    @parent
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="{{URL::to('js/angular-file-upload.js')}}"></script>
+    <script src="{{URL::to('js/ng-img-crop.js')}}"></script>
+    <script src="{{URL::to('js/controllers.js')}}"></script>
+
 @stop

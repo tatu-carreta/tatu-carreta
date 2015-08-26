@@ -5,7 +5,7 @@
 
 
 function borrarData(url, id) {
-    if (confirm("¿Está seguro que desea continuar con la eliminación? Advertencia: no podrá volver las acciones atras."))
+    if (confirm("¿Está seguro que desea continuar con la eliminación? Advertencia: no podrá volver las acciones atrás."))
         $.post($.trim(url), {id: id}, function (data) {
             alert(data.mensaje);
             if (!data.error)
@@ -39,13 +39,29 @@ function borrarImagen(url, id, item_id, load) {
 }
 
 function borrarImagenReload(url, id) {
-    $.post($.trim(url), {id: id}, function (data) {
-        alert(data.mensaje);
-        if (!data.error)
-        {
-            window.location.reload();
-        }
-    }, "json");
+    if (confirm("¿Está seguro que desea eliminar la imagen seleccionada?"))
+    {
+        $.post($.trim(url), {id: id}, function (data) {
+            alert(data.mensaje);
+            if (!data.error)
+            {
+                window.location.reload();
+            }
+        }, "json");
+    }
+}
+
+function borrarVideoReload(url, id) {
+    if (confirm("¿Está seguro que desea eliminar el video seleccionado?"))
+    {
+        $.post($.trim(url), {id: id}, function (data) {
+            alert(data.mensaje);
+            if (!data.error)
+            {
+                window.location.reload();
+            }
+        }, "json");
+    }
 }
 
 function destacarItemSeccion(url, seccion_id, item_id) {
@@ -100,6 +116,18 @@ function cancelarPopup(modal, seccion_id) {
 
 }
 
+$(function () {
+    $('.cant_prod_carrito').change(function () {
+        var cantidad = $(this).val();
+        var id = $(this).attr('data');
+        var producto_id = $(this).attr('id');
+
+        $.post('carrito/editar/' + producto_id + '/' + id, {cantidad: cantidad}, function (data) {
+            window.location.reload();
+        }, "json");
+    });
+});
+
 /*
  * VALIDAR CON JQUERY EL TAMAÑO DEL ARCHIVO
  */
@@ -120,6 +148,7 @@ function validar(elem) {
         //LimpiarInputFile(archivo.attr('id'));
     }
     else {
+        //Es mayor a 2MB
         if (archivo['0'].files['0'].size > (1024 * 1024) + (1024 * 1024))
         {
             alert("El archivo que intenta subir supera el tamaño indicado. Vuelva a intentar.");
@@ -169,3 +198,21 @@ function validar(elem) {
  return false;
  }
  */
+
+$(document).ready(function () {
+    $(".valid-number").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                // Allow: Ctrl+A
+                        (e.keyCode == 65 && e.ctrlKey === true) ||
+                        // Allow: home, end, left, right
+                                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            });
+});

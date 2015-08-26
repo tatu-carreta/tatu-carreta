@@ -14,7 +14,7 @@
 <div class="divCargaImgProducto">
     <!--Campos ficticios para enmascarar el file-->
 
-    <label class="btn cargar marginRight5"> Buscar archivo
+    <label class="btn btn-primary cargar marginRight5"> Buscar archivo
         <span>
             <input type="file" name="imagen_portada" data-previewer='#img_principal' class='oculto file imagen' data="1" required="true">
         </span>

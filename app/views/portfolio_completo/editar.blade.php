@@ -1,77 +1,162 @@
 @extends($project_name.'-master')
 
+@section('head')
+
+    @parent
+
+    <link rel="stylesheet" href="{{URL::to('css/ng-img-crop.css')}}" />
+@stop
+
 @section('contenido')
-    @if (Session::has('mensaje'))
-    <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
-    @endif
     <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
-    <section class="container">
-        @if (Session::has('mensaje'))
-            <div class="divAlerta error alert-success">{{ Session::get('mensaje') }}<i onclick="" class="cerrarDivAlerta fa fa-times fa-lg"></i></div>
-        @endif
-        {{ Form::open(array('url' => 'admin/noticia/editar', 'files' => true)) }}
-            <h2 class="marginBottom2"><span>Carga y modificación de noticias</span></h2>
-
-        @if(Auth::user()->can('cambiar_seccion_item'))
-            <select name="seccion_nueva_id">
-                <option value="">Seleccione Nueva Sección</option>
-                @foreach($secciones as $seccion)
-                <option value="{{$seccion->id}}" @if($seccion->id == $item->seccionItem()->id) selected @endif>@if($seccion->nombre != ""){{$seccion->nombre}}@else Sección {{$seccion->id}} - {{$seccion->menuSeccion()->nombre}}@endif</option>
-                @endforeach
-            </select>
-        @endif
-            <!-- abre datos del Producto-->
-            <div class="col70Admin datosProducto">
-                <h3>Título de la noticia</h3>
-                <input class="block anchoTotal marginBottom" type="text" name="titulo" placeholder="Título" required="true" value="{{ $item->titulo }}" maxlength="50">
-                
-                <h3>Fecha</h3>
-                <input class="block anchoTotal marginBottom" type="date" name="fecha" placeholder="Fecha" required="true" value="{{ $noticia->fecha }}" maxlength="50">
-                
-                <h3>Fuente</h3>
-                <input class="block anchoTotal marginBottom" type="text" name="fuente" placeholder="Fuente" required="true" value="{{ $noticia->fuente }}" maxlength="50">
-
-                <h3>Descripción</h3>
-                <input class="block anchoTotal marginBottom" type="text" name="descripcion" placeholder="Descripción" required="true" value="{{ $item->descripcion }}" maxlength="50">
-                
-                <h3>Cuerpo</h3>
-                <div class="divEditorTxt marginBottom2">
-                    <textarea id="texto" contenteditable="true" class="" name="cuerpo">{{ $item->texto()->cuerpo }}</textarea>
+    @if (Session::has('mensaje'))
+        <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
+    @endif
+    <section class="container" id="ng-app" ng-app="app">
+        <div ng-controller="ImagenMultiple" nv-file-drop="" uploader="uploader" filters="customFilter, sizeLimit">
+        {{ Form::open(array('url' => 'admin/portfolio_completo/editar', 'files' => true, 'role' => 'form')) }}
+            <h2 class="marginBottom2"><span>Editar obra</span></h2>
+        
+            @if(Auth::user()->can('cambiar_seccion_item'))
+            <div class="row marginBottom2">
+                <div class="col-md-6">
+                    <select name="seccion_nueva_id" class="form-control">
+                        <option value="">Seleccione Nueva Sección</option>
+                        @foreach($secciones as $seccion)
+                            <option value="{{$seccion->id}}" @if($seccion->id == $item->seccionItem()->id) selected @endif>@if($seccion->nombre != ""){{$seccion->nombre}}@else Sección {{$seccion->id}} - {{$seccion->menuSeccion()->nombre}}@endif</option>
+                        @endforeach
+                    </select>
                 </div>
-
             </div>
-            <!-- Cierra columna ancha -->
-
-
-            <!-- Columna 60% imágenes-->
-            <div class="col30 fondoDestacado padding1 cargaImg">
-                <h3>Imagen principal</h3>
-                @if(!is_null($item->imagen_destacada()))
-                    <div class="divCargaImgProducto">
-                        <div class="marginBottom1 divCargaImg">
-                            <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
-                            <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times fa-lg"></i>
+            @endif
+            
+            <h3>Título de la obra</h3>
+            <div class="form-group marginBottom2">
+                <input class="form-control" type="text" name="titulo" placeholder="Título de la obra" required="true" value="{{ $item->titulo }}" maxlength="50">
+            </div>
+            
+            <div class="row marginBottom2">
+                <!-- Abre columna de imágenes -->
+                <div class="col-md-12 cargaImg">
+                	<div class="fondoDestacado">
+	                    <h3>Recorte de imágenes</h3>
+	                    @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
+    	                <div class="row">
+                            @if((count($item->imagen_destacada()) > 0) || (count($item->imagenes) > 0))
+                                <div class="col-md-12">
+                                    <h3>Imágenes cargadas</h3>
+                                </div>
+                            @endif
+                            @if(count($item->imagen_destacada()) > 0)
+                            <div class="imgSeleccionadas">
+                                <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <input type="hidden" name="imagen_crop_editar[]" value="{{$item->imagen_destacada()->id}}">
+                                        <img class="marginBottom1" src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}">
+                                        <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$item->imagen_destacada()->epigrafe}}">
+                                        <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                            @foreach($item->imagenes as $img)
+                             <div class="imgSeleccionadas">
+                                <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <input type="hidden" name="imagen_crop_editar[]" value="{{$img->id}}">
+                                        <img class="marginBottom1" src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
+                                        <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$img->epigrafe}}">
+                                        <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$img->id}}');" class="fa fa-times-circle fa-lg"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                            <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">
+                                <div class="col-md-3">
+                                    <div class="thumbnail">
+                                        <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
+                                        <img class="marginBottom1" ng-src="<% img.src %>">
+                                        <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
+                                        <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
+                                        <i ng-click="borrarImagenCompleto($index)" class="fa fa-times-circle fa-lg"></i>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <input type="hidden" name="imagen_portada_editar" value="{{$item->imagen_destacada()->id}}">
-                        <input class="block anchoTotal marginBottom" type="text" name="epigrafe_imagen_portada_editar" placeholder="Ingrese una descripción de la foto" value="{{ $item->imagen_destacada()->epigrafe }}">
                     </div>
-                @else
-                    @include('imagen.modulo-imagen-noticia-maxi')
-                @endif
-                <div class="clear"></div>
+                </div>
+            </div>  
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Texto descriptivo de la obra</h3>
+                    <div class="divEditorTxt marginBottom2">
+                        <textarea id="texto" contenteditable="true" name="cuerpo">{{ $item->portfolio()->portfolio_completo()->cuerpo }}</textarea>
+                    </div>
+                </div>
             </div>
-            <!-- fin Columna imágenes-->
 
-            <div class="clear"></div>
-
-            <div class="punteado">
-                <input type="submit" value="Guardar" class="btn marginRight5">
-                <a onclick="window.history.back();" class="btnGris">Cancelar</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>Videos</h3>
+                </div>
             </div>
+            <div class="row">
+                @foreach($item->videos as $video)
+                    <div class="col-md-4 marginBottom2">
+                        <iframe class="video-tc" src="@if($video->tipo == 'youtube')https://www.youtube.com/embed/@else//player.vimeo.com/video/@endif{{ $video->url }}"></iframe>
+                        <a onclick="borrarVideoReload('{{ URL::to('admin/video/borrar') }}', '{{$video->id}}');" class="btn pull-right"><i class="fa fa-times fa-lg"></i>eliminar</a>
+                    </div>
+                @endforeach
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    @if(count($item->videos) == 2)
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                        </div>
+                    @elseif(count($item->videos) == 1)
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                        </div>
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                        </div>
+                    @elseif(count($item->videos) == 0)
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                        </div>
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                        </div>
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                        </div>
+                    @endif
+                </div>
+            </div>
+            
+            <div class="borderTop">
+                <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
+                <a onclick="window.history.back();" class="btn btn-default">Cancelar</a>
+            </div>
+
 
             {{Form::hidden('continue', $continue)}}
             {{Form::hidden('id', $item->id)}}
-            {{Form::hidden('noticia_id', $noticia->id)}}
+            {{Form::hidden('portfolio_completo_id', $portfolio_completo->id)}}
         {{Form::close()}}
+        </div>
     </section>
+@stop
+
+@section('footer')
+
+    @parent
+
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="{{URL::to('js/angular-file-upload.js')}}"></script>
+    <script src="{{URL::to('js/ng-img-crop.js')}}"></script>
+    <script src="{{URL::to('js/controllers.js')}}"></script>
+
 @stop

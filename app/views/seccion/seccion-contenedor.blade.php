@@ -1,59 +1,64 @@
 @foreach($menu -> secciones as $seccion)
-    @if((count($seccion->items) > 0) || Auth::check())
-        <div id="{{$menu->estado.$menu->id}}">
-            @if(($seccion->titulo != "") || (Auth::check()))
-                <h3 class="floatLeft marginRight" id="{{$seccion->estado.$seccion->id}}">
-                    @if($seccion->titulo != "")
-                        {{ $seccion -> titulo }}
-                    @else 
-                        @if(Auth::check()) 
-                            Sección sin título {{ $seccion->id }}
-                        @endif 
+    @if((count($seccion->items) > 0) || (Auth::check()))
+        <div class="row @if(Auth::check()) divListadoItems @endif">
+                <div  class="col-md-12" id="{{$menu->estado.$menu->id}}">
+                    @if(($seccion->titulo != "") || (Auth::check()))
+                        <h3 class="pull-left" id="{{$seccion->estado.$seccion->id}}">
+                            @if($seccion->titulo != "")
+                                {{ $seccion -> titulo }}
+                            {{-- @else 
+                                @if(Auth::check()) 
+                                    Sección sin título {{ $seccion->id }}
+                                @endif  --}}
+                            @endif 
+                        </h3>
+                        
                     @endif
-                </h3>
+                    
+                    @if(Auth::check())
+                        @if(Auth::user()->can("editar_seccion"))
+                            <a href="{{URL::to('admin/seccion/editar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btn popup-seccion iconoBtn-texto"><i class="fa fa-pencil fa-lg"></i>Cambiar nombre</a>
+                        @endif
+                        @if(Auth::user()->can("borrar_seccion"))
+                            <a onclick="borrarData('{{URL::to('admin/seccion/borrar')}}', '{{$seccion->id}}');" class="btn iconoBtn-texto"><i class="fa fa-times fa-lg"></i>Eliminar sección</a>
+                        @endif
+                        @if(Auth::user()->can("agregar_item"))
+                            <a href="{{URL::to('admin/'.$menu->modulo()->nombre.'/agregar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btn btn-primary pull-right "><i class="fa fa-plus fa-lg"></i>{{$texto_agregar}}</a>
+                        @endif
+                    @endif
+                    <div class="clearfix"></div>
+                    
+                </div>
+            
+        </div>
+    @endif
+        @if(count($seccion->items) > 0)
+            @if(Auth::check())
+                {{ Form::open(array('url' => 'admin/item/ordenar-por-seccion', 'id' => 'formularioOrdenSeccion')) }}
             @endif
+
+            <!-- LISTADO -->
+            @include($html)
 
             @if(Auth::check())
-                @if(Auth::user()->can("editar_seccion"))
-                    <a href="{{URL::to('admin/seccion/editar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btnSec nuevaSeccion"><i class="fa fa-pencil fa-lg"></i>Cambiar nombre</a>
-                @endif
-                @if(Auth::user()->can("borrar_seccion"))
-                    <a onclick="borrarData('../admin/seccion/borrar', '{{$seccion->id}}');" class="btnSec"><i class="fa fa-times fa-lg"></i>Eliminar sección</a>
-                @endif
-                @if(Auth::user()->can("agregar_item"))
-                    <a href="{{URL::to('admin/'.$menu->modulo()->nombre.'/agregar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btn floatRight"><i class="fa fa-plus fa-lg"></i>{{$texto_agregar}}</a>
-                @endif
+                {{Form::hidden('seccion_id', $seccion->id)}}
+                {{Form::close()}}
             @endif
-            <div class="clear"></div>
+            {{-- {{$seccion->items_noticias()['paginador']->links()}} --}}
 
-
-
-            @if(count($seccion->items) > 0)
-                @if(Auth::check())
-                    {{ Form::open(array('url' => 'admin/item/ordenar-por-seccion')) }}
-                @endif
-                
-                @include($html)
-                
-                {{-- {{$seccion->items_noticias()['paginador']->links()}} --}}
-
-                <div class="clear"></div>
-
-                @if(Auth::check())
-                    {{Form::hidden('seccion_id', $seccion->id)}}
-                    {{Form::close()}}
-                @endif
-            @else
-                @if(!Auth::check())
-                    No hay noticias cargadas aún.
-                @endif
-            @endif
-            <div class="clear"></div>
-
+        @else
             @if(Auth::check())
-                <div id="agregar-item{{ $seccion->id }}"></div>
-                <div id="destacar-producto"></div>
+                <div class="sinProductos">Sin productos</div>
             @endif
+        @endif
+
+    @if(Auth::check())
+        <div id="agregar-item{{ $seccion->id }}"></div>
+        <div id="destacar-producto"></div>
+        <div class="modal fade" id="seccion{{$seccion->id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content"></div>
+            </div>
         </div>
     @endif
 @endforeach

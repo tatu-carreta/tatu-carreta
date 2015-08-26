@@ -22,6 +22,45 @@ $(function () {
 });
 
 $(function () {
+    $('.popup-seccion').click(function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        var data = $(this).attr('data');
+        //$('#myModal').removeData('bs.modal');
+        $('#seccion' + data).modal({remote: url});
+        $('#seccion' + data).modal('show');
+//        $.ajax({
+//            type: 'GET',
+//            url: url,
+//            success: function (msg) {
+//                $("#agregar-seccion").show();
+//                $("#agregar-seccion").html(msg);
+//                $("#agregar-seccion").dialog({
+//                    closeText: "Cerrar",
+//                    modal: true,
+//                    //                        close: function() {
+//                    //                            window.location.reload();
+//                    //                        }
+//                });
+//            }
+//        });
+        return false;
+    });
+});
+
+$(function () {
+    $('.popup-nueva-seccion').click(function (e) {
+        e.preventDefault();
+        var url = $(this).attr('href');
+        //$('#myModal').removeData('bs.modal');
+        $('#nueva-seccion').modal({remote: url});
+        $('#nueva-seccion').modal('show');
+        
+        return false;
+    });
+});
+
+$(function () {
     $('.popup').click(function (e) {
         e.preventDefault();
         var url = $(this).attr('href');

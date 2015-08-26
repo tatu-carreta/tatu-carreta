@@ -50,8 +50,8 @@
 
                         @foreach($s->menuSeccion()->secciones as $seccion)
                             <input type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if(in_array($seccion->id, $item->secciones->lists('id'))) checked="true" @endif>@if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif
-                        @endforeach
-                    @endif
+                    @endforeach
+                @endif
                 @endif
             @endforeach
             

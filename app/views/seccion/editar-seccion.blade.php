@@ -4,17 +4,22 @@
 @section('header')@stop
 
 @section('contenido')
-<div>
-    {{ Form::open(array('url' => 'admin/seccion/editar')) }}
-    <h2>carga y modificación de secciones</h2>
-    <input class="block anchoTotal marginBottom" type="text" name="titulo" value="{{ $seccion->titulo }}" placeholder="Nombre de la Sección">
-    <div class="floatRight">
-        <a onclick="cancelarPopup('agregar-seccion');" class="btnGris marginRight5">Cancelar</a>
-        <input type="submit" value="Guardar" class="btn">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Carga y modificación de secciones</h4>
     </div>
-    {{Form::hidden('id', $seccion->id)}}
+    {{ Form::open(array('url' => 'admin/seccion/editar')) }}
+        <div class="modal-body">
+            <input class="form-control" type="text" name="titulo" value="{{ $seccion->titulo }}" placeholder="Nombre de la Sección">
+            {{Form::hidden('id', $seccion->id)}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
     {{Form::close()}}
-</div>
+            
+
 @stop
 
 @section('footer')@stop

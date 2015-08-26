@@ -15,8 +15,8 @@ $(document).ready(function () {
             imagen = event.target.result;
             $("#cropbox").attr("src", event.target.result);
             jcrop_api = $.Jcrop('#cropbox', {
-                setSelect: [ 0,0,230,153],
-                aspectRatio: 1.5 / 1,
+                setSelect: [ 0,0,250,250],
+                aspectRatio: 1 / 1,
                 onSelect: updateCoords
             });
         }
