@@ -37,13 +37,13 @@
 
 </script>
 <div id="ng-app" ng-app="app">
-    <div ng-controller="AppController" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter, sizeLimit">
+    <div ng-controller="ImagenSingular" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter, sizeLimit">
 
         <div class="row marginBottom1">
             <div class="col-xs-4">
                 <label class="btn btn-primary"> Seleccionar archivo
                 <span>
-                    <input data='1' id="fileInput" type="file" nv-file-select="" uploader="uploader" name="imagen_portada_ampliada" class='oculto file imagen'/>
+                    <input data='1' id="fileInput" type="file" nv-file-select="" uploader="uploader" name="imagen_portada_original" class='oculto file imagen'/>
                 </span>
                 </label>
 
@@ -51,6 +51,7 @@
             <div class="col-xs-8">
                 <input type="text" class="url-archivo1 form-control">
                 <input type="hidden" name="imagen_portada_crop" value="<% imagen_portada %>">
+                <input type="hidden" name="imagen_portada_ampliada" value="<% imagen_ampliada %>">
                 <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
             </div>
         </div>
