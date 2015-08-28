@@ -20,10 +20,12 @@ class Item extends Eloquent {
             'seccion_id' => array('integer'),
             'imagen_portada_crop' => array('required'),
         );
-
+/*
         if (isset($input['titulo']) && ($input['titulo'] != "")) {
             $reglas['titulo'] = array('max:9', 'unique:item');
         }
+ * 
+ */
 
         if (isset($input['es_texto']) && ($input['es_texto'])) {
             unset($reglas['imagen_portada_crop']);

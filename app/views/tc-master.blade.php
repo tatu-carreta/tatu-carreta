@@ -20,8 +20,8 @@
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/jquery-ui.css')}}">
         <link rel="stylesheet" href="{{URL::to('font-awesome-4.2.0/css/font-awesome.css')}}">
         <!-- <link rel="stylesheet" href="{{URL::to('css/flexslider.css')}}">-->
-        <!--<link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
-        <link rel="stylesheet" href="{{URL::to('css/owl.theme.css')}}">-->
+        <link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
+        <link rel="stylesheet" href="{{URL::to('css/owl.theme.css')}}">
         <link rel="stylesheet" href="{{URL::to('source/jquery.fancybox.css')}}">
         <!--<link rel="stylesheet" type="text/css" href="{{URL::to('css/styleSlideHome.css')}}" />-->
         <link rel="stylesheet" type="text/css" href="{{URL::to('css/base.css')}}"> 

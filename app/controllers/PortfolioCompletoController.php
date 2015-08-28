@@ -66,14 +66,16 @@ class PortfolioCompletoController extends BaseController {
             return Redirect::to('admin/' . $this->folder_name . '/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje'])->with('error', true); //->with('ancla', $ancla);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
-            $menu = $respuesta['data']->portfolio_simple()->item()->seccionItem()->menuSeccion()->url;
-            $ancla = '#' . $respuesta['data']->portfolio_simple()->item()->seccionItem()->estado . $respuesta['data']->portfolio_simple()->item()->seccionItem()->id;
+            $seccion = Seccion::find(Input::get('seccion_id'));
+
+            $menu = $seccion->menuSeccion()->url;
+            $ancla = '#' . $seccion->estado . $seccion->id;
 
             return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
-    public function vistaEditar($id, $next) {
+    public function vistaEditar($id, $next, $seccion_next) {
 
         //Me quedo con el item, buscando por id
         $item = Item::find($id);
@@ -86,6 +88,7 @@ class PortfolioCompletoController extends BaseController {
             $this->array_view['portfolio_completo'] = $portfolio_completo;
             $this->array_view['secciones'] = $secciones;
             $this->array_view['continue'] = $next;
+            $this->array_view['seccion_next'] = $seccion_next;
             return View::make($this->folder_name . '.editar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
@@ -114,8 +117,10 @@ class PortfolioCompletoController extends BaseController {
             if (Input::get('continue') == "home") {
                 return Redirect::to('/')->with('mensaje', $respuesta['mensaje']);
             } else {
-                $menu = $respuesta['data']->portfolio_simple()->item()->seccionItem()->menuSeccion()->url;
-                $ancla = '#' . $respuesta['data']->portfolio_simple()->item()->seccionItem()->estado . $respuesta['data']->portfolio_simple()->item()->seccionItem()->id;
+                $seccion = Seccion::find(Input::get('seccion_id'));
+
+                $menu = $seccion->menuSeccion()->url;
+                $ancla = '#' . $seccion->estado . $seccion->id;
 
                 return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
             }

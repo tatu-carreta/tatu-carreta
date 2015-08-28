@@ -81,6 +81,60 @@ footer {margin-top: 1em; padding: 4em 0}
 
 #s-m-t-tooltip{position:absolute; max-width:300px;padding:6px 8px 8px 8px; z-index:99; display:inline-block; /*important*/ font-size:13px;line-height:16px;color:#fff; -moz-border-radius:2px; -webkit-border-radius:2px; border-radius:2px; background-color: #000;}
 
+/*
+    Estilos Bootstrap modificados (maxi)
+*/
+.thumbnail {padding: 0; border: none; border-radius: 0;}
+.form-group p{font-size: 1em; padding-top: 0.5em;}
+.progress {height: 12px; width: 94%; float: left;}
+
+/*
+    INFO PRODS (maxi)
+*/
+.bandaInfoProd {background: #efefef; padding: 0.5em 1em; color: #777774 !important; }
+.bandaInfoProd .btn-default {color: #777774 !important;}
+.bandaInfoProd .btn-default:hover {color: #fff !important; background: #00A9E0; border: none;}
+.bandaInfoProd p {margin:7px 0 5px;}
+.divImgItem {width: 100%;  position: relative; border: 1px solid #F4F4EF} /* height: 100%;*/
+.divImgItem img {width: 100%; height: auto;}
+.lazy {margin: 0}
+.bandaOfertas, .bandaNuevos {/*color: #fff;*/ font-size: 1.2em; position: absolute; bottom: 0; left: 0; padding: 0.1em 0.5em;}
+//.bandaOfertas {background: #D52318; font-weight: 700;}
+//.bandaNuevos {background: #ff7503}
+.bandaProd span {margin-right: 1em; font-size: 0.938em; text-transform: uppercase; margin-top: 0.6em;}
+.lazy {margin: 0}
+.bandaOfertas span{font-weight: 300;}
+
+/*
+    ADMIN PROD (maxi)
+*/
+.divEstado input{display: inline-block;}
+.estado{float: left; padding-top: 0.5em;}
+.divPrecio{display: inline-block;float: right; margin-left: 1em;}
+.progreso{margin-bottom: 20px;margin-top: 20px;}
+.progreso i{color: #1D6A0E; margin-left: 2%; position: relative;top:-4px;}
+
+.editarEliminar{padding: 6px 0; color: #286090;}
+.editarEliminar:hover{color: #3885C7}
+
+/*
+    ADMIN portfolio_simple (maxi)
+*/
+.imgCargada {background: #fff; height:300px; text-align:center;}
+.resultadoImgCargada h3 {margin-top: 16px !important;}
+.divCargaImg .fa-lg {font-size: 1.2em; color:#286090; cursor: pointer }
+.borderTop { padding-top: 1.5em; border-top: 1px solid #C6C6C6;}
+
+/*
+^   VIDEO (maxi)
+*/
+.video-tc {width: 100%; height: 270px; border:none;}
+
+/*
+    HOME (maxi)
+*/
+.carousel-oculto{ display: none;}
+
 /* ----------------------------- A D M I N ------------------------------------ */
 
 .divAlerta{position: fixed; bottom: 0; right: 1em; width: 300px; padding: 1em; z-index: 1000; font-size: 1.1em; }
@@ -126,7 +180,7 @@ footer {margin-top: 1em; padding: 4em 0}
 .iconos i:hover {color:#3885C7;}
 .iconos .fa-pencil{margin-right: 0.5em}
 
-.lazy {margin-bottom: 0.5em;}
+//.lazy {margin-bottom: 0.5em;}
 
 .menuInsertContenido a {margin: 0.5em;}
 
@@ -197,7 +251,7 @@ margin: 0;padding:0;left:0;top: 0;width: 130px;}
 .btn-primary {background:#286090}
 .btn-primary:hover {background:#337ab7}
 
-.btn.disabled, .btn.disabled i {opacity: 1; color: #C7C7C7}
+.btn.disabled, .btn.disabled i {opacity: 1; color: #C7C7C7 !important;}
 
 .inputWidth80 {width: 80px}
 .inputWidth60 {width: 60px;}

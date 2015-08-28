@@ -1,5 +1,21 @@
 @extends($project_name.'-master')
 
+@section('head')
+    @parent
+    <!-- Include OWL CARROUSEL -->
+    <script src="{{URL::to('js/owl.carousel.js')}}"></script>
+
+    <script>
+    $(document).ready(function(){
+        setTimeout(function() {
+            $(".carousel-oculto").removeClass("carousel-oculto");
+            $("#ancla").click();
+        }, 5);
+    });
+    </script>
+    
+@stop
+
 @section('contenido')
 
     @if(Session::has('anclaProd'))
@@ -57,7 +73,7 @@
                                     @endif
                                     
                                     <a class="fancybox" href="@if(!is_null($item->imagen_destacada())){{URL::to($item->imagen_destacada()->ampliada()->carpeta.$item->imagen_destacada()->ampliada()->nombre)}}@else{{URL::to('images/sinImg.gif')}}@endif" title="{{$item->titulo}} @if(!is_null($item->imagen_destacada())){{ $item->imagen_destacada()->ampliada()->epigrafe }}@endif" rel='group'> 
-                                        <div class="divImgProd">
+                                        <div class="divImgItem">
                                             <img class="lazy" src="@if(!is_null($item->imagen_destacada())){{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$item->titulo}}">
                                             @if($item->producto()->oferta())
                                                 <span class="bandaOfertas">OFERTA: ${{$item->producto()->precio(2)}} <span>(antes: ${{$item->producto()->precio(1)}})</span></span>
@@ -96,11 +112,27 @@
                 </div>
             @endif
         @endif
+        {{--
         <div class="row">
             <div class="col-md-12 moduloItem">
             <!-- SLIDE HOME -->
             @include($project_name.'-slide-home')
             </div>
         </div>
+        --}}
     </section>
+@stop
+
+@section('footer')
+    @parent
+    <script>
+        $(document).ready(function() {
+          $("#owl-demo-prod").owlCarousel({
+              items : 4,
+              itemsDesktop : [1199,4],
+              itemsDesktopSmall : [979,3],
+              mouseDrag  : false
+          });
+        });
+    </script>
 @stop

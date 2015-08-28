@@ -81,13 +81,15 @@
                 </div>
 
                 <input class="form-control marginBottom1" id="epigrafe" type="text" name="epigrafe_imagen_portada" placeholder="Ingrese una descripción de la foto (opcional)">
-                <div class="nombre-peso marginBottom2">
+                <div class="progreso">
                     <div>
                         <div>
                             Progreso:
                             <div class="progress" style="">
                                 <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                             </div>
+                            <span ng-show="todo_ok"><i class="glyphicon glyphicon-ok"></i></span>
+                            <span ng-show="todo_error"><i class="glyphicon glyphicon-remove"></i></span>
                         </div>
                         <button type="button" class="btn btn-primary btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
                             Guardar recorte

@@ -15,7 +15,10 @@
     <section class="container" id="ng-app" ng-app="app">
         <div ng-controller="ImagenMultiple" nv-file-drop="" uploader="uploader" filters="customFilter, sizeLimit">
         {{ Form::open(array('url' => 'admin/muestra/agregar', 'files' => true, 'role' => 'form')) }}
-            <h2 class="marginBottom2"><span>Nueva muestra</span></h2>
+            <h2><span>Nueva muestra</span></h2>
+            <div class="marginBottom2">
+                <a class="volveraSeccion" href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ Seccion::find($seccion_id) -> menuSeccion() -> nombre }}</a>
+            </div>
         
             <h3>Título de la muestra</h3>
             <div class="form-group marginBottom2">
@@ -27,6 +30,7 @@
                 <div class="col-md-12 cargaImg">
                 	<div class="fondoDestacado">
 	                    <h3>Recorte de imágenes</h3>
+                            <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
 	                    @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
     	                <div class="row">
                             <div class="col-md-12" ng-show='imagenes_seleccionadas.length > 0'>

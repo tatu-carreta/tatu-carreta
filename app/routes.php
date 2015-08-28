@@ -311,7 +311,7 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::post('admin/portfolio_simple/agregar', 'PortfolioController@agregar');
 
-    Route::get('admin/portfolio_simple/editar/{id}/{next}', 'PortfolioController@vistaEditar');
+    Route::get('admin/portfolio_simple/editar/{id}/{next}/{seccion_next}', 'PortfolioController@vistaEditar');
 
     Route::post('admin/portfolio_simple/editar', 'PortfolioController@editar');
 
@@ -324,7 +324,7 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::post('admin/portfolio_completo/agregar', 'PortfolioCompletoController@agregar');
 
-    Route::get('admin/portfolio_completo/editar/{id}/{next}', 'PortfolioCompletoController@vistaEditar');
+    Route::get('admin/portfolio_completo/editar/{id}/{next}/{seccion_next}', 'PortfolioCompletoController@vistaEditar');
 
     Route::post('admin/portfolio_completo/editar', 'PortfolioCompletoController@editar');
 
@@ -337,7 +337,7 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::post('admin/muestra/agregar', 'MuestraController@agregar');
 
-    Route::get('admin/muestra/editar/{id}/{next}', 'MuestraController@vistaEditar');
+    Route::get('admin/muestra/editar/{id}/{next}/{seccion_next}', 'MuestraController@vistaEditar');
 
     Route::post('admin/muestra/editar', 'MuestraController@editar');
 

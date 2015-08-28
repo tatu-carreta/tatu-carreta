@@ -13,7 +13,10 @@
     @endif
     <section class="container">
         {{ Form::open(array('url' => 'admin/portfolio_simple/agregar', 'files' => true, 'role' => 'form')) }}
-            <h2 class="marginBottom2"><span>Nueva obra</span></h2>
+            <h2><span>Nueva obra</span></h2>
+            <div class="marginBottom2">
+                <a class="volveraSeccion" href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ Seccion::find($seccion_id) -> menuSeccion() -> nombre }}</a>
+            </div>
         
             <div class="row marginBottom2">
                 <!-- Abre columna de imágenes -->

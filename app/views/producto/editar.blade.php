@@ -72,7 +72,7 @@
                                 <div class="radio">
                                     <label>
                                         
-                                        <input id="" class=" precioDisabled" type="checkbox" name="item_destacado" value="O">
+                                        <input id="" class=" precioDisabled" type="checkbox" name="item_destacado" value="O" @if($item->producto()->oferta()) checked="true" @endif>
                                         <i  class="fa fa-usd prodDestacado fa-lg"></i>
                                         Oferta
                                     </label>

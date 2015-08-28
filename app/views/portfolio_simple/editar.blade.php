@@ -13,7 +13,10 @@
     @endif
     <section class="container">
         {{ Form::open(array('url' => 'admin/portfolio_simple/editar', 'files' => true, 'role' => 'form')) }}
-            <h2 class="marginBottom2"><span>Editar obra</span></h2>
+            <h2><span>Editar obra</span></h2>
+            <div class="marginBottom2">
+                <a class="volveraSeccion" href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif"><i class="fa fa-caret-left"></i>Volver a @if($seccion_next != 'null'){{ Seccion::find($seccion_next) -> menuSeccion() -> nombre }}@else Home @endif</a>
+            </div>
             
 
             <div class="row marginBottom2">
@@ -50,7 +53,7 @@
 
             <div class="punteado">
                 <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
-                <a onclick="window.history.back();" class="btn btn-default">Cancelar</a>
+                <a href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif" class="btn btn-default">Cancelar</a>
             </div>
 
 
@@ -58,6 +61,9 @@
             {{Form::hidden('continue', $continue)}}
             {{Form::hidden('id', $item->id)}}
             {{Form::hidden('portfolio_id', $portfolio->id)}}
+            @if($seccion_next != 'null')
+                {{Form::hidden('seccion_id', $seccion_next)}}
+            @endif
         {{Form::close()}}
     </section>
 @stop

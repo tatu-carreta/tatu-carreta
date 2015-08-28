@@ -15,7 +15,10 @@
     <section class="container" id="ng-app" ng-app="app">
         <div ng-controller="ImagenMultiple" nv-file-drop="" uploader="uploader" filters="customFilter, sizeLimit">
         {{ Form::open(array('url' => 'admin/portfolio_completo/agregar', 'files' => true, 'role' => 'form')) }}
-            <h2 class="marginBottom2"><span>Nueva obra</span></h2>
+            <h2><span>Nueva obra</span></h2>
+            <div class="marginBottom2">
+                <a class="volveraSeccion" href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ Seccion::find($seccion_id) -> menuSeccion() -> nombre }}</a>
+            </div>
         
             <h3>Título de la obra</h3>
             <div class="form-group marginBottom2">
