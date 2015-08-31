@@ -23,7 +23,7 @@
 
         <div class="cargaContenidoAdmin bgGris floatLeft col50">
             @if(Auth::user()->can("agregar_menu_categoria"))
-                @include('categoria.crear')
+                @include('categoria.agregar-boton-dinamico')
             @endif
         </div>
 
