@@ -1,5 +1,3 @@
-<div class="row @if(Auth::check()) sortable @endif">
-    @foreach($seccion -> items as $i)
 
         <div class="col-md-3 col-sm-4 col-xs-4 moduloItem">
             <div class="thumbnail">
@@ -39,6 +37,3 @@
             @endif            		
             </div>
         </div>
-
-    @endforeach
-</div>

@@ -33,7 +33,7 @@ class MuestraController extends BaseController {
 
         $this->array_view['item'] = $item;
 
-        return View::make($this->folder_name . '.' . $this->project_name . '-ver', $this->array_view);
+        return View::make($this->folder_name . '.detalle', $this->array_view);
     }
 
     public function vistaAgregar($seccion_id) {

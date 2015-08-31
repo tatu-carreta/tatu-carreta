@@ -90,7 +90,7 @@ class MarcaController extends BaseController {
 
         if ($marca) {
             $this->array_view['marca'] = $marca;
-            return View::make($this->folder_name . '.imagen', $this->array_view);
+            return View::make($this->folder_name . '.imagen-marca', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);

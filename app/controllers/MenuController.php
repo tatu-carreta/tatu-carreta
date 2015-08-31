@@ -20,7 +20,7 @@ class MenuController extends BaseController {
 
     public function vistaAgregar() {
 
-        return View::make($this->folder_name . '.crear', $this->array_view);
+        return View::make($this->folder_name . '.agregar-boton-estatico', $this->array_view);
     }
 
     public function agregar() {
@@ -105,7 +105,7 @@ class MenuController extends BaseController {
                         break;
                 }
 
-                $this->array_view['html'] = $menu->modulo()->nombre . ".listado";
+                $this->array_view['html'] = $menu->modulo()->nombre . ".unidad-lista";
                 $this->array_view['texto_agregar'] = $textoAgregar;
                 $this->array_view['texto_modulo'] = $texto_modulo;
                 
@@ -113,7 +113,7 @@ class MenuController extends BaseController {
 
                 return View::make($this->folder_name . ".menu-contenedor", $this->array_view);
             } else {
-                return View::make($this->folder_name . '.' . $this->project_name . '-ver-menu-estatico', $this->array_view);
+                return View::make($this->folder_name . '.menu-estatico', $this->array_view);
             }
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
@@ -147,9 +147,9 @@ class MenuController extends BaseController {
                 $this->array_view['marcas_principales'] = $marcas_principales;
                 $this->array_view['marca_id'] = $marca;
                 $this->array_view['ancla'] = Session::get('ancla');
-                return View::make($this->folder_name . '.' . $this->project_name . '-ver-menu', $this->array_view);
+                return View::make($this->folder_name . '.menu-contenedor', $this->array_view);
             } else {
-                return View::make($this->folder_name . '.' . $this->project_name . '-ver-menu-estatico', $this->array_view);
+                return View::make($this->folder_name . '.menu-estatico', $this->array_view);
             }
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
@@ -164,7 +164,7 @@ class MenuController extends BaseController {
 
         if ($menu) {
             $this->array_view['menu'] = $menu;
-            return View::make($this->folder_name . '.editar', $this->array_view);
+            return View::make($this->folder_name . '.editar-boton-estatico', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);
@@ -207,7 +207,7 @@ class MenuController extends BaseController {
     }
 
     public function vistaOrdenar() {
-        return View::make($this->folder_name . '.ordenar-menu-popup', $this->array_view);
+        return View::make($this->folder_name . '.ordenar-menu', $this->array_view);
     }
 
     public function ordenar() {
@@ -227,7 +227,7 @@ class MenuController extends BaseController {
         $this->array_view['menu_id'] = $menu_id;
         $this->array_view['menus_ordenar'] = $menus_ordenar;
 
-        return View::make($this->folder_name . '.ordenar-submenu-popup', $this->array_view);
+        return View::make($this->folder_name . '.ordenar-submenu', $this->array_view);
     }
 
     public function ordenarSubmenu() {

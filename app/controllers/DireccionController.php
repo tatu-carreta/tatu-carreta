@@ -35,7 +35,7 @@ class DireccionController extends BaseController {
 
         $direccion = Direccion::find($id);
 
-        return View::make($this->folder_name . '.' . $this->project_name . 'ver', array('direccion' => $direccion));
+        return View::make($this->folder_name . '.' . $this->project_name . '-ver', array('direccion' => $direccion));
     }
 
 /*

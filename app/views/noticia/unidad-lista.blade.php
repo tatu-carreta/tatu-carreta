@@ -1,5 +1,4 @@
-<ul class="listaNoticias @if(Auth::check()) sortable @endif">
-    @foreach($seccion -> items_noticias()['noticias'] as $i)
+
     <li>
         @if(Auth::check())
         <div class="iconos">
@@ -44,5 +43,3 @@
             <input type="hidden" name="orden[]" value="{{$i->id}}">
         @endif            		
     </li>
-    @endforeach
-</ul>

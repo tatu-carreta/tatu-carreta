@@ -20,7 +20,7 @@
             </div>
             <div class="clear"></div>
 
-            @include('imagen.modulo-galeria-maxi')
+            @include('imagen.modulo-galeria-angular')
 
             {{Form::hidden('seccion_id', $seccion_id)}}
         {{Form::close()}}

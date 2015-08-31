@@ -8,7 +8,7 @@ class CarritoController extends BaseController {
 
         //Hace que se muestre el html lista.blade.php de la carpeta categoria
         //con los parametros pasados por el array
-        return View::make($this->folder_name . '.' . $this->project_name . '-ver', $this->array_view);
+        return View::make($this->folder_name . '.ver-' . $this->folder_name, $this->array_view);
     }
 
     public function agregarProducto($producto_id, $continue, $sec_id) {

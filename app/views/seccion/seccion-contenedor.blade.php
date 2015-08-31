@@ -38,7 +38,12 @@
             @endif
 
             <!-- LISTADO -->
-            @include($html)
+            <div class="row @if(Auth::check()) sortable @endif">
+                @foreach($seccion -> items as $i)
+                    <!-- Item individual -->
+                    @include($html)
+                @endforeach
+            </div>
 
             @if(Auth::check())
                 {{Form::hidden('seccion_id', $seccion->id)}}

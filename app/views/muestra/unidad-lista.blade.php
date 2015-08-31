@@ -5,9 +5,6 @@
     } );
 </script>
 
-<div class="row @if(Auth::check()) sortable @endif">
-    @foreach($seccion -> items as $i)
-
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 moduloItem">
             <div class="thumbnail">
                 @if(Auth::check())
@@ -22,7 +19,7 @@
                                 <a onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', '{{$seccion->id}}', '{{$i->id}}');"><i class="fa fa-thumb-tack prodDestacado fa-lg"></i></a>
                                 @endif
                             @endif
-                            <a href="{{URL::to('portfolio_completo/'.$i->url)}}"><i class="fa fa-eye fa-lg"></i></a>
+                            <a href="{{URL::to('muestra/'.$i->url)}}"><i class="fa fa-eye fa-lg"></i></a>
                         </span>
                         <span class="pull-right">
                             @if(Auth::user()->can("editar_item"))
@@ -42,7 +39,7 @@
                  */
                 ?>
                         @if(!Auth::check())
-                            <a href="{{URL::to('portfolio_completo/'.$i->url)}}">
+                            <a href="{{URL::to('muestra/'.$i->url)}}">
                         @endif
                         <div class="divImgItem">
                             <img class="lazy" data-original="@if(!is_null($i->imagen_destacada())){{ URL::to($i->imagen_destacada()->carpeta.$i->imagen_destacada()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$i->titulo}}">
@@ -63,7 +60,3 @@
                 @endif            		
             </div>
         </div>
-
-    @endforeach
-
-</div>

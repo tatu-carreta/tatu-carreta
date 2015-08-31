@@ -167,7 +167,6 @@
         
         <script src="{{URL::to('ckeditor/ckeditor.js')}}"></script>
         <script src="{{URL::to('ckeditor/adapters/jquery.js')}}"></script>
-        <script src="{{URL::to('js/jquery.previewInputFileImage.js')}}"></script>
         <script src="{{URL::to('js/jquery.lazyload.js')}}"></script>
         <script src="{{URL::to('js/jquery-ui.min.js')}}"></script>
         <script src="{{URL::to('js/div-ventana-carrito.js')}}"></script>

@@ -22,7 +22,7 @@ class CategoriaController extends BaseController {
         
         $this->array_view['modulos'] = $modulos;
 
-        return View::make($this->folder_name . '.crear', $this->array_view);
+        return View::make($this->folder_name . '.agregar-boton-dinamico', $this->array_view);
     }
 
     public function agregar() {
@@ -59,7 +59,7 @@ class CategoriaController extends BaseController {
         $this->array_view['categorias'] = $categorias;
 
         if ($categoria) {
-            return View::make($this->folder_name . '.editar', $this->array_view);
+            return View::make($this->folder_name . '.editar-boton-dinamico', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);

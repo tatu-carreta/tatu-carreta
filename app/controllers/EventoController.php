@@ -33,7 +33,7 @@ class EventoController extends BaseController {
 
         $this->array_view['item'] = $item;
 
-        return View::make($this->folder_name . '.' . $this->project_name . '-ver', $this->array_view);
+        return View::make($this->folder_name . '.detalle', $this->array_view);
     }
 
     public function vistaAgregar($seccion_id) {
@@ -84,7 +84,7 @@ class EventoController extends BaseController {
             $this->array_view['evento'] = $evento;
             $this->array_view['secciones'] = $secciones;
             $this->array_view['continue'] = $next;
-            return View::make($this->folder_name . '.agregar', $this->array_view);
+            return View::make($this->folder_name . '.editar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);
