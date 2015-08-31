@@ -1,9 +1,3 @@
-<script>
-    // For Demo purposes only (show hover effect on mobile devices)
-    [].slice.call( document.querySelectorAll('a[href="#"') ).forEach( function(el) {
-        el.addEventListener( 'click', function(ev) { ev.preventDefault(); } );
-    } );
-</script>
 
         <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4 moduloItem">
             <div class="thumbnail">
