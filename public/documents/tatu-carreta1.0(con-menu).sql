@@ -2,7 +2,7 @@
 -- Host:                         127.0.0.1
 -- Versión del servidor:         5.6.20 - MySQL Community Server (GPL)
 -- SO del servidor:              Win32
--- HeidiSQL Versión:             9.1.0.4867
+-- HeidiSQL Versión:             9.2.0.4947
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -67,14 +67,13 @@ CREATE TABLE IF NOT EXISTS `assigned_roles` (
   KEY `FK_assigned_roles_roles` (`role_id`),
   CONSTRAINT `FK_assigned_roles_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
   CONSTRAINT `FK_assigned_roles_usuario` FOREIGN KEY (`user_id`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.assigned_roles: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.assigned_roles: ~1 rows (aproximadamente)
 DELETE FROM `assigned_roles`;
 /*!40000 ALTER TABLE `assigned_roles` DISABLE KEYS */;
 INSERT INTO `assigned_roles` (`id`, `user_id`, `role_id`) VALUES
-	(1, 1, 1),
-	(2, 2, 2);
+	(1, 1, 1);
 /*!40000 ALTER TABLE `assigned_roles` ENABLE KEYS */;
 
 
@@ -134,17 +133,18 @@ CREATE TABLE IF NOT EXISTS `categoria` (
   `imagen_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `url` (`url`(255))
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.categoria: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.categoria: ~0 rows (aproximadamente)
 DELETE FROM `categoria`;
 /*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
 INSERT INTO `categoria` (`id`, `nombre`, `url`, `estado`, `fecha_carga`, `fecha_modificacion`, `fecha_baja`, `usuario_id_carga`, `usuario_id_baja`, `imagen_id`) VALUES
-	(1, 'Noticias', 'noticias', 'A', '2015-02-19 11:30:28', NULL, NULL, 1, NULL, NULL),
-	(2, 'Productos', 'productos', 'A', '2015-02-19 11:30:40', NULL, NULL, 1, NULL, NULL),
-	(3, 'Eventos', 'eventos', 'A', '2015-02-19 11:30:51', NULL, NULL, 1, NULL, NULL),
-	(4, 'Portfolio Simple', 'portfolio-simple', 'A', '2015-02-19 11:31:04', NULL, NULL, 1, NULL, NULL),
-	(5, 'Portfolio Completo', 'portfolio-completo', 'A', '2015-02-19 11:31:17', NULL, NULL, 1, NULL, NULL);
+	(1, 'Productos', 'productos', 'A', '2015-09-02 16:13:03', NULL, NULL, 1, NULL, NULL),
+	(2, 'Noticias', 'noticias', 'A', '2015-09-02 16:13:14', NULL, NULL, 1, NULL, NULL),
+	(3, 'Portfolios', 'portfolios', 'A', '2015-09-02 16:13:25', NULL, NULL, 1, NULL, NULL),
+	(4, 'Portfolio Simple', 'portfolio-simple', 'A', '2015-09-02 16:13:35', NULL, NULL, 1, NULL, NULL),
+	(5, 'Portfolio Completo', 'portfolio-completo', 'A', '2015-09-02 16:13:44', NULL, NULL, 1, NULL, NULL),
+	(6, 'Muestras', 'muestras', 'A', '2015-09-02 16:14:02', NULL, NULL, 1, NULL, NULL);
 /*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
 
 
@@ -166,6 +166,10 @@ CREATE TABLE IF NOT EXISTS `categoria_asociada` (
 -- Volcando datos para la tabla tatu_carreta.categoria_asociada: ~0 rows (aproximadamente)
 DELETE FROM `categoria_asociada`;
 /*!40000 ALTER TABLE `categoria_asociada` DISABLE KEYS */;
+INSERT INTO `categoria_asociada` (`id`, `categoria_id`, `categoria_id_asociada`, `orden`, `estado`) VALUES
+	(1, 3, 4, NULL, 'A'),
+	(2, 3, 5, NULL, 'A'),
+	(3, 3, 6, NULL, 'A');
 /*!40000 ALTER TABLE `categoria_asociada` ENABLE KEYS */;
 
 
@@ -202,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `ciudad` (
   CONSTRAINT `FK_ciudad_provincia` FOREIGN KEY (`provincia_id`) REFERENCES `provincia` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27858 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.ciudad: ~22.552 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.ciudad: ~22.963 rows (aproximadamente)
 DELETE FROM `ciudad`;
 /*!40000 ALTER TABLE `ciudad` DISABLE KEYS */;
 INSERT INTO `ciudad` (`id`, `nombre`, `codigo_postal`, `provincia_id`) VALUES
@@ -23444,6 +23448,27 @@ DELETE FROM `item_seccion`;
 /*!40000 ALTER TABLE `item_seccion` ENABLE KEYS */;
 
 
+-- Volcando estructura para tabla tatu_carreta.item_video
+DROP TABLE IF EXISTS `item_video`;
+CREATE TABLE IF NOT EXISTS `item_video` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_id` int(11) NOT NULL,
+  `video_id` int(11) NOT NULL,
+  `orden` int(11) DEFAULT NULL,
+  `destacado` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_item_video_item` (`item_id`),
+  KEY `FK_item_video_video` (`video_id`),
+  CONSTRAINT `FK_item_video_item` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`),
+  CONSTRAINT `FK_item_video_video` FOREIGN KEY (`video_id`) REFERENCES `video` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Volcando datos para la tabla tatu_carreta.item_video: ~0 rows (aproximadamente)
+DELETE FROM `item_video`;
+/*!40000 ALTER TABLE `item_video` DISABLE KEYS */;
+/*!40000 ALTER TABLE `item_video` ENABLE KEYS */;
+
+
 -- Volcando estructura para tabla tatu_carreta.marca
 DROP TABLE IF EXISTS `marca`;
 CREATE TABLE IF NOT EXISTS `marca` (
@@ -23481,20 +23506,20 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `usuario_id_baja` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `url` (`url`(255))
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.menu: ~8 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.menu: ~0 rows (aproximadamente)
 DELETE FROM `menu`;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
 INSERT INTO `menu` (`id`, `nombre`, `url`, `orden`, `estado`, `fecha_carga`, `fecha_modificacion`, `fecha_baja`, `usuario_id_carga`, `usuario_id_baja`) VALUES
-	(1, 'Inicio', '', -1, 'A', '2015-02-19 11:29:24', NULL, NULL, 1, NULL),
-	(2, 'Contacto', 'contacto', 99, 'A', '2015-02-19 11:29:36', NULL, NULL, 1, NULL),
-	(3, 'Página Estática', 'pagina-estatica', 0, 'A', '2015-02-19 11:30:13', NULL, NULL, 1, NULL),
-	(4, 'Noticias', 'noticias', 0, 'A', '2015-02-19 11:30:29', NULL, NULL, 1, NULL),
-	(5, 'Productos', 'productos', 0, 'A', '2015-02-19 11:30:40', NULL, NULL, 1, NULL),
-	(6, 'Eventos', 'eventos', 0, 'A', '2015-02-19 11:30:51', NULL, NULL, 1, NULL),
-	(7, 'Portfolio Simple', 'portfolio-simple', 0, 'A', '2015-02-19 11:31:04', NULL, NULL, 1, NULL),
-	(8, 'Portfolio Completo', 'portfolio-completo', 0, 'A', '2015-02-19 11:31:17', NULL, NULL, 1, NULL);
+	(1, 'Productos', 'productos', 0, 'A', '2015-09-02 16:13:03', NULL, NULL, 1, NULL),
+	(2, 'Noticias', 'noticias', 0, 'A', '2015-09-02 16:13:14', NULL, NULL, 1, NULL),
+	(3, 'Portfolios', 'portfolios', 0, 'A', '2015-09-02 16:13:25', NULL, NULL, 1, NULL),
+	(4, 'Portfolio Simple', 'portfolio-simple', 0, 'A', '2015-09-02 16:13:35', NULL, NULL, 1, NULL),
+	(5, 'Portfolio Completo', 'portfolio-completo', 0, 'A', '2015-09-02 16:13:44', NULL, NULL, 1, NULL),
+	(6, 'Muestras', 'muestras', 0, 'A', '2015-09-02 16:14:02', NULL, NULL, 1, NULL),
+	(7, 'Estática', 'estatica', 0, 'A', '2015-09-02 16:14:14', NULL, NULL, 1, NULL),
+	(8, 'Contacto', 'contacto', 99, 'A', '2015-09-02 16:14:23', NULL, NULL, 1, NULL);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 
 
@@ -23516,6 +23541,10 @@ CREATE TABLE IF NOT EXISTS `menu_asociado` (
 -- Volcando datos para la tabla tatu_carreta.menu_asociado: ~0 rows (aproximadamente)
 DELETE FROM `menu_asociado`;
 /*!40000 ALTER TABLE `menu_asociado` DISABLE KEYS */;
+INSERT INTO `menu_asociado` (`id`, `menu_id`, `menu_id_asociado`, `orden`, `estado`) VALUES
+	(1, 3, 4, NULL, 'A'),
+	(2, 3, 5, NULL, 'A'),
+	(3, 3, 6, NULL, 'A');
 /*!40000 ALTER TABLE `menu_asociado` ENABLE KEYS */;
 
 
@@ -23530,17 +23559,18 @@ CREATE TABLE IF NOT EXISTS `menu_categoria` (
   KEY `categoria_id` (`categoria_id`),
   CONSTRAINT `menu_categoria_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`),
   CONSTRAINT `menu_categoria_ibfk_2` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.menu_categoria: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.menu_categoria: ~0 rows (aproximadamente)
 DELETE FROM `menu_categoria`;
 /*!40000 ALTER TABLE `menu_categoria` DISABLE KEYS */;
 INSERT INTO `menu_categoria` (`id`, `menu_id`, `categoria_id`) VALUES
-	(1, 4, 1),
-	(2, 5, 2),
-	(3, 6, 3),
-	(4, 7, 4),
-	(5, 8, 5);
+	(1, 1, 1),
+	(2, 2, 2),
+	(3, 3, 3),
+	(4, 4, 4),
+	(5, 5, 5),
+	(6, 6, 6);
 /*!40000 ALTER TABLE `menu_categoria` ENABLE KEYS */;
 
 
@@ -23581,17 +23611,18 @@ CREATE TABLE IF NOT EXISTS `menu_modulo` (
   KEY `FK__modulo` (`modulo_id`),
   CONSTRAINT `FK__menu` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`),
   CONSTRAINT `FK__modulo` FOREIGN KEY (`modulo_id`) REFERENCES `modulo` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.menu_modulo: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.menu_modulo: ~0 rows (aproximadamente)
 DELETE FROM `menu_modulo`;
 /*!40000 ALTER TABLE `menu_modulo` DISABLE KEYS */;
 INSERT INTO `menu_modulo` (`id`, `menu_id`, `modulo_id`, `estado`, `fecha_carga`, `fecha_baja`, `usuario_id_carga`, `usuario_id_baja`) VALUES
-	(1, 4, 2, 'A', '2015-02-19 11:30:29', NULL, 1, NULL),
-	(2, 5, 1, 'A', '2015-02-19 11:30:40', NULL, 1, NULL),
-	(3, 6, 3, 'A', '2015-02-19 11:30:51', NULL, 1, NULL),
-	(4, 7, 4, 'A', '2015-02-19 11:31:04', NULL, 1, NULL),
-	(5, 8, 5, 'A', '2015-02-19 11:31:17', NULL, 1, NULL);
+	(1, 1, 1, 'A', '2015-09-02 16:13:03', NULL, 1, NULL),
+	(2, 2, 2, 'A', '2015-09-02 16:13:14', NULL, 1, NULL),
+	(3, 3, 4, 'A', '2015-09-02 16:13:25', NULL, 1, NULL),
+	(4, 4, 4, 'A', '2015-09-02 16:13:35', NULL, 1, NULL),
+	(5, 5, 5, 'A', '2015-09-02 16:13:44', NULL, 1, NULL),
+	(6, 6, 6, 'A', '2015-09-02 16:14:02', NULL, 1, NULL);
 /*!40000 ALTER TABLE `menu_modulo` ENABLE KEYS */;
 
 
@@ -23607,9 +23638,9 @@ CREATE TABLE IF NOT EXISTS `menu_seccion` (
   KEY `seccion_id` (`seccion_id`),
   CONSTRAINT `menu_seccion_ibfk_1` FOREIGN KEY (`menu_id`) REFERENCES `menu` (`id`),
   CONSTRAINT `menu_seccion_ibfk_2` FOREIGN KEY (`seccion_id`) REFERENCES `seccion` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.menu_seccion: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.menu_seccion: ~0 rows (aproximadamente)
 DELETE FROM `menu_seccion`;
 /*!40000 ALTER TABLE `menu_seccion` DISABLE KEYS */;
 INSERT INTO `menu_seccion` (`id`, `menu_id`, `seccion_id`, `orden`) VALUES
@@ -23620,10 +23651,7 @@ INSERT INTO `menu_seccion` (`id`, `menu_id`, `seccion_id`, `orden`) VALUES
 	(5, 5, 5, NULL),
 	(6, 6, 6, NULL),
 	(7, 7, 7, NULL),
-	(8, 8, 8, NULL),
-	(9, 3, 9, NULL),
-	(10, 3, 10, NULL),
-	(11, 3, 11, NULL);
+	(8, 8, 8, NULL);
 /*!40000 ALTER TABLE `menu_seccion` ENABLE KEYS */;
 
 
@@ -23633,9 +23661,9 @@ CREATE TABLE IF NOT EXISTS `modulo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.modulo: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.modulo: ~6 rows (aproximadamente)
 DELETE FROM `modulo`;
 /*!40000 ALTER TABLE `modulo` DISABLE KEYS */;
 INSERT INTO `modulo` (`id`, `nombre`) VALUES
@@ -23643,8 +23671,26 @@ INSERT INTO `modulo` (`id`, `nombre`) VALUES
 	(2, 'noticia'),
 	(3, 'evento'),
 	(4, 'portfolio_simple'),
-	(5, 'portfolio_completo');
+	(5, 'portfolio_completo'),
+	(6, 'muestra');
 /*!40000 ALTER TABLE `modulo` ENABLE KEYS */;
+
+
+-- Volcando estructura para tabla tatu_carreta.muestra
+DROP TABLE IF EXISTS `muestra`;
+CREATE TABLE IF NOT EXISTS `muestra` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_id` int(11) NOT NULL,
+  `cuerpo` text COLLATE utf8_unicode_ci,
+  PRIMARY KEY (`id`),
+  KEY `FK_muestra_portfolio_simple` (`item_id`),
+  CONSTRAINT `FK_muestra_item` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Volcando datos para la tabla tatu_carreta.muestra: ~0 rows (aproximadamente)
+DELETE FROM `muestra`;
+/*!40000 ALTER TABLE `muestra` DISABLE KEYS */;
+/*!40000 ALTER TABLE `muestra` ENABLE KEYS */;
 
 
 -- Volcando estructura para tabla tatu_carreta.noticia
@@ -23979,7 +24025,7 @@ CREATE TABLE IF NOT EXISTS `perfil` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.perfil: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.perfil: ~1 rows (aproximadamente)
 DELETE FROM `perfil`;
 /*!40000 ALTER TABLE `perfil` DISABLE KEYS */;
 INSERT INTO `perfil` (`id`, `nombre`, `estado`, `fecha_carga`, `fecha_baja`, `usuario_id_carga`, `usuario_id_baja`) VALUES
@@ -24013,9 +24059,9 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.permissions: ~50 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.permissions: ~53 rows (aproximadamente)
 DELETE FROM `permissions`;
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
 INSERT INTO `permissions` (`id`, `name`) VALUES
@@ -24068,7 +24114,10 @@ INSERT INTO `permissions` (`id`, `name`) VALUES
 	(47, 'editar_slide_home'),
 	(48, 'borrar_slide_home'),
 	(49, 'elegir_modulo'),
-	(50, 'cambiar_seccion_item');
+	(50, 'cambiar_seccion_item'),
+	(51, 'agregar_pagina_carrito'),
+	(52, 'exportar_clientes'),
+	(53, 'exportar_personas');
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
 
 
@@ -24083,9 +24132,9 @@ CREATE TABLE IF NOT EXISTS `permission_role` (
   KEY `FK_permission_role_roles` (`role_id`),
   CONSTRAINT `FK_permission_role_permissions` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`),
   CONSTRAINT `FK_permission_role_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.permission_role: ~50 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.permission_role: ~58 rows (aproximadamente)
 DELETE FROM `permission_role`;
 /*!40000 ALTER TABLE `permission_role` DISABLE KEYS */;
 INSERT INTO `permission_role` (`id`, `permission_id`, `role_id`) VALUES
@@ -24113,32 +24162,40 @@ INSERT INTO `permission_role` (`id`, `permission_id`, `role_id`) VALUES
 	(22, 22, 1),
 	(23, 23, 1),
 	(24, 24, 1),
-	(25, 25, 1),
-	(26, 26, 1),
-	(27, 27, 1),
-	(28, 28, 1),
-	(29, 29, 1),
-	(30, 30, 1),
-	(31, 31, 1),
-	(32, 32, 1),
-	(33, 33, 1),
-	(34, 34, 1),
-	(35, 35, 1),
-	(36, 36, 1),
-	(37, 37, 1),
-	(38, 38, 1),
-	(39, 39, 1),
-	(40, 40, 1),
-	(41, 41, 1),
-	(42, 42, 1),
-	(43, 43, 1),
-	(44, 44, 1),
-	(45, 45, 1),
-	(46, 46, 1),
-	(47, 47, 1),
-	(48, 48, 1),
-	(49, 49, 1),
-	(50, 50, 1);
+	(25, 24, 2),
+	(26, 25, 1),
+	(27, 26, 1),
+	(28, 27, 1),
+	(29, 28, 1),
+	(30, 29, 1),
+	(31, 30, 1),
+	(32, 31, 1),
+	(33, 32, 1),
+	(34, 33, 1),
+	(35, 34, 1),
+	(36, 35, 1),
+	(37, 36, 1),
+	(38, 36, 2),
+	(39, 37, 1),
+	(40, 37, 2),
+	(41, 38, 1),
+	(42, 38, 2),
+	(43, 39, 1),
+	(44, 40, 1),
+	(45, 41, 1),
+	(46, 41, 2),
+	(47, 42, 1),
+	(48, 43, 1),
+	(49, 44, 1),
+	(50, 45, 1),
+	(51, 46, 1),
+	(52, 47, 1),
+	(53, 48, 1),
+	(54, 49, 1),
+	(55, 50, 1),
+	(56, 51, 1),
+	(57, 52, 1),
+	(58, 53, 1);
 /*!40000 ALTER TABLE `permission_role` ENABLE KEYS */;
 
 
@@ -24188,6 +24245,22 @@ CREATE TABLE IF NOT EXISTS `persona_modificacion` (
 DELETE FROM `persona_modificacion`;
 /*!40000 ALTER TABLE `persona_modificacion` DISABLE KEYS */;
 /*!40000 ALTER TABLE `persona_modificacion` ENABLE KEYS */;
+
+
+-- Volcando estructura para tabla tatu_carreta.persona_telefono
+DROP TABLE IF EXISTS `persona_telefono`;
+CREATE TABLE IF NOT EXISTS `persona_telefono` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `persona_id` int(11) NOT NULL,
+  `telefono_id` int(11) NOT NULL,
+  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Volcando datos para la tabla tatu_carreta.persona_telefono: ~0 rows (aproximadamente)
+DELETE FROM `persona_telefono`;
+/*!40000 ALTER TABLE `persona_telefono` DISABLE KEYS */;
+/*!40000 ALTER TABLE `persona_telefono` ENABLE KEYS */;
 
 
 -- Volcando estructura para tabla tatu_carreta.portfolio_completo
@@ -24359,23 +24432,20 @@ CREATE TABLE IF NOT EXISTS `seccion` (
   `usuario_id_carga` int(11) NOT NULL,
   `usuario_id_baja` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.seccion: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.seccion: ~0 rows (aproximadamente)
 DELETE FROM `seccion`;
 /*!40000 ALTER TABLE `seccion` DISABLE KEYS */;
 INSERT INTO `seccion` (`id`, `titulo`, `estado`, `fecha_carga`, `fecha_modificacion`, `fecha_baja`, `usuario_id_carga`, `usuario_id_baja`) VALUES
-	(1, '', 'A', '2015-02-19 11:29:24', NULL, NULL, 1, NULL),
-	(2, '', 'A', '2015-02-19 11:29:36', NULL, NULL, 1, NULL),
-	(3, '', 'A', '2015-02-19 11:30:13', NULL, NULL, 1, NULL),
-	(4, '', 'A', '2015-02-19 11:30:29', NULL, NULL, 1, NULL),
-	(5, '', 'A', '2015-02-19 11:30:40', NULL, NULL, 1, NULL),
-	(6, '', 'A', '2015-02-19 11:30:51', NULL, NULL, 1, NULL),
-	(7, '', 'A', '2015-02-19 11:31:05', NULL, NULL, 1, NULL),
-	(8, '', 'A', '2015-02-19 11:31:17', NULL, NULL, 1, NULL),
-	(9, '', 'A', '2015-03-02 10:31:44', NULL, NULL, 1, NULL),
-	(10, '', 'A', '2015-03-02 10:31:53', NULL, NULL, 1, NULL),
-	(11, '', 'A', '2015-03-02 10:31:56', NULL, NULL, 1, NULL);
+	(1, '', 'A', '2015-09-02 16:13:03', NULL, NULL, 1, NULL),
+	(2, '', 'A', '2015-09-02 16:13:14', NULL, NULL, 1, NULL),
+	(3, '', 'A', '2015-09-02 16:13:25', NULL, NULL, 1, NULL),
+	(4, '', 'A', '2015-09-02 16:13:36', NULL, NULL, 1, NULL),
+	(5, '', 'A', '2015-09-02 16:13:44', NULL, NULL, 1, NULL),
+	(6, '', 'A', '2015-09-02 16:14:02', NULL, NULL, 1, NULL),
+	(7, '', 'A', '2015-09-02 16:14:14', NULL, NULL, 1, NULL),
+	(8, '', 'A', '2015-09-02 16:14:23', NULL, NULL, 1, NULL);
 /*!40000 ALTER TABLE `seccion` ENABLE KEYS */;
 
 
@@ -24540,14 +24610,13 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   KEY `nombre` (`nombre`(255)),
   KEY `clave` (`clave`(255)),
   KEY `iderUser` (`iderUser`(255))
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.usuario: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.usuario: ~1 rows (aproximadamente)
 DELETE FROM `usuario`;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
 INSERT INTO `usuario` (`id`, `nombre`, `clave`, `iderUser`, `estado`, `ultimo_ingreso`, `fecha_carga`, `fecha_modificacion`, `fecha_baja`, `remember_token`) VALUES
-	(1, 'superadmin', '$2y$10$0JDU9/Ys.wS9c0ATKGEhb.7DCTYznN9pLBHELQwGwJ6VK/DiIhm6S', '', 'A', '2015-03-02 10:31:11', '2014-07-25 11:26:05', NULL, NULL, 0),
-	(2, 'maurog', '$2y$10$XtJDjEZRXBKKdiI/loKIguGlgLmEa.j/qKSUseZhGKSGoIut/4Lq2', '', 'A', '2014-12-05 13:03:38', '2014-12-05 11:01:24', NULL, NULL, 0);
+	(1, 'superadmin', '$2y$10$0JDU9/Ys.wS9c0ATKGEhb.7DCTYznN9pLBHELQwGwJ6VK/DiIhm6S', '', 'A', '2015-09-02 16:12:50', '2014-07-25 11:26:05', NULL, NULL, 0);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 
 
@@ -24561,15 +24630,13 @@ CREATE TABLE IF NOT EXISTS `usuario_acceso` (
   PRIMARY KEY (`id`),
   KEY `usuario_id` (`usuario_id`),
   CONSTRAINT `usuario_acceso_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.usuario_acceso: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.usuario_acceso: ~0 rows (aproximadamente)
 DELETE FROM `usuario_acceso`;
 /*!40000 ALTER TABLE `usuario_acceso` DISABLE KEYS */;
 INSERT INTO `usuario_acceso` (`id`, `usuario_id`, `fecha_acceso`, `ip`) VALUES
-	(1, 1, '2015-02-19 11:24:33', '127.0.0.1'),
-	(2, 1, '2015-02-19 11:47:55', '127.0.0.1'),
-	(3, 1, '2015-03-02 10:31:11', '::1');
+	(1, 1, '2015-09-02 16:12:50', '::1');
 /*!40000 ALTER TABLE `usuario_acceso` ENABLE KEYS */;
 
 
@@ -24603,14 +24670,33 @@ CREATE TABLE IF NOT EXISTS `usuario_perfil` (
   KEY `perfil_id` (`perfil_id`),
   CONSTRAINT `usuario_perfil_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
   CONSTRAINT `usuario_perfil_ibfk_2` FOREIGN KEY (`perfil_id`) REFERENCES `perfil` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Volcando datos para la tabla tatu_carreta.usuario_perfil: ~0 rows (aproximadamente)
 DELETE FROM `usuario_perfil`;
 /*!40000 ALTER TABLE `usuario_perfil` DISABLE KEYS */;
-INSERT INTO `usuario_perfil` (`id`, `usuario_id`, `perfil_id`) VALUES
-	(1, 1, 1);
 /*!40000 ALTER TABLE `usuario_perfil` ENABLE KEYS */;
+
+
+-- Volcando estructura para tabla tatu_carreta.video
+DROP TABLE IF EXISTS `video`;
+CREATE TABLE IF NOT EXISTS `video` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `tipo` char(50) COLLATE utf8_unicode_ci NOT NULL,
+  `estado` char(1) COLLATE utf8_unicode_ci NOT NULL,
+  `fecha_carga` datetime NOT NULL,
+  `fecha_baja` datetime DEFAULT NULL,
+  `usuario_id_carga` int(11) NOT NULL,
+  `usuario_id_baja` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Volcando datos para la tabla tatu_carreta.video: ~0 rows (aproximadamente)
+DELETE FROM `video`;
+/*!40000 ALTER TABLE `video` DISABLE KEYS */;
+/*!40000 ALTER TABLE `video` ENABLE KEYS */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

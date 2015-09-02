@@ -195,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `ciudad` (
   CONSTRAINT `FK_ciudad_provincia` FOREIGN KEY (`provincia_id`) REFERENCES `provincia` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27858 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.ciudad: ~22.608 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.ciudad: ~23.129 rows (aproximadamente)
 DELETE FROM `ciudad`;
 /*!40000 ALTER TABLE `ciudad` DISABLE KEYS */;
 INSERT INTO `ciudad` (`id`, `nombre`, `codigo_postal`, `provincia_id`) VALUES
@@ -24510,11 +24510,16 @@ CREATE TABLE IF NOT EXISTS `tipo_precio` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Volcando datos para la tabla tatu_carreta.tipo_precio: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla tatu_carreta.tipo_precio: ~4 rows (aproximadamente)
 DELETE FROM `tipo_precio`;
 /*!40000 ALTER TABLE `tipo_precio` DISABLE KEYS */;
+INSERT INTO `tipo_precio` (`id`, `nombre`) VALUES
+	(1, 'Precio Antes'),
+	(2, 'Precio Actual'),
+	(3, 'Precio Mayorista'),
+	(4, 'Precio Minorista');
 /*!40000 ALTER TABLE `tipo_precio` ENABLE KEYS */;
 
 
