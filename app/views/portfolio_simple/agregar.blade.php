@@ -8,9 +8,6 @@
 @stop
 
 @section('contenido')
-    @if (Session::has('mensaje'))
-    <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
-    @endif
     <section class="container">
         {{ Form::open(array('url' => 'admin/portfolio_simple/agregar', 'files' => true, 'role' => 'form')) }}
             <h2><span>Nueva obra</span></h2>

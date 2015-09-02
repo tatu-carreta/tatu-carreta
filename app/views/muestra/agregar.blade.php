@@ -9,9 +9,6 @@
 
 @section('contenido')
     <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
-    @if (Session::has('mensaje'))
-        <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
-    @endif
     <section class="container" id="ng-app" ng-app="app">
         <div ng-controller="ImagenMultiple" nv-file-drop="" uploader="uploader" filters="customFilter, sizeLimit">
         {{ Form::open(array('url' => 'admin/muestra/agregar', 'files' => true, 'role' => 'form')) }}

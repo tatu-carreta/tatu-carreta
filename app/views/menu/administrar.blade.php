@@ -3,9 +3,6 @@
 @section('title') Administrar Menú @stop
 
 @section('contenido')
-        @if (Session::has('mensaje'))
-        <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
-        @endif
     <script src="{{URL::to('js/popupFuncs.js')}}"></script>
     <section class="container admin">
         @if (Session::has('mensaje'))

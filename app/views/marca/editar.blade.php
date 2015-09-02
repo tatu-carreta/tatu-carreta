@@ -1,9 +1,6 @@
 @extends($project_name.'-master')
 
 @section('contenido')
-    @if (Session::has('mensaje'))
-    <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
-    @endif
 <script>
     function verificar_cancelar(){
         if(!$(".imgMarcaCargada").length)

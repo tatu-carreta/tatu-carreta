@@ -1,9 +1,6 @@
 @extends($project_name.'-master')
 
 @section('contenido')
-    @if (Session::has('mensaje'))
-    <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
-    @endif
 <section class="container">
     <h3>Agregar Permiso</h3>
 

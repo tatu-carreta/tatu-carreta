@@ -19,7 +19,6 @@
 @section('contenido')
 
     @if(Session::has('anclaProd'))
-        <script src="{{URL::to('js/anclaFuncs.js')}}"></script>
         <a id="ancla" href="{{ Session::get('anclaProd') }}" style="display: none;">Ancla</a>
     @endif
 

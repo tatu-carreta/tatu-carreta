@@ -144,9 +144,6 @@
 @stop
 
 @section('contenido')
-    @if (Session::has('mensaje'))
-    <script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
-    @endif
     <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
     
     <section class="container">

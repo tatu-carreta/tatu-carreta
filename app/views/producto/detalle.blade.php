@@ -15,9 +15,6 @@
     });
 </script>
 @endif
-@if(Session::has('mensaje'))
-<script src="{{URL::to('js/divAlertaFuncs.js')}}"></script>
-@endif
 <section>
     @if (Session::has('mensaje'))
         <div class="divAlerta ok alert-success">{{ Session::get('mensaje') }}<i onclick="" class="cerrarDivAlerta fa fa-times fa-lg"></i></div>

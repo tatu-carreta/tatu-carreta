@@ -109,8 +109,7 @@
                              <!-- B T N   C A R R I T O -->
                             {{--<a href="{{URL::to('carrito')}}" class="btnCarrito active"><span>Presupuesto: {{Cart::count(false)}}</span><i class="fa fa-shopping-cart fa-lg"></i></a>
                             --}}
-                            <?php
-                            /*
+                            
                             <!-- VENTANA CARRITO -->
                             @if(Session::has('producto_carrito_subido'))
                                 @if(Session::get('producto_carrito_subido'))
@@ -127,9 +126,7 @@
                                     </div>
                                 @endif
                             @endif
-                             * 
-                             */
-                            ?>
+                            
                             
                             <!-- N A V -->
                             @include('menu.'.$project_name.'-desplegar-menu')
@@ -169,7 +166,7 @@
         <script src="{{URL::to('ckeditor/adapters/jquery.js')}}"></script>
         <script src="{{URL::to('js/jquery.lazyload.js')}}"></script>
         <script src="{{URL::to('js/jquery-ui.min.js')}}"></script>
-        <script src="{{URL::to('js/div-ventana-carrito.js')}}"></script>
+        <!--<script src="{{URL::to('js/div-ventana-carrito.js')}}"></script>-->
         
         <script>
             $(function () {

@@ -216,3 +216,40 @@ $(document).ready(function () {
                 }
             });
 });
+$(function () {
+    $('#ancla').click(function () {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            var $target = $(this.hash);
+            $target = $target.length && $target || $('[name=' + this.hash.slice(1) + ']');
+            if ($target.length) {
+                var targetOffset = $target.offset().top - 130;
+                $('html,body').animate({scrollTop: targetOffset}, 1000);
+                return false;
+            }
+        }
+    });
+});
+$(document).ready(function () {
+    $("#ancla").click();
+});
+
+$(document).ready(function () {
+    setTimeout(function () {
+        $(".divEmergente").fadeOut(1500);
+    }, 10000);
+});
+$(function () {
+    $(".cerrarEmergente").click(function () {
+        $(".divEmergente").fadeOut(1500);
+    });
+});
+$(document).ready(function () {
+    setTimeout(function () {
+        $(".divAlerta").fadeOut(1500);
+    }, 10000);
+});
+$(function () {
+    $(".cerrarDivAlerta").click(function () {
+        $(".divAlerta").fadeOut(1500);
+    });
+});
