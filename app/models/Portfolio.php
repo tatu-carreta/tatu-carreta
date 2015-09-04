@@ -13,29 +13,59 @@ class Portfolio extends Item {
     public static function agregar($input) {
         //Lo crea definitivamente
 
-        if (isset($input['descripcion'])) {
+        $respuesta = array();
 
-            $input['descripcion'] = $input['descripcion'];
-        } else {
-            $input['descripcion'] = NULL;
-        }
+        //Se definen las reglas con las que se van a validar los datos
+        //del PRODUCTO
+        $reglas = array(
+            //'titulo' => array('max:9', 'unique:item'),
+            'seccion_id' => array('integer'),
+            'imagen_portada_crop' => array('required'),
+        );
 
+        //Se realiza la validación
+        $validator = Validator::make($input, $reglas);
 
-        $item = Item::agregarItem($input);
+        if ($validator->fails()) {
 
-        if ($item['error']) {
-            $respuesta['error'] = true;
-            $respuesta['mensaje'] = "Error en la obra. Compruebe los campos.";
-        } else {
-            $portfolio_simple = static::create(['item_id' => $item['data']->id]);
-
-            if ($portfolio_simple) {
-                $respuesta['error'] = false;
-                $respuesta['mensaje'] = "Portfolio creado.";
-                $respuesta['data'] = $portfolio_simple;
+            $messages = $validator->messages();
+            /*if ($messages->has('titulo')) {
+                $respuesta['mensaje'] = 'El código del producto contiene más de 9 caracteres o ya existe.';
+            } else*/if ($messages->has('imagen_portada_crop')) {
+                $respuesta['mensaje'] = 'Se olvidó de guardar la imagen recortada.';
             } else {
+                $respuesta['mensaje'] = 'Los datos necesarios para la obra son erróneos.';
+            }
+
+            //Si está todo mal, carga lo que corresponde en el mensaje.
+
+            $respuesta['error'] = true;
+        } else {
+
+            if (isset($input['descripcion'])) {
+
+                $input['descripcion'] = $input['descripcion'];
+            } else {
+                $input['descripcion'] = NULL;
+            }
+
+
+            $item = Item::agregarItem($input);
+
+            if ($item['error']) {
                 $respuesta['error'] = true;
-                $respuesta['mensaje'] = "Error en el portfolio. Compruebe los campos.";
+                $respuesta['mensaje'] = "Hubo un error al agregar la obra. Compruebe los campos.";
+            } else {
+                $portfolio_simple = static::create(['item_id' => $item['data']->id]);
+
+                if ($portfolio_simple) {
+                    $respuesta['error'] = false;
+                    $respuesta['mensaje'] = "Obra creada.";
+                    $respuesta['data'] = $portfolio_simple;
+                } else {
+                    $respuesta['error'] = true;
+                    $respuesta['mensaje'] = "Hubo un error al agregar la obra. Compruebe los campos.";
+                }
             }
         }
         return $respuesta;

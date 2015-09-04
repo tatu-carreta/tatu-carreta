@@ -18,14 +18,14 @@ class Item extends Eloquent {
         $reglas = array(
             'titulo' => array('max:50', 'unique:item'),
             'seccion_id' => array('integer'),
-            'imagen_portada_crop' => array('required'),
+            //'imagen_portada_crop' => array('required'),
         );
-/*
-        if (isset($input['titulo']) && ($input['titulo'] != "")) {
-            $reglas['titulo'] = array('max:9', 'unique:item');
-        }
- * 
- */
+        /*
+          if (isset($input['titulo']) && ($input['titulo'] != "")) {
+          $reglas['titulo'] = array('max:9', 'unique:item');
+          }
+         * 
+         */
 
         if (isset($input['es_texto']) && ($input['es_texto'])) {
             unset($reglas['imagen_portada_crop']);
@@ -903,8 +903,10 @@ class Item extends Eloquent {
 
             $item = DB::table('item_seccion')->where(
                             $input)->update(array('orden' => $orden));
+            
+            $it = Item::find($item_id);
 
-            $respuesta['mensaje'] = 'Los productos han sido ordenados.';
+            $respuesta['mensaje'] = 'Los ' . $it->tipo()['tipo_plural'] . ' han sido ordenados.';
             $respuesta['error'] = false;
             $respuesta['data'] = $item;
         }
@@ -1143,6 +1145,35 @@ class Item extends Eloquent {
 
     public function muestra() {
         return Muestra::where('item_id', $this->id)->first();
+    }
+
+    public function tipo() {
+        $result = array(
+            'tipo_singular' => 'item',
+            'tipo_plural' => 'items'
+        );
+
+        if (!is_null($this->texto())) {
+            $result['tipo_singular'] = 'texto';
+            $result['tipo_plural'] = 'textos';
+        } elseif (!is_null($this->html())) {
+            $result['tipo_singular'] = 'html';
+            $result['tipo_plural'] = 'htmls';
+        } elseif (!is_null($this->galeria())) {
+            $result['tipo_singular'] = 'galería';
+            $result['tipo_plural'] = 'galerias';
+        } elseif (!is_null($this->producto())) {
+            $result['tipo_singular'] = 'producto';
+            $result['tipo_plural'] = 'productos';
+        } elseif (!is_null($this->portfolio())) {
+            $result['tipo_singular'] = 'obra';
+            $result['tipo_plural'] = 'obras';
+        } elseif (!is_null($this->muestra())) {
+            $result['tipo_singular'] = 'muestra';
+            $result['tipo_plural'] = 'muestras';
+        }
+
+        return $result;
     }
 
 }

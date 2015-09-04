@@ -12,93 +12,122 @@ class Producto extends Item {
     //Función de Agregación de Item
     public static function agregarProducto($input) {
 
+        $respuesta = array();
 
-        //Lo crea definitivamente
-        $item = Item::agregarItem($input);
+        //Se definen las reglas con las que se van a validar los datos
+        //del PRODUCTO
+        $reglas = array(
+            'titulo' => array('required','max:9', 'unique:item'),
+            'seccion_id' => array('integer'),
+            'imagen_portada_crop' => array('required'),
+        );
 
-        if (isset($input['cuerpo'])) {
+        //Se realiza la validación
+        $validator = Validator::make($input, $reglas);
 
-            $cuerpo = $input['cuerpo'];
+        if ($validator->fails()) {
+
+            $messages = $validator->messages();
+            if ($messages->has('titulo')) {
+                $respuesta['mensaje'] = 'El código del producto contiene más de 9 caracteres o ya existe.';
+            } elseif ($messages->has('imagen_portada_crop')) {
+                $respuesta['mensaje'] = 'Se olvidó de guardar la imagen recortada.';
+            } else {
+                $respuesta['mensaje'] = 'Los datos necesarios para el producto son erróneos.';
+            }
+
+            //Si está todo mal, carga lo que corresponde en el mensaje.
+
+            $respuesta['error'] = true;
         } else {
-            $cuerpo = NULL;
-        }
 
-        if (!$item['error']) {
 
-            $producto = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
+            //Lo crea definitivamente
+            $item = Item::agregarItem($input);
 
-            if ($producto) {
-                if (isset($input['precio']) && ($input['precio'] != "")) {
-                    $valores = array(
-                        "valor" => $input['precio'],
-                        "estado" => "A"
-                    );
-                    $producto->precios()->attach(2, $valores);
-                }
+            if (isset($input['cuerpo'])) {
 
-                if (isset($input['item_destacado']) && ($input['item_destacado'] == 'O')) {
-                    if (isset($input['precio_antes']) && ($input['precio_antes'] != "")) {
+                $cuerpo = $input['cuerpo'];
+            } else {
+                $cuerpo = NULL;
+            }
 
-                        $datos = array(
-                            "producto_id" => $producto->id,
-                            "tipo_precio_id" => 1,
-                        );
-                        $baja_producto_precio = DB::table('producto_precio')->where($datos)->update(array('estado' => 'B'));
+            if (!$item['error']) {
 
+                $producto = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
+
+                if ($producto) {
+                    if (isset($input['precio']) && ($input['precio'] != "")) {
                         $valores = array(
-                            "valor" => $input['precio_antes'],
-                            "estado" => "A"
-                        );
-                        $producto->precios()->attach(1, $valores);
-                    }
-                    if (isset($input['precio_actual']) && ($input['precio_actual'] != "")) {
-
-                        $datos = array(
-                            "producto_id" => $producto->id,
-                            "tipo_precio_id" => 2,
-                        );
-                        $baja_producto_precio = DB::table('producto_precio')->where($datos)->update(array('estado' => 'B'));
-
-                        $valores = array(
-                            "valor" => $input['precio_actual'],
+                            "valor" => $input['precio'],
                             "estado" => "A"
                         );
                         $producto->precios()->attach(2, $valores);
                     }
-                }
 
-                if (isset($input['marca_principal']) && ($input['marca_principal'] != "")) {
-                    $valores = array(
-                        "producto_id" => $producto->id,
-                        "marca_id" => $input['marca_principal'],
-                        "estado" => "A"
-                    );
-                    DB::table('producto_marca')->insert($valores);
-                    //$producto->marcas_principales()->attach(1, $valores);
-                }
-                if (isset($input['marcas_secundarias']) && ($input['marcas_secundarias'] != "")) {
-                    foreach ($input['marcas_secundarias'] as $key => $marca) {
+                    if (isset($input['item_destacado']) && ($input['item_destacado'] == 'O')) {
+                        if (isset($input['precio_antes']) && ($input['precio_antes'] != "")) {
+
+                            $datos = array(
+                                "producto_id" => $producto->id,
+                                "tipo_precio_id" => 1,
+                            );
+                            $baja_producto_precio = DB::table('producto_precio')->where($datos)->update(array('estado' => 'B'));
+
+                            $valores = array(
+                                "valor" => $input['precio_antes'],
+                                "estado" => "A"
+                            );
+                            $producto->precios()->attach(1, $valores);
+                        }
+                        if (isset($input['precio_actual']) && ($input['precio_actual'] != "")) {
+
+                            $datos = array(
+                                "producto_id" => $producto->id,
+                                "tipo_precio_id" => 2,
+                            );
+                            $baja_producto_precio = DB::table('producto_precio')->where($datos)->update(array('estado' => 'B'));
+
+                            $valores = array(
+                                "valor" => $input['precio_actual'],
+                                "estado" => "A"
+                            );
+                            $producto->precios()->attach(2, $valores);
+                        }
+                    }
+
+                    if (isset($input['marca_principal']) && ($input['marca_principal'] != "")) {
                         $valores = array(
                             "producto_id" => $producto->id,
-                            "marca_id" => $marca,
+                            "marca_id" => $input['marca_principal'],
                             "estado" => "A"
                         );
                         DB::table('producto_marca')->insert($valores);
                         //$producto->marcas_principales()->attach(1, $valores);
                     }
+                    if (isset($input['marcas_secundarias']) && ($input['marcas_secundarias'] != "")) {
+                        foreach ($input['marcas_secundarias'] as $key => $marca) {
+                            $valores = array(
+                                "producto_id" => $producto->id,
+                                "marca_id" => $marca,
+                                "estado" => "A"
+                            );
+                            DB::table('producto_marca')->insert($valores);
+                            //$producto->marcas_principales()->attach(1, $valores);
+                        }
+                    }
+
+                    $respuesta['data'] = $producto;
+                    $respuesta['error'] = false;
+                    $respuesta['mensaje'] = "Producto publicado.";
+                } else {
+                    $respuesta['error'] = true;
+                    $respuesta['mensaje'] = "El producto no pudo ser creado. Compruebe los campos.";
                 }
-
-                $respuesta['data'] = $producto;
-                $respuesta['error'] = false;
-                $respuesta['mensaje'] = "Producto publicado.";
             } else {
-                $respuesta['error'] = true;
-                $respuesta['mensaje'] = "El producto no pudo ser creado. Compruebe los campos.";
+                $respuesta = $item;
             }
-        } else {
-            $respuesta = $item;
         }
-
         return $respuesta;
     }
 
