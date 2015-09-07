@@ -1,42 +1,77 @@
 @extends($project_name.'-master')
 
 @section('contenido')
-<section>
-    @if (Session::has('mensaje'))
-        <div class="divAlerta ok alert-success">{{ Session::get('mensaje') }}<i onclick="" class="cerrarDivAlerta fa fa-times fa-lg"></i></div>
-    @endif
-    <div class="container">
-        <h2><span class=""><a class="volveraSeccion" href="{{URL::to('/'.$item -> seccionItem() -> menuSeccion() -> url)}}">{{ $item -> seccionItem() -> menuSeccion() -> nombre }}</a></span></h2>
-       
-        @if(Auth::check())
-            @if(Auth::user()->can("editar_item"))
-            <a href="{{URL::to('admin/noticia/editar/'.$item->texto()->noticia()->id)}}" data='{{$item -> seccionItem() -> id}}' style="display:none">Editar<i class="fa fa-pencil fa-lg"></i></a>
+<style>
+    .fecha {margin-top: 0; color: #286090 }
+    .bajada {color: #286090}
+</style>
+
+<section class="container">
+    <div class="row">
+        <div class="col-md-12 marginBottom2">
+            <h2>{{ $item -> titulo }}</h2>
+            <a class="volveraSeccion" href="{{URL::to('/'.$item -> seccionItem() -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ $item -> seccionItem() -> menuSeccion() -> nombre }}</a>
+            @if(Auth::check())
+                @if(Auth::user()->can("editar_item"))
+                <a href="{{URL::to('admin/noticia/editar/'.$item->texto()->noticia()->id)}}" data='{{$item -> seccionItem() -> id}}' style="display:none">Editar<i class="fa fa-pencil fa-lg"></i></a>
+                @endif
             @endif
-        @endif
-        
-        <!--columna Noticia -->
-        <div class="divNoticia"> 
-            <div class="divCpoNoticia colTextos bordeVerdeLateral paddingTextos">
-                <h2>{{ $item -> titulo }}</h2>
-                <div class="editor">
-                    <p class="fecha">{{ date('d/m/Y', strtotime($item->texto()->noticia()->fecha)) }}</p>
-                    <p>Fuente: <strong>{{ $item->texto()->noticia()->fuente }}</strong></p>
-                    <p class="bajada">{{ $item->descripcion }}</p>
-                </div>
-                <div class="editor">
-                    <p>{{ $item->texto()->cuerpo }}</p>
-                </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+    
+    <div class="row marginBottom2 ">
+        <div class="col-md-12">
+            <div class="editor">
+                <p class="fecha">{{ date('d/m/Y', strtotime($item->texto()->noticia()->fecha)) }}</p>
+                <p>Fuente: <strong>{{ $item->texto()->noticia()->fuente }}</strong></p>
+                <p class="bajada">{{ $item->descripcion }}</p>
             </div>
-        
-            <div class="imgCpoNoticia colFotos">
+        </div>
+        <div class="col-md-3 col-sm-4 col-xs-4">
+            <div class="thumbnail">
                 @if(count($item->imagen_destacada()) > 0)
-                        <img src="{{ URL::to($item->imagen_destacada()->ampliada()->carpeta.$item->imagen_destacada()->ampliada()->nombre) }}" alt="{{$item->titulo}}">
-                        <p class="epigrafe">{{$item->imagen_destacada()->ampliada()->epigrafe}}</p>
+                    @if(!Auth::check())
+                        <a class="fancybox" href="{{URL::to($item->imagen_destacada()->ampliada()->carpeta.$item->imagen_destacada()->ampliada()->nombre)}}" title="{{ $item->imagen_destacada()->ampliada()->epigrafe }}" rel='group'>
+                    @endif
+                        <img src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}">
+                    @if(!Auth::check())
+                        </a>
+                    @endif
+                    {{-- <p>{{$item->imagen_destacada()->epigrafe}}</p> --}}
                 @else
-                    <li><img src="{{ URL::to('images/sinImg.gif') }}" alt="{{$item->titulo}}"></li>
+                    @if(!Auth::check())
+                        <a class="fancybox" href="{{ URL::to('images/sinImg.gif') }}" title="{{$item->titulo}}" rel='group'>
+                    @endif
+                        <img src="{{ URL::to('images/sinImg.gif') }}" alt="{{$item->titulo}}">
+                    @if(!Auth::check())
+                        </a>
+                    @endif
                 @endif
             </div>
-            <div class="clear"></div>
+        </div>
+        
+        @foreach($item->imagenes as $img)
+            <div class="col-md-3 col-sm-4 col-xs-4">
+                <div class="thumbnail ">
+                    @if(!Auth::check())
+                        <a class="fancybox" href="{{URL::to($img->ampliada()->carpeta.$img->ampliada()->nombre)}}" title="{{ $img->ampliada()->epigrafe }}" rel='group'>
+                    @endif
+                            <img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
+                    @if(!Auth::check())    
+                        </a>
+                    @endif
+                    {{-- <p>{{$img->epigrafe}}</p> --}}
+                </div>
+            </div>
+            
+        @endforeach
+    </div>
+    
+    <div class="clear"></div>
+    <div class="row ">
+        <div class="col-md-12 divCuerpoTxt">
+            {{ $item->texto()->cuerpo }}
         </div>
     </div>
 </section>

@@ -29,9 +29,9 @@ class Portfolio extends Item {
         if ($validator->fails()) {
 
             $messages = $validator->messages();
-            /*if ($messages->has('titulo')) {
-                $respuesta['mensaje'] = 'El código del producto contiene más de 9 caracteres o ya existe.';
-            } else*/if ($messages->has('imagen_portada_crop')) {
+            /* if ($messages->has('titulo')) {
+              $respuesta['mensaje'] = 'El código del producto contiene más de 9 caracteres o ya existe.';
+              } else */if ($messages->has('imagen_portada_crop')) {
                 $respuesta['mensaje'] = 'Se olvidó de guardar la imagen recortada.';
             } else {
                 $respuesta['mensaje'] = 'Los datos necesarios para la obra son erróneos.';
@@ -77,10 +77,21 @@ class Portfolio extends Item {
         $reglas = array(
         );
 
+        if (isset($input['imagen_portada_crop'])) {
+            $reglas['imagen_portada_crop'] = array('required');
+        }
+
         $validator = Validator::make($input, $reglas);
 
         if ($validator->fails()) {
-            $respuesta['mensaje'] = $validator;
+            $messages = $validator->messages();
+            if ($messages->has('titulo')) {
+                $respuesta['mensaje'] = $messages->first('titulo');
+            } elseif ($messages->has('imagen_portada_crop')) {
+                $respuesta['mensaje'] = 'Se olvidó de guardar la imagen recortada.';
+            } else {
+                $respuesta['mensaje'] = 'Los datos necesarios para el producto son erróneos.';
+            }
             $respuesta['error'] = true;
         } else {
 

@@ -38,14 +38,16 @@ class NoticiaController extends BaseController {
 
     public function vistaAgregar($seccion_id) {
 
-        $this->array_view['secciones'] = parent::seccionesDinamicas();
-        
         $this->array_view['seccion_id'] = $seccion_id;
         
         $seccion = Seccion::find($seccion_id);
         
-        $this->array_view['seccion'] = $seccion;
+        $modulo = $seccion->menuSeccion()->modulo();
 
+        $this->array_view['menues'] = $modulo->menus;
+
+        $this->array_view['seccion'] = $seccion;
+        
         return View::make($this->folder_name . '.agregar', $this->array_view);
     }
 
@@ -79,7 +81,7 @@ class NoticiaController extends BaseController {
         }
     }
 
-    public function vistaEditar($id, $next) {
+    public function vistaEditar($id, $next, $seccion_next) {
 
         //Me quedo con el item, buscando por id
         $noticia = Noticia::find($id);
@@ -90,6 +92,14 @@ class NoticiaController extends BaseController {
             $this->array_view['noticia'] = $noticia;
             $this->array_view['secciones'] = $secciones;
             $this->array_view['continue'] = $next;
+            $this->array_view['seccion_next'] = $seccion_next;
+            
+            $seccion = $this->array_view['item']->seccionItem();
+
+            $modulo = $seccion->menuSeccion()->modulo();
+
+            $this->array_view['menues'] = $modulo->menus;
+            
             return View::make($this->folder_name . '.editar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
@@ -111,17 +121,26 @@ class NoticiaController extends BaseController {
           }
          * 
          */
+        if (Input::get('seccion_id') !== null) {
+            $seccion_id = Input::get('seccion_id');
+        } else {
+            $seccion_id = 'null';
+        }
+        
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('noticia_id'))->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('noticia_id') . '/' . Input::get('continue') . '/' . $seccion_id)->with('mensaje', $respuesta['mensaje'])->with('error', true);
+            //return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('noticia_id'))->with('mensaje', $respuesta['mensaje']);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
-                return Redirect::to('/')->with('mensaje', $respuesta['mensaje']);
+                return Redirect::to('/')->with('mensaje', $respuesta['mensaje'])->with('ok', true);
             } else {
-                $menu = $respuesta['data']->texto()->item()->seccionItem()->menuSeccion()->url;
-                $ancla = '#' . $respuesta['data']->texto()->item()->seccionItem()->estado . $respuesta['data']->texto()->item()->seccionItem()->id;
+                $seccion = Seccion::find(Input::get('seccion_id'));
 
-                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+                $menu = $seccion->menuSeccion()->url;
+                $ancla = '#' . $seccion->estado . $seccion->id;
+
+                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
             }
         }
     }

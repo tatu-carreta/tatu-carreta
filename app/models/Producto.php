@@ -151,7 +151,7 @@ class Producto extends Item {
             } elseif ($messages->has('imagen_portada_crop')) {
                 $respuesta['mensaje'] = 'Se olvidó de guardar la imagen recortada.';
             } else {
-                $respuesta['mensaje'] = 'Los datos necesario para el producto son erróneos.';
+                $respuesta['mensaje'] = 'Los datos necesarios para el producto son erróneos.';
             }
             $respuesta['error'] = true;
         } else {

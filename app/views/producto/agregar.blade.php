@@ -123,7 +123,7 @@
 
     @parent
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="{{URL::to('js/angular-1.3.0.min.js')}}"></script>
     <script src="{{URL::to('js/angular-file-upload.js')}}"></script>
     <script src="{{URL::to('js/ng-img-crop.js')}}"></script>
     <script src="{{URL::to('js/controllers.js')}}"></script>

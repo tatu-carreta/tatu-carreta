@@ -280,7 +280,7 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::post('admin/noticia/agregar', 'NoticiaController@agregar');
 
-    Route::get('admin/noticia/editar/{id}/{next}', 'NoticiaController@vistaEditar');
+    Route::get('admin/noticia/editar/{id}/{next}/{seccion_next}', 'NoticiaController@vistaEditar');
 
     Route::post('admin/noticia/editar', 'NoticiaController@editar');
 //            

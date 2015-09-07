@@ -1,12 +1,5 @@
 @extends($project_name.'-master')
 
-@section('head')
-
-    @parent
-
-    <link rel="stylesheet" href="{{URL::to('css/ng-img-crop.css')}}" />
-@stop
-
 @section('contenido')
     <section class="container">
         {{ Form::open(array('url' => 'admin/portfolio_simple/agregar', 'files' => true, 'role' => 'form')) }}
@@ -26,9 +19,9 @@
             </div>  
             
 
-            <div class="borderTop">
+            <div class="border-top">
                 <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
-                <a onclick="window.history.back();" class="btn btn-default">Cancelar</a>
+                <a href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}" class="btn btn-default">Cancelar</a>
             </div>
 
 
@@ -43,7 +36,7 @@
 
     @parent
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="{{URL::to('js/angular-1.3.0.min.js')}}"></script>
     <script src="{{URL::to('js/angular-file-upload.js')}}"></script>
     <script src="{{URL::to('js/ng-img-crop.js')}}"></script>
     <script src="{{URL::to('js/controllers.js')}}"></script>

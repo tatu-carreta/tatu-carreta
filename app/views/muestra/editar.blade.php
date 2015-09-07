@@ -1,12 +1,5 @@
 @extends($project_name.'-master')
 
-@section('head')
-
-    @parent
-
-    <link rel="stylesheet" href="{{URL::to('css/ng-img-crop.css')}}" />
-@stop
-
 @section('contenido')
     <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
     <section class="container" id="ng-app" ng-app="app">
@@ -158,7 +151,7 @@
 
     @parent
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+    <script src="{{URL::to('js/angular-1.3.0.min.js')}}"></script>
     <script src="{{URL::to('js/angular-file-upload.js')}}"></script>
     <script src="{{URL::to('js/ng-img-crop.js')}}"></script>
     <script src="{{URL::to('js/controllers.js')}}"></script>
