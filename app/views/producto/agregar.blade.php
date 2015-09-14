@@ -24,7 +24,7 @@
 
                 <!-- Estado  -->
                 <h3>Estado</h3>
-                <div class="marginBottom2">
+                <div class="divEstado">
                     <!--
                     <div class="fondoDestacado marginBottom05">
                         <div class="radio">
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     -->
-                    <div class="fondoDestacado marginBottom05">
+                    <div class="divEstadoNuevo">
                         <div class="radio">
                             <label>
                                 <input id="" class="" type="checkbox" name="item_destacado" value="N">
@@ -44,37 +44,33 @@
                             </label>
                         </div>
                     </div>
-                    <div class="fondoDestacado marginBottom05">
-                        <div class="divEstado">
-                            <div class="estado">
-                                <div class="radio">
-                                    <label>
-                                        
-                                        <input id="" class=" precioDisabled" type="checkbox" name="item_destacado" value="O">
-                                        <i  class="fa fa-usd prodDestacado fa-lg"></i>
-                                        Oferta
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="divPrecio">
-                                <label for="" >
-                                    <span>Precio después $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_antes" value="">
+                    <div class="divEstadoOferta">
+                        <div class="estado">
+                            <div class="radio">
+                                <label>
+                                    <input id="" class=" precioDisabled" type="checkbox" name="item_destacado" value="O">
+                                    <i  class="fa fa-usd prodDestacado fa-lg"></i>
+                                    Oferta
                                 </label>
                             </div>
-                            <div class="divPrecio">
-                                <label for="" >
-                                    <span>Precio antes $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_actual" value="">
-                                </label>
-                            </div>   
-                            <div class="clearfix"></div>
                         </div>
+                        <div class="divPrecio">
+                            <label for="" >
+                                <span>Precio después $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_antes" value="">
+                            </label>
+                        </div>
+                        <div class="divPrecio">
+                            <label for="" >
+                                <span>Precio antes $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_actual" value="">
+                            </label>
+                        </div>   
+                        <div class="clearfix"></div>
                     </div>
                     <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p>
                 </div>
                 
                 <h3>Ubicación</h3>
-                <div class="fondoDestacado modIndicarSeccion">
-                    
+                <div class="modIndicarSeccion">
                         @foreach($menues as $men)
                         <div class="cadaSeccion">
                             @if(count($men->children) == 0)
@@ -92,7 +88,7 @@
 
             <!-- Abre columna de imágenes -->
             <h3>Imagen del producto</h3>
-            <div class="col-md-6 fondoDestacado cargaImg">
+            <div class="col-md-6 cargaImg">
                 <h3>Carga y recorte de la imagen</h3>
 
                 @include('imagen.modulo-imagen-angular-crop')

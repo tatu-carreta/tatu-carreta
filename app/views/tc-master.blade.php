@@ -24,7 +24,8 @@
         <link rel="stylesheet" href="{{URL::to('css/owl.theme.css')}}">
         <link rel="stylesheet" href="{{URL::to('source/jquery.fancybox.css')}}">
         <!--<link rel="stylesheet" type="text/css" href="{{URL::to('css/styleSlideHome.css')}}" />-->
-        <link rel="stylesheet" type="text/css" href="{{URL::to('css/base.css')}}"> 
+        <!--<link rel="stylesheet" type="text/css" href="{{URL::to('css/base.css')}}">-->
+        <link rel="stylesheet" type="text/css" href="{{URL::to('css/base_2.css')}}"> 
         <!--<link rel="stylesheet" type="text/css" href="{{URL::to('css/stylesOffitec.css')}}"> -->
         
         <!-- M O D E R N I Z R -->
@@ -90,8 +91,8 @@
 
                 @if(true)
                 <div class="divSalir">
-                    <span class="nameAdmin"><i class="fa fa-user fa-lg marginRight5"></i>{{Auth::user()->perfil()->name}}</span>
-                    <a href="{{URL::to('logout')}}" class="btnCalado"><i class="fa fa-share  fa-lg"></i>Salir</a>
+                    <span class="nameAdmin btnCalado"><i class="fa fa-user fa-lg marginRight5"></i>{{Auth::user()->perfil()->name}}</span>
+                    <a href="{{URL::to('logout')}}" class="btnCalado"><i class="fa fa-share fa-lg"></i>Salir</a>
                 </div>
                 @else
                 <div class="divSalir">

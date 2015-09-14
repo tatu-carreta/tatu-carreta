@@ -46,7 +46,7 @@
 
                 <!-- Estado  -->
                 <h3>Estado</h3>
-                <div class="marginBottom2">
+                <div class="divEstado">
                     <!--
                     <div class="fondoDestacado marginBottom05">
                         <div class="radio">
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     -->
-                    <div class="fondoDestacado marginBottom05">
+                    <div class="divEstadoNuevo">
                         <div class="radio">
                             <label>
                                 <input id="" class="" type="checkbox" name="item_destacado" value="N" @if($item->producto()->nuevo()) checked="true" @endif>
@@ -66,30 +66,28 @@
                             </label>
                         </div>
                     </div>
-                    <div class="fondoDestacado marginBottom05">
-                       <div class="divEstado">
-                            <div class="estado">
-                                <div class="radio">
-                                    <label>
-                                        
-                                        <input id="" class=" precioDisabled" type="checkbox" name="item_destacado" value="O" @if($item->producto()->oferta()) checked="true" @endif>
-                                        <i  class="fa fa-usd prodDestacado fa-lg"></i>
-                                        Oferta
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="divPrecio">
-                                <label for="" >
-                                    <span>Precio después $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_antes" value="">
+                    <div class="divEstadoOferta">
+                        <div class="estado">
+                            <div class="radio">
+                                <label>
+                                    
+                                    <input id="" class=" precioDisabled" type="checkbox" name="item_destacado" value="O" @if($item->producto()->oferta()) checked="true" @endif>
+                                    <i  class="fa fa-usd prodDestacado fa-lg"></i>
+                                    Oferta
                                 </label>
                             </div>
-                            <div class="divPrecio">
-                                <label for="" >
-                                    <span>Precio antes $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_actual" value="">
-                                </label>
-                            </div>   
-                            <div class="clearfix"></div>
                         </div>
+                        <div class="divPrecio">
+                            <label for="" >
+                                <span>Precio después $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_antes" value="">
+                            </label>
+                        </div>
+                        <div class="divPrecio">
+                            <label for="" >
+                                <span>Precio antes $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_actual" value="">
+                            </label>
+                        </div>   
+                        <div class="clearfix"></div>
                     </div>
                     <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p>
                 </div>
