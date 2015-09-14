@@ -244,11 +244,14 @@ class Imagen extends Eloquent {
         Image::make($imagen_ampliada)->resize(null, 800, function ($constraint) {
             $constraint->aspectRatio();
             $constraint->upsize();
-        })->save($directory . $filename);
+        })->save($directory . $filename, 60);
 
         $imagen_crop_name = "small_" . $filename;
+        
+        Image::make($imagen_crop)->save($directory . $imagen_crop_name, 80);
+        
 
-        $imagen_crop->move($directory, $imagen_crop_name);
+        //$imagen_crop->move($directory, $imagen_crop_name);
         $answer = array('answer' => 'File transfer completed', 'imagen_path' => $imagen_crop_name, 'imagen_ampliada' => $filename);
 
         return $answer;
