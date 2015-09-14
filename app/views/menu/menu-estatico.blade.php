@@ -35,10 +35,10 @@
                         <a href="{{URL::to('admin/galeria/agregar/'.$menu->id)}}" class="btn btn-primary popup-nueva-seccion">Agregar galería</a>
                     @endif
                     @if(Auth::user()->can("agregar_texto"))
-                        <a href="{{URL::to('admin/texto/agregar/'.$menu->id)}}" class="btn btn-primary popup-nueva-seccion">Agregar texto</a> 
+                        <a data-toggle="modal" href="{{URL::to('admin/texto/agregar/'.$menu->id)}}" class="btn btn-primary popup-nueva-seccion">Agregar texto</a> 
                     @endif
                     @if(Auth::user()->can("agregar_html"))
-                        <a href="{{URL::to('admin/html/agregar/'.$menu->id)}}" class="btn btn-primary popup-nueva-seccion">Agregar HTML</a>
+                        <a data-toggle="modal" href="{{URL::to('admin/html/agregar/'.$menu->id)}}" class="btn btn-primary popup-nueva-seccion">Agregar HTML</a>
                     @endif
                 </div>
             </div>
