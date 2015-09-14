@@ -11,7 +11,7 @@ and open the template in the editor.
 
 body {margin:0; font-family: 'Source Sans Pro', arial,  sans-serif !important;}
 
-h1, h2, h3 {font-weight: normal}
+h1, h2, h3 {font-weight: 300}
 ul, li {margin:0; padding:0; list-style: none}
 a {text-decoration: none !important;}
 
@@ -81,7 +81,8 @@ section {padding-top: 3em;
 .divEstadoOferta  {@include fondoDestacado; @include marginBottom1
 	input[type=text]{width: 80px}
 }
-
+.checkEstado {float: left; padding-top: 0.5em;}
+.divPrecio {display: inline-block; float: right; margin-left: 1em;}
 .modIndicarSeccion {@include fondoDestacado; display: table; width: 100%;
 	.cadaSeccion {font-size: 1em; border-bottom: 1px solid #C6C6C6; padding: 0.6em 0; display: table-row;
 		div {display: table-cell; padding: 0.5em 1em 0.5em 0; border-bottom: 1px solid #C6C6C6;}

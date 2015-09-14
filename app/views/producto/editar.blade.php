@@ -47,16 +47,6 @@
                 <!-- Estado  -->
                 <h3>Estado</h3>
                 <div class="divEstado">
-                    <!--
-                    <div class="fondoDestacado marginBottom05">
-                        <div class="radio">
-                            <label>
-                                <input id="" class="" type="checkbox" name="item_destacado" value="B" checked="true">
-                                Normal
-                            </label>
-                        </div>
-                    </div>
-                    -->
                     <div class="divEstadoNuevo">
                         <div class="radio">
                             <label>
@@ -67,11 +57,10 @@
                         </div>
                     </div>
                     <div class="divEstadoOferta">
-                        <div class="estado">
+                        <div class="checkEstado">
                             <div class="radio">
                                 <label>
-                                    
-                                    <input id="" class=" precioDisabled" type="checkbox" name="item_destacado" value="O" @if($item->producto()->oferta()) checked="true" @endif>
+                                    <input id="" class="precioDisabled" type="checkbox" name="item_destacado" value="O" @if($item->producto()->oferta()) checked="true" @endif>
                                     <i  class="fa fa-usd prodDestacado fa-lg"></i>
                                     Oferta
                                 </label>

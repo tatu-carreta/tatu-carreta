@@ -11,7 +11,7 @@
   font-family: 'Source Sans Pro', arial, sans-serif !important;
 }
 h1, h2, h3 {
-  font-weight: normal;
+  font-weight: 300;
 }
 ul, li {
   margin: 0;
@@ -162,6 +162,15 @@ section * > * > * {
 @include marginBottom1
 	input[type=text] {
   width: 80px;
+}
+.checkEstado {
+  float: left;
+  padding-top: 0.5em;
+}
+.divPrecio {
+  display: inline-block;
+  float: right;
+  margin-left: 1em;
 }
 .modIndicarSeccion {
   background: #f4f4ef;

@@ -3,9 +3,7 @@
  * Copyright 2015 -
  */
 
-
 .fondoDestacado > * {margin-top: 0;}
-
 .ajustaImg {width: 100%; height: auto}
 
 
@@ -55,8 +53,6 @@
 
 .moduloItem {min-height: 370px}
 .producto {background: #666; width: 100%; height: 250px;}
-
-
 
 /* FOOTER */
 footer {margin-top: 1em; padding: 4em 0}
@@ -110,7 +106,7 @@ footer {margin-top: 1em; padding: 4em 0}
 .borderTop { padding-top: 1.5em; border-top: 1px solid #C6C6C6;}
 
 /*
-^   VIDEO (maxi)
+     VIDEO (maxi)
 */
 .video-tc {width: 100%; height: 270px; border:none;}
 
@@ -135,8 +131,6 @@ footer {margin-top: 1em; padding: 4em 0}
 /*.divLogin input[type="text"], .divLogin input[type="password"] {width: 100%; margin-bottom: 20px}
 .divLogin input[type="submit"]{float:right;}ver bootstrap y sacar*/ 
 
-
-
 /* Carga Slide Home */
 .fondoBco {background: #fff; padding: 1em}
 .divCargaImgSlideHome {width: 49%; height: 230px ; float:left; overflow: hidden; position: relative; cursor: pointer}
@@ -157,7 +151,6 @@ footer {margin-top: 1em; padding: 4em 0}
 
 .menuInsertContenido a {margin: 0.5em;}
 
-
 /* Agregar Producto */
 .datosProducto {}
 .datosProducto h3 {margin-top: 0 !important; font-size: 1.250em; font-weight: 400 !important;}
@@ -167,10 +160,6 @@ footer {margin-top: 1em; padding: 4em 0}
 .divCargaImgProducto {margin: 0px 0px 4em; position: relative;}
 .divCargaImg { height: 20em; width: 20em; position: relative; box-sizing: border-box;}
 .divCargaImg i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}
-
-
-
-
 
 
 .punteado {padding-top: 1.5em; border-top: 1px dashed #C6C6C6;}
@@ -199,7 +188,6 @@ img-crop canvas {
 
 /* Botones */
 
-
 /* .btnSec {color:#93AF52; padding: 0.625em 0.938em;}
 .btnSec:hover, .btnSec:hover i:before{color: #BBD531;} */
 
@@ -216,19 +204,13 @@ img-crop canvas {
 
 .sinPadding {padding-right: 0 !important}
 
-
-
 .iconoBtn-texto{color: #286090}
 .iconoBtn-texto:hover{color: #3885C7}
 .iconos a.btn{padding: 6px 12px 0 0;color:#286090;}
 .iconos a.btn:hover{color: #3885C7!important;}
 
-
-
 /*
-    
     M E D I A   Q U E R Y S
-
 */
 
 @media screen and (max-width: 768px) {
@@ -241,7 +223,6 @@ img-crop canvas {
     .logo {left:20px;}
     .fondo-negro .col-md-12 {padding: 0}
 }
-
 
 @media (max-width: 386px){
 	.tarjetas img {margin: 0 2em 1em 0; vertical-align: middle; width: 30px;}
