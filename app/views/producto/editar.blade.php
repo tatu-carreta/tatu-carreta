@@ -1,28 +1,6 @@
 @extends($project_name.'-master')
 
 @section('contenido')
-<style>
-    .check_box {
-    display:none;
-}
-
-.noTocado{
-    background:url('{{URL::to("images/destacadoAzul.png")}}') no-repeat;
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    padding: 0 0 0 2em;
-}
-
-.tocado{
-    background:url('{{URL::to("images/destacadoRojo.png")}}') no-repeat;
-    height: 30px;
-    width: 30px;
-    display: inline-block;
-    padding: 0 0 0 2em;
-}
-
-</style>
 <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
 <script src="{{URL::to('js/producto-funcs.js')}}"></script>
 <section class="container">    
@@ -36,17 +14,17 @@
             <div class="col-md-6">
 
                 <!-- Nombre del producto -->
-                <div>
+                <div class="divCargaTitProd">
                     <h3>Código del producto</h3>
-                    <div class="form-group marginBottom2">
+                    <div class="form-group">
                         <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9" value="{{ $item->titulo }}">
                         <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual código. Máximo 9 caracteres.</p>
                     </div>
                 </div>
 
                 <!-- Estado  -->
-                <h3>Estado</h3>
                 <div class="divEstado">
+                <h3>Estado</h3>
                     <div class="divEstadoNuevo">
                         <div class="radio">
                             <label>
@@ -81,39 +59,45 @@
                     <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p>
                 </div>
 
-                @if($seccion_next != 'null')
-                    <div class="fondoDestacado modIndicarSeccion">
-                        <h3>Ubicación</h3>
-                            @foreach($menues as $men)
-                            <div class="cadaSeccion">
-                                @if(count($men->children) == 0)
-                                    <div>
-                                        @foreach($men->secciones as $seccion)
-                                            <span><input id="menu{{$men->id}}" type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if(in_array($seccion->id, $item->secciones->lists('id'))) checked="true" @endif @if($seccion->id == $seccion_next) disabled @endif>{{-- @if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif --}}</span>
-                                        @endforeach
-                                    </div>
-                                    <div><label for="menu{{$men->id}}">{{$men->nombre}}</label></div>
-                                @endif
-                            </div>
-                            @endforeach
-                    </div>
-                @else
+                <!-- Indicar Sección a la que pertenece el producto  -->
+                <div class="divModIndicarSeccion">
+                    @if($seccion_next != 'null')
+                    <h3>Ubicación</h3>
+                        <div class="modIndicarSeccion">
+                                @foreach($menues as $men)
+                                <div class="cadaSeccion">
+                                    @if(count($men->children) == 0)
+                                        <div>
+                                            @foreach($men->secciones as $seccion)
+                                                <span><input id="menu{{$men->id}}" type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if(in_array($seccion->id, $item->secciones->lists('id'))) checked="true" @endif @if($seccion->id == $seccion_next) disabled @endif>{{-- @if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif --}}</span>
+                                            @endforeach
+                                        </div>
+                                        <div><label for="menu{{$men->id}}">{{$men->nombre}}</label></div>
+                                    @endif
+                                </div>
+                                @endforeach
+                        </div>
+                    @else
+
                     @foreach($item->secciones as $seccion)
                         <input type="hidden" name="secciones[]" value="{{$seccion->id}}">
                     @endforeach
                 @endif
+
+                </div>
             </div><!--cierra columna datos de producto-->
 
             <!-- Abre columna de imágenes -->
            
                 <h3>Imagen principal</h3>
-                <div class="col-md-6 fondoDestacado cargaImg">
-                    <h3>Carga y recorte de la imagen</h3>
-                    <p class="infoTxt"><i class="fa fa-info-circle">
-                </i>La imagen original puede ser vertical u horizontal pero no debe exceder los 500kb de peso.</p>
+                <div class="col-md-6 divCargarImg">
+                    <h4>Carga y recorte de la imagen</h4>
+                    <p class="infoTxt"><i class="fa fa-info-circle"></i>
+                    La imagen original puede ser vertical u horizontal pero no debe exceder los 500kb de peso.</p>
                 @if(!is_null($item->imagen_destacada()))
+
                     <div class="divCargaImgProducto">
-                        <div class="marginBottom1 divCargaImg">
+                        <div class="divImgCargada">
                             <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
                             <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
                         </div>
@@ -133,10 +117,14 @@
         </div>  
             
 
-            <div class="border-top">
-                <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
-                <a href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif" class="btn btn-default">Cancelar</a>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="border-top">
+                    <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
+                    <a href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif" class="btn btn-default">Cancelar</a>
+                </div>
             </div>
+        </div>
 
 
             {{Form::hidden('continue', $continue)}}

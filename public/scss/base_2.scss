@@ -22,11 +22,18 @@ $color_btn_principal_hover: #337ab7;
 @mixin marginBottom05 {margin-bottom: 0.5em}
 @mixin marginBottom1 {margin-bottom: 1em}
 @mixin marginBottom2 {margin-bottom: 2em}
+@mixin ajustarImg {width:100%; height: auto}
 
-/* -- Botones -- */
+/* -- Botones y tooltips-- */
 
-.btn-primary {background: $color_btn_principal}
-.btn-primary:hover {background: $color_btn_principal_hover}
+.btn {box-shadow: none;
+	&:focus {box-shadow: none;}
+	&:active {box-shadow: none;}
+}
+.btn + .btn {margin-left:0.5em}
+.btn-primary {background: $color_btn_principal;
+	&:hover {background: $color_btn_principal_hover}
+}
 .btn i, .btnPrimary i {margin-right: 0.313em}
 
 .volveraSeccion {font-size: 1em !important; color:#000; display:block; @include marginBottom2; 
@@ -35,14 +42,18 @@ $color_btn_principal_hover: #337ab7;
 }
 // estilos para ocultar y dar forma el input type file
 .oculto {z-index: 999;line-height: 0;font-size: 30px; position: absolute;opacity: 0;filter: alpha(opacity = 0);-ms-filter: "alpha(opacity=0)"; margin: 0;padding:0;left:0;top: 0;width: 130px;}
+.tooltip {background: #000; color:#fff;}
 
+
+/* -- Separadores -- */
+.marginBottom1 {margin-bottom: 1em}
 
 /* -- HEADER -- */
 header {background: #000;}
 .logo {position: relative;z-index: 999;}
 
 
-/* NAV */
+/* -- NAV -- */
 .navbar {margin:0;}
 .dropdown-menu {background: #878979}
 .open {background: #878979}
@@ -61,10 +72,17 @@ header {background: #000;}
 
 .carrouselProdHome {margin-bottom: 6em}
 
-/* SECTION */
+/* -- SECTION -- */
 section {padding-top: 3em;
 	* > * > * {margin-top: 0 !important}
 }
+
+/* -- FOOTER -- */
+footer {margin-top: 1em; padding: 4em 0}
+.tarjetas{width: 100%;height: 100%; text-align: center;
+		img {margin: 0 2em 2em 0; vertical-align: middle;}
+}
+.data-fiscal img {width: 30px; border: 0;margin-right: 0!important;}
 
 
 /* -- PRODUCTOS -- */
@@ -76,11 +94,42 @@ section {padding-top: 3em;
 } 
 .sinContenido {border: 1px dashed #C6C6C6; width: 218px; height: 218px; text-align: center; line-height: 200px; margin: 2em 0px 4em;}
 
-// Agregar Productos
-.divEstadoNuevo  {@include fondoDestacado; @include marginBottom1}
-.divEstadoOferta  {@include fondoDestacado; @include marginBottom1
-	input[type=text]{width: 80px}
+.thumbnail {border-radius: 0; border:none; padding:0}
+.bandaInfoProd {background: #efefef; padding: 0.5em 1em; color: #777774 !important; 
+	.btn-default {color: #777774 !important;}
+	.btn-default:hover {color: #fff !important; background: #00A9E0; border: none;}
+	p {margin:7px 0 5px;}
 }
+ 
+.divImgItem {width: 100%;  position: relative; border: 1px solid #F4F4EF;
+	img {@include ajustarImg;}
+}
+.iconos{padding: 0.5em; border-bottom: 1px dashed #C6C6C6; margin-bottom: 0.5em;
+	i{cursor: pointer;
+		&:hover {color:#3885C7;}
+	}
+	.fa-pencil{margin-right: 0.5em}
+}
+
+.lazy {margin: 0}
+.bandaOfertas, .bandaNuevos {/*color: #fff;*/ font-size: 1.2em; position: absolute; bottom: 0; left: 0; padding: 0.1em 0.5em;}
+//.bandaOfertas {background: #D52318; font-weight: 700;}
+//.bandaNuevos {background: #ff7503}
+.bandaProd span {margin-right: 1em; font-size: 0.938em; text-transform: uppercase; margin-top: 0.6em;}
+.bandaOfertas span{font-weight: 300;}
+.sortable div{cursor:move;}
+
+// Agregar Productos
+.divCargaTitProd, .divEstado  {@include marginBottom2;}
+.divEstadoNuevo  {@include fondoDestacado; @include marginBottom05}
+.divEstadoOferta  {@include fondoDestacado; @include marginBottom05;
+	label {font-weight:normal;
+			span{margin-right: 0.5em;}
+		}
+	input[type=text]{width: 60px; }
+}
+.divEstadoOferta input {display: inline-block;}
+
 .checkEstado {float: left; padding-top: 0.5em;}
 .divPrecio {display: inline-block; float: right; margin-left: 1em;}
 .modIndicarSeccion {@include fondoDestacado; display: table; width: 100%;
@@ -92,6 +141,24 @@ section {padding-top: 3em;
 		label {margin-right: 1.2em; vertical-align: 2px}
 	}
  }
+// Carga Imagen Producto
+.divCargarImg {@include fondoDestacado; @include marginBottom2;}
+//.divCargaImgProducto {margin: 0px 0px 4em; position: relative;}
+.divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
+	i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}
+}
+ 
+
+// Recorte de Imágenes
+.cropArea {@include marginBottom2; background: #E4E4E4; margin-left: auto; margin-right: auto;overflow: hidden; width:100%; height:250px;}
+.divImgResultante {@include marginBottom1;}
+img-crop {width: 100%; height: 100%; display: block; position: relative; overflow: hidden;}
+img-crop canvas {display: block; position: absolute; top: 0%; left: 50%; outline: none; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+ /* mobile webkit */}
+.progress {height: 12px; width: 93%; float: left; margin-right: 1em;}
+.progress i{color: #1D6A0E; margin-left: 2%; position: relative;}
+.glyphicon {top: -3px}
+
 
 
 /* -- Menu ADMIN -- */
@@ -114,10 +181,7 @@ section {padding-top: 3em;
 }
 
 
-/* -- Div Carga de Imagen  -- */
-.cargaImg {
-	@include fondoDestacado;
-}
+
 
 /* -- Modal -- */
 .modal-header, .modal-footer {border: 0}
@@ -128,10 +192,12 @@ section {padding-top: 3em;
 .form-group span {display: inline-block; margin:0 0.3em; font-size: 2em;}
 .form-group p {font-size: 1em; padding-top: 0.5em;}
 
+.border-top {padding-top: 1.5em; border-top: 1px solid #C6C6C6;}
 
 /* -- Firma ESTUDIO -- */
 
 .firmalaura {color:#9B9B9B;font-size: 11px; 
-	a {color:#9B9B9B;}
-	a:hover {color:#626263;}
+	a {color:#9B9B9B;
+		&:hover {color:#626263;}
+	}
 }

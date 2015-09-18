@@ -3,35 +3,35 @@
     <div class="thumbnail">
     @if(Auth::check())
         <div class="iconos">
-        <span class="pull-left">
-            @if(!$i->producto()->nuevo())
-                @if(Auth::user()->can("destacar_item"))
-                    <a class="btn @if($i->producto()->oferta()) disabled @endif" @if(!$i->producto()->oferta()) onclick="destacarItemSeccion('{{URL::to('admin/producto/nuevo')}}', '{{$seccion->id}}', '{{$i->id}}');" @endif><i class="fa fa-tag fa-lg"></i>Nuevo</a>
+            <span class="pull-left">
+                @if(!$i->producto()->nuevo())
+                    @if(Auth::user()->can("destacar_item"))
+                        <a class=" @if($i->producto()->oferta()) disabled @endif" @if(!$i->producto()->oferta()) onclick="destacarItemSeccion('{{URL::to('admin/producto/nuevo')}}', '{{$seccion->id}}', '{{$i->id}}');" @endif><i class="fa fa-tag fa-lg"></i>Nuevo</a>
+                    @endif
+                @else
+                    @if(Auth::user()->can("quitar_destacado_item"))
+                        <a onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', '{{$seccion->id}}', '{{$i->id}}');" ><i class="fa fa-tag prodDestacado fa-lg"></i>Nuevo</a>
+                    @endif
                 @endif
-            @else
-                @if(Auth::user()->can("quitar_destacado_item"))
-                    <a class="btn" onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', '{{$seccion->id}}', '{{$i->id}}');" ><i class="fa fa-tag prodDestacado fa-lg"></i>Nuevo</a>
+                @if(!$i->producto()->oferta())
+                    @if(Auth::user()->can("destacar_item"))
+                        <a href="{{URL::to('admin/producto/oferta/'.$i->producto()->id.'/'.$seccion->id.'/seccion')}}" class="popup-nueva-seccion"><i  class="fa fa-usd fa-lg"></i>Oferta</a>
+                    @endif
+                @else
+                    @if(Auth::user()->can("quitar_destacado_item"))
+                        <a onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', '{{$seccion->id}}', '{{$i->id}}');"><i  class="fa fa-usd prodDestacado fa-lg"></i>Oferta</a>
+                    @endif
                 @endif
-            @endif
-            @if(!$i->producto()->oferta())
-                @if(Auth::user()->can("destacar_item"))
-                    <a href="{{URL::to('admin/producto/oferta/'.$i->producto()->id.'/'.$seccion->id.'/seccion')}}" class="btn popup-nueva-seccion"><i  class="fa fa-usd fa-lg"></i>Oferta</a>
-                @endif
-            @else
-                @if(Auth::user()->can("quitar_destacado_item"))
-                    <a onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', '{{$seccion->id}}', '{{$i->id}}');" class="btn"><i  class="fa fa-usd prodDestacado fa-lg"></i>Oferta</a>
-                @endif
-            @endif
-            </span>
-            <span class="pull-right editarEliminar">
-                @if(Auth::user()->can("editar_item"))
-                    <a href="{{URL::to('admin/'.$seccion->menuSeccion()->modulo()->nombre.'/editar/'.$i->producto()->id.'/seccion/'.$seccion->id)}}" data='{{$seccion->id}}'><i class="fa fa-pencil fa-lg"></i></a>
-                @endif
-                @if(Auth::user()->can("borrar_item"))
-                    <a onclick="borrarData('{{URL::to('admin/item/borrar')}}', '{{$i->id}}');"><i class="fa fa-times fa-lg"></i></a>
-                @endif
-            </span>
-            <div class="clearfix"></div>
+                </span>
+                <span class="pull-right editarEliminar">
+                    @if(Auth::user()->can("editar_item"))
+                        <a href="{{URL::to('admin/'.$seccion->menuSeccion()->modulo()->nombre.'/editar/'.$i->producto()->id.'/seccion/'.$seccion->id)}}" data='{{$seccion->id}}'><i class="fa fa-pencil fa-lg"></i></a>
+                    @endif
+                    @if(Auth::user()->can("borrar_item"))
+                        <a onclick="borrarData('{{URL::to('admin/item/borrar')}}', '{{$i->id}}');"><i class="fa fa-times fa-lg"></i></a>
+                    @endif
+                </span>
+                <div class="clearfix"></div>
         </div>
     @endif
 

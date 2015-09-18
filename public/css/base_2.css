@@ -21,7 +21,19 @@ ul, li {
 a {
   text-decoration: none !important;
 }
-/* -- Botones -- */.btn-primary {
+/* -- Botones y tooltips-- */.btn {
+  box-shadow: none;
+}
+.btn:focus {
+  box-shadow: none;
+}
+.btn:active {
+  box-shadow: none;
+}
+.btn + .btn {
+  margin-left: 0.5em;
+}
+.btn-primary {
   background: #286090;
 }
 .btn-primary:hover {
@@ -56,6 +68,13 @@ a {
   top: 0;
   width: 130px;
 }
+.tooltip {
+  background: #000;
+  color: #fff;
+}
+/* -- Separadores -- */.marginBottom1 {
+  margin-bottom: 1em;
+}
 /* -- HEADER -- */header {
   background: #000;
 }
@@ -63,7 +82,7 @@ a {
   position: relative;
   z-index: 999;
 }
-/* NAV */.navbar {
+/* -- NAV -- */.navbar {
   margin: 0;
 }
 .dropdown-menu {
@@ -122,11 +141,29 @@ a {
 .carrouselProdHome {
   margin-bottom: 6em;
 }
-/* SECTION */section {
+/* -- SECTION -- */section {
   padding-top: 3em;
 }
 section * > * > * {
   margin-top: 0 !important;
+}
+/* -- FOOTER -- */footer {
+  margin-top: 1em;
+  padding: 4em 0;
+}
+.tarjetas {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.tarjetas img {
+  margin: 0 2em 2em 0;
+  vertical-align: middle;
+}
+.data-fiscal img {
+  width: 30px;
+  border: 0;
+  margin-right: 0 !important;
 }
 /* -- PRODUCTOS -- */.divListadoItems {
   border-top: 1px solid #c6c6c6;
@@ -148,20 +185,99 @@ section * > * > * {
   line-height: 200px;
   margin: 2em 0px 4em;
 }
+.thumbnail {
+  border-radius: 0;
+  border: none;
+  padding: 0;
+}
+.bandaInfoProd {
+  background: #efefef;
+  padding: 0.5em 1em;
+  color: #777774 !important;
+}
+.bandaInfoProd .btn-default {
+  color: #777774 !important;
+}
+.bandaInfoProd .btn-default:hover {
+  color: #fff !important;
+  background: #00a9e0;
+  border: none;
+}
+.bandaInfoProd p {
+  margin: 7px 0 5px;
+}
+.divImgItem {
+  width: 100%;
+  position: relative;
+  border: 1px solid #f4f4ef;
+}
+.divImgItem img {
+  width: 100%;
+  height: auto;
+}
+.iconos {
+  padding: 0.5em;
+  border-bottom: 1px dashed #c6c6c6;
+  margin-bottom: 0.5em;
+}
+.iconos i {
+  cursor: pointer;
+}
+.iconos i:hover {
+  color: #3885c7;
+}
+.iconos .fa-pencil {
+  margin-right: 0.5em;
+}
+.lazy {
+  margin: 0;
+}
+.bandaOfertas, .bandaNuevos {
+  /*color: #fff;*/
+  font-size: 1.2em;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 0.1em 0.5em;
+}
+.bandaProd span {
+  margin-right: 1em;
+  font-size: 0.938em;
+  text-transform: uppercase;
+  margin-top: 0.6em;
+}
+.bandaOfertas span {
+  font-weight: 300;
+}
+.sortable div {
+  cursor: move;
+}
+.divCargaTitProd, .divEstado {
+  margin-bottom: 2em;
+}
 .divEstadoNuevo {
   background: #f4f4ef;
   padding: 1em;
   box-sizing: border-box !important;
-  margin-bottom: 1em;
+  margin-bottom: 0.5em;
 }
 .divEstadoOferta {
   background: #f4f4ef;
   padding: 1em;
   box-sizing: border-box !important;
+  margin-bottom: 0.5em;
 }
-@include marginBottom1
-	input[type=text] {
-  width: 80px;
+.divEstadoOferta label {
+  font-weight: normal;
+}
+.divEstadoOferta label span {
+  margin-right: 0.5em;
+}
+.divEstadoOferta input[type=text] {
+  width: 60px;
+}
+.divEstadoOferta input {
+  display: inline-block;
 }
 .checkEstado {
   float: left;
@@ -203,6 +319,72 @@ section * > * > * {
 .modIndicarSeccion .cadaSeccion label {
   margin-right: 1.2em;
   vertical-align: 2px;
+}
+.divCargarImg {
+  background: #f4f4ef;
+  padding: 1em;
+  box-sizing: border-box !important;
+  margin-bottom: 2em;
+}
+.divImgCargada {
+  height: 20em;
+  width: 20em;
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 2em;
+}
+.divImgCargada i {
+  position: absolute;
+  top: 0.6em;
+  right: 0.6em;
+  font-size: 1.4em;
+  color: #337ab7;
+  background: #fff;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+.cropArea {
+  margin-bottom: 2em;
+  background: #e4e4e4;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  width: 100%;
+  height: 250px;
+}
+.divImgResultante {
+  margin-bottom: 1em;
+}
+img-crop {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+img-crop canvas {
+  display: block;
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  /* mobile webkit */
+}
+.progress {
+  height: 12px;
+  width: 93%;
+  float: left;
+  margin-right: 1em;
+}
+.progress i {
+  color: #1d6a0e;
+  margin-left: 2%;
+  position: relative;
+}
+.glyphicon {
+  top: -3px;
 }
 /* -- Menu ADMIN -- */.divLogin {
   margin: 100px auto 250px auto;
@@ -252,11 +434,6 @@ section * > * > * {
   font-size: 1.6em;
   vertical-align: middle;
 }
-/* -- Div Carga de Imagen  -- */.cargaImg {
-  background: #f4f4ef;
-  padding: 1em;
-  box-sizing: border-box !important;
-}
 /* -- Modal -- */.modal-header, .modal-footer {
   border: 0;
 }
@@ -268,6 +445,10 @@ section * > * > * {
 .form-group p {
   font-size: 1em;
   padding-top: 0.5em;
+}
+.border-top {
+  padding-top: 1.5em;
+  border-top: 1px solid #c6c6c6;
 }
 /* -- Firma ESTUDIO -- */.firmalaura {
   color: #9b9b9b;

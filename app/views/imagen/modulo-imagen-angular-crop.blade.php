@@ -4,26 +4,7 @@
     .another-file-over-class { border: dotted 3px green; }
 
     //html, body { height: 100%; }
-</style>
-<style>
-    .cropArea {
-        background: #E4E4E4;
-        margin: auto;
-        overflow: hidden;
-    }
-    .cropArea.big {
-        width:800px;
-        height:600px;
-    }
-    .cropArea.medium {
-        width:500px;
-        height:350px;
-    }
-    .cropArea.small {
-        width:100%;
-        height:250px;
-    }
-</style>
+</style>   
 
 <script>
     $(document).ready(function () {
@@ -62,7 +43,7 @@
             </div>
         </div>
 
-        <div class="cropArea marginBottom1" ng-class="{'big':size == 'big', 'medium':size == 'medium', 'small':size == 'small'}">
+        <div class="cropArea" ng-class="{'big':size == 'big', 'medium':size == 'medium', 'small':size == 'small'}">
             <img-crop image="image"
                       result-image="croppedImage"
                       change-on-fly="changeOnFly"
@@ -82,30 +63,31 @@
             <!--aspect-ratio="aspectRatio"-->
         </div>
 
-        <h3>Resultado del corte:</h3>
-        <div class="marginBottom1">
-                <img ng-src="<% croppedImage %>" />
+        <div class="divImgResultante">
+            <h4>Resultado del corte:</h4>
+            <img ng-src="<% croppedImage %>" />
         </div>
 
         <input class="marginBottom1 form-control" type="text" name="epigrafe_imagen_portada" placeholder="Ingrese una descripción de la foto (opcional)">
 
-        <div class="progreso">
-            <div>
-                <div>
-                    <p>Progreso:</p>
-                    <div class="progress" style="">
-                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                    </div>
-                    <span ng-show="todo_ok"><i class="glyphicon glyphicon-ok"></i></span>
-                    <span ng-show="todo_error"><i class="glyphicon glyphicon-remove"></i></span>
+        <div class="row">
+            <div class="col-xs-12 progreso">
+                <p>Progreso:</p>
+                <div class="progress" style="">
+                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                 </div>
-
+                <span ng-show="todo_ok"><i class="glyphicon glyphicon-ok"></i></span>
+                <span ng-show="todo_error"><i class="glyphicon glyphicon-remove"></i></span>
+            </div>
+        </div>
+        
+        <div class="row marginBottom1">
+            <div class="col-xs-12">
                 <button type="button" class="btn btn-primary marginRight5" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">Cargar imagen
                 </button>
                 <button type="button" class="btn btn-default" ng-click="removerImagen()" ng-disabled="!uploader.queue.length">Eliminar imagen
                 </button>
             </div>
-
         </div>
         <div class="row">
             <div class="col-xs-12">

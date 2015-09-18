@@ -14,17 +14,17 @@
             <div class="col-md-6">
 
                 <!-- Nombre del producto -->
-                <div>
+                <div class="divCargaTitProd">
                     <h3>Código del producto</h3>
-                    <div class="form-group marginBottom2">
+                    <div class="form-group">
                         <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9">
                         <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual código. Máximo 9 caracteres.</p>
+                    </div>
                 </div>
-            </div>
 
                 <!-- Estado  -->
-                <h3>Estado</h3>
                 <div class="divEstado">
+                <h3>Estado</h3>
                     <div class="divEstadoNuevo">
                         <div class="radio">
                             <label>
@@ -58,28 +58,32 @@
                     </div>
                     <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p>
                 </div>
-                
-                <h3>Ubicación</h3>
-                <div class="modIndicarSeccion">
-                        @foreach($menues as $men)
-                        <div class="cadaSeccion">
-                            @if(count($men->children) == 0)
-                                <div>
-                                    @foreach($men->secciones as $seccion)
-                                        <span><input id="menu{{$men->id}}" type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if($seccion->id == $seccion_id) checked="true" disabled @endif>{{-- @if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif --}}</span>
-                                    @endforeach
-                                </div>
-                                <div><label for="menu{{$men->id}}">{{$men->nombre}}</label></div>
-                            @endif
-                        </div>
-                        @endforeach
+
+                <!-- Indicar Sección a la que pertenece el producto  -->
+                <div class="divModIndicarSeccion">
+                    <h3>Ubicación</h3>
+                    <div class="modIndicarSeccion">
+                            @foreach($menues as $men)
+                            <div class="cadaSeccion">
+                                @if(count($men->children) == 0)
+                                    <div>
+                                        @foreach($men->secciones as $seccion)
+                                            <span><input id="menu{{$men->id}}" type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if($seccion->id == $seccion_id) checked="true" disabled @endif>{{-- @if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif --}}</span>
+                                        @endforeach
+                                    </div>
+                                    <div><label for="menu{{$men->id}}">{{$men->nombre}}</label></div>
+                                @endif
+                            </div>
+                            @endforeach
+                    </div>
                 </div>
+
             </div><!--cierra columna datos de producto-->
 
             <!-- Abre columna de imágenes -->
             <h3>Imagen del producto</h3>
-            <div class="col-md-6 cargaImg">
-                <h3>Carga y recorte de la imagen</h3>
+            <div class="col-md-6 divCargarImg">
+                <h4>Carga y recorte de la imagen</h4>
 
                 @include('imagen.modulo-imagen-angular-crop')
 
@@ -91,12 +95,14 @@
 
         </div>  
             
-
-            <div class="border-top">
-                <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
-                <a href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}" class="btn btn-default">Cancelar</a>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="border-top">                
+                    <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
+                    <a href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}" class="btn btn-default">Cancelar</a>
+                </div>
             </div>
-
+        </div>
 
             {{Form::hidden('seccion_id', $seccion_id)}}
             {{Form::hidden('descripcion', '')}}

@@ -162,3 +162,219 @@ Stack trace:
 Stack trace:
 #0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
 #1 {main} [] []
+[2015-09-16 15:08:13] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:11:20] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:11:40] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:18:55] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:23:32] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:24:53] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:25:19] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:25:34] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:25:55] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:26:37] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:27:07] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:28:24] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:29:41] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:30:31] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:30:37] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:36:16] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:45:46] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:46:19] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:54:02] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 15:55:07] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:01:31] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:05:20] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:06:05] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:06:29] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:08:07] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:13:52] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:15:33] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:15:54] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:21:17] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:23:09] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:24:24] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:30:10] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:32:39] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:33:01] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:37:44] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:40:48] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:41:08] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:50:36] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:53:01] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:53:48] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:55:21] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 16:57:04] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 17:01:39] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 17:02:23] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 17:05:44] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-16 17:10:30] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\controllers\ProductoController.php:46
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-18 16:32:02] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\723c2c101cdb6327a075e511afe7aa15:9
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-18 16:40:12] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\723c2c101cdb6327a075e511afe7aa15:9
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-18 16:41:59] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\723c2c101cdb6327a075e511afe7aa15:9
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-18 16:44:41] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\723c2c101cdb6327a075e511afe7aa15:9
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-18 16:45:41] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\723c2c101cdb6327a075e511afe7aa15:9
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-18 16:48:02] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\723c2c101cdb6327a075e511afe7aa15:9
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-18 17:01:49] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\723c2c101cdb6327a075e511afe7aa15:9
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
+[2015-09-18 17:03:03] production.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to a member function menuSeccion() on a non-object' in C:\xampp\htdocs\tatu-carreta\app\storage\views\a7aa548c0bc5c76c1809db7b489810a2:7
+Stack trace:
+#0 [internal function]: Illuminate\Exception\Handler->handleShutdown()
+#1 {main} [] []
