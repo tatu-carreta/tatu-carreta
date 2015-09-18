@@ -4,35 +4,34 @@
 @section('header')@stop
 
 @section('contenido')
-    <script type="text/javascript">
+    <script>
         $(document).ready(function() {
             //$('textarea#cuerpo').ckeditor();
-            CKEDITOR.replace( 'cuerpo', {
+            CKEDITOR.replace( 'html', {
                     allowedContent: true,
                     fillEmptyBlocks: false
             } );
         });
     </script>
-
-    <div>
-        <h2>carga y modificación de html</h2>
-
-        {{ Form::open(array('url' => 'admin/html/editar')) }}
-
-            <input class="block anchoTotal marginBottom" type="text" name="titulo" placeholder="Título" value="{{$item->titulo}}">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Carga y modificación de html</h4>
+    </div>
+    {{ Form::open(array('url' => 'admin/html/editar')) }}
+        <div class="modal-body">
+            <!--<input class="form-control" type="text" name="titulo" placeholder="Nombre de la Sección">-->
             <div class="divEditorTxt">
-                <textarea id="cuerpo" contenteditable="true" class="" name="cuerpo">{{ $html->cuerpo }}</textarea>
+                <textarea id="html" contenteditable="true" class="" name="cuerpo">{{ $html->cuerpo }}</textarea>
             </div>
-            <div class="floatRight">
-                <a onclick="cancelarPopup('agregar-seccion');" class="btnGris marginRight5">Cancelar</a>
-                <input type="submit" value="Guardar" class="btn">
-            </div>
-            <div class="clear"></div>
-
+            {{Form::hidden('titulo', '')}}
             {{Form::hidden('html_id', $html->id)}}
             {{Form::hidden('id', $item->id)}}
-        {{Form::close()}}
-    </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+    {{Form::close()}}
 @stop
 
 @section('footer')@stop
