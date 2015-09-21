@@ -11,8 +11,8 @@
 
             <div class="row marginBottom2">
                 <!-- Abre columna de imágenes -->
-                <div class="col-md-12 cargaImg">
-                    <div class="fondoDestacado">
+                <div class="col-md-12">
+                    <div class="divCargaImgHoriz">
 
                     @if(Auth::user()->can('cambiar_seccion_item'))
                         <select name="seccion_nueva_id" class="form-control  marginBottom2">

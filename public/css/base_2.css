@@ -355,6 +355,9 @@ section * > * > * {
 }
 .divImgResultante {
   margin-bottom: 1em;
+  background: #fff;
+  height: 300px;
+  text-align: center;
 }
 img-crop {
   width: 100%;
@@ -385,6 +388,26 @@ img-crop canvas {
 }
 .glyphicon {
   top: -3px;
+}
+.glyphicon-ok {
+  color: green;
+}
+.glyphicon-remove {
+  color: red;
+}
+/* -- PORTFOLIO SIMPLE -- */.divCargaImgHoriz {
+  background: #f4f4ef;
+  padding: 1em;
+  box-sizing: border-box !important;
+  margin-bottom: 2em;
+}
+.resultadoImgCargada h3 {
+  margin-top: 12px !important;
+}
+.divCargaImg .fa-lg {
+  font-size: 1.2em;
+  color: #286090;
+  cursor: pointer;
 }
 /* -- Menu ADMIN -- */.divLogin {
   margin: 100px auto 250px auto;

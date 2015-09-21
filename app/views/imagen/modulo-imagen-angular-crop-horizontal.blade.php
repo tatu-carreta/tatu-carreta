@@ -1,20 +1,3 @@
-<style>
-    .my-drop-zone { border: dotted 3px lightgray; }
-    .nv-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
-    .another-file-over-class { border: dotted 3px green; }
-</style>
-<style>
-    .cropArea {
-        background: #fff;
-        margin: auto;
-        overflow: hidden;
-    }
-    .cropArea.small {
-        background: #fff;
-        width:100%;
-        height:300px;
-    }
-</style>
 <script>
     $(document).ready(function () {
 
@@ -76,31 +59,28 @@
 
             <div class="col-md-6 resultadoImgCargada">
                 <h3>Resultado</h3>
-                <div class="imgCargada marginBottom1">
+                <div class="divImgResultante marginBottom1">
                     <img ng-src="<% croppedImage %>" />
                 </div>
 
                 <input class="form-control marginBottom1" id="epigrafe" type="text" name="epigrafe_imagen_portada" placeholder="Ingrese una descripción de la foto (opcional)">
-                <div class="progreso">
-                    <div>
-                        <div>
-                            Progreso:
-                            <div class="progress" style="">
-                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                            </div>
-                            <span ng-show="todo_ok"><i class="glyphicon glyphicon-ok"></i></span>
-                            <span ng-show="todo_error"><i class="glyphicon glyphicon-remove"></i></span>
+                    <div class="progreso">
+                        <p>Progreso:</p>
+                        <div class="progress" style="">
+                            <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                         </div>
-                        <button type="button" class="btn btn-primary btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
-                            Guardar recorte
-                        </button>
-                        <button type="button" class="btn btn-default btn-s" ng-click="removerImagen()" ng-disabled="!uploader.queue.length">
-                            Eliminar
-                        </button>
+                        <span ng-show="todo_ok"><i class="glyphicon glyphicon-ok"></i></span>
+                        <span ng-show="todo_error"><i class="glyphicon glyphicon-remove"></i></span>
                     </div>
+                    <button type="button" class="btn btn-primary btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                        Guardar recorte
+                    </button>
+                    <button type="button" class="btn btn-default btn-s" ng-click="removerImagen()" ng-disabled="!uploader.queue.length">
+                        Eliminar
+                    </button>
 
-                </div>
-            </div><!-- cierra col-md-6 -->
+            </div>
+        </div><!-- cierra col-md-6 -->
             <div class="clearfix"></div>
         </div>
 

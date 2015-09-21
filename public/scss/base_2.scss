@@ -151,15 +151,23 @@ footer {margin-top: 1em; padding: 4em 0}
 
 // Recorte de Imágenes
 .cropArea {@include marginBottom2; background: #E4E4E4; margin-left: auto; margin-right: auto;overflow: hidden; width:100%; height:250px;}
-.divImgResultante {@include marginBottom1;}
+.divImgResultante {@include marginBottom1; background: #fff; height:300px; text-align:center;}
 img-crop {width: 100%; height: 100%; display: block; position: relative; overflow: hidden;}
 img-crop canvas {display: block; position: absolute; top: 0%; left: 50%; outline: none; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
  /* mobile webkit */}
 .progress {height: 12px; width: 93%; float: left; margin-right: 1em;}
 .progress i{color: #1D6A0E; margin-left: 2%; position: relative;}
 .glyphicon {top: -3px}
+.glyphicon-ok {color:green}
+.glyphicon-remove {color:red}
 
+/* -- PORTFOLIO SIMPLE -- */
+//Listados Productos
 
+//Agregar Obra
+.divCargaImgHoriz {@include fondoDestacado; @include marginBottom2;}
+.resultadoImgCargada h3 {margin-top: 12px !important;}
+.divCargaImg .fa-lg {font-size: 1.2em; color:#286090; cursor: pointer }
 
 /* -- Menu ADMIN -- */
 
