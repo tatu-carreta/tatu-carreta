@@ -3,25 +3,75 @@
 @section('contenido')
 <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
 <script src="{{URL::to('js/producto-funcs.js')}}"></script>
-<section class="container">    
-        {{ Form::open(array('url' => 'admin/producto/editar', 'files' => true, 'role' => 'form', 'onsubmit' => 'return validatePrecioProd(this);')) }}
+<section class="container"  id="ng-app" ng-app="app">    
+    <div ng-controller="ImagenMultiple" nv-file-drop="" uploader="uploader" filters="customFilter, sizeLimit">
+    {{ Form::open(array('url' => 'admin/producto/editar', 'files' => true, 'role' => 'form', 'onsubmit' => 'return validatePrecioProd(this);')) }}
         <h2><span>Editar producto</span></h2>
         <div class="marginBottom2">
             <a class="volveraSeccion" href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif"><i class="fa fa-caret-left"></i>Volver a @if($seccion_next != 'null'){{ Seccion::find($seccion_next) -> menuSeccion() -> nombre }}@else Home @endif</a>
         </div>
-        <div class="row datosProducto marginBottom2">
-            <!-- Abre columna de descripción de Producto -->
-            <div class="col-md-6">
 
-                <!-- Nombre del producto -->
-                <div class="divCargaTitProd">
-                    <h3>Código del producto</h3>
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9" value="{{ $item->titulo }}">
-                        <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual código. Máximo 9 caracteres.</p>
+        <h3>Código del producto</h3>
+        <div class="form-group">
+            <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9" value="{{ $item->titulo }}">
+            <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual código. Máximo 9 caracteres.</p>
+        </div>
+
+        <div class="row marginBottom2">
+            <!-- Abre columna de imágenes -->
+            <div class="col-md-12 cargaImg">
+                    <div class="fondoDestacado">
+                        <h3>Recorte de imágenes</h3>
+                        <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
+                        @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
+                    <div class="row">
+                        @if((count($item->imagen_destacada()) > 0) || (count($item->imagenes) > 0))
+                            <div class="col-md-12">
+                                <h3>Imágenes cargadas</h3>
+                            </div>
+                        @endif
+                        @if(count($item->imagen_destacada()) > 0)
+                        <div class="imgSeleccionadas">
+                            <div class="col-md-3">
+                                <div class="thumbnail">
+                                    <input type="hidden" name="imagen_crop_editar[]" value="{{$item->imagen_destacada()->id}}">
+                                    <img class="marginBottom1" src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}">
+                                    <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$item->imagen_destacada()->epigrafe}}">
+                                    <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                        @foreach($item->imagenes as $img)
+                         <div class="imgSeleccionadas">
+                            <div class="col-md-3">
+                                <div class="thumbnail">
+                                    <input type="hidden" name="imagen_crop_editar[]" value="{{$img->id}}">
+                                    <img class="marginBottom1" src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
+                                    <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$img->epigrafe}}">
+                                    <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$img->id}}');" class="fa fa-times-circle fa-lg"></i>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">
+                            <div class="col-md-3">
+                                <div class="thumbnail">
+                                    <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
+                                    <img class="marginBottom1" ng-src="<% img.src %>">
+                                    <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
+                                    <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
+                                    <i ng-click="borrarImagenCompleto($index)" class="fa fa-times-circle fa-lg"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>  
 
+        <div class="row">
+            <div class="col-md-6">
                 <!-- Estado  -->
                 <div class="divEstado">
                 <h3>Estado</h3>
@@ -58,7 +108,60 @@
                     </div>
                     <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p>
                 </div>
+            </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Texto descriptivo de la obra</h3>
+                <div class="divEditorTxt marginBottom2">
+                    <textarea id="texto" contenteditable="true" name="cuerpo">{{ $item->producto()->cuerpo }}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Videos</h3>
+            </div>
+        </div>
+        <div class="row">
+            @foreach($item->videos as $video)
+                <div class="col-md-4 marginBottom2">
+                    <iframe class="video-tc" src="@if($video->tipo == 'youtube')https://www.youtube.com/embed/@else//player.vimeo.com/video/@endif{{ $video->url }}"></iframe>
+                    <a onclick="borrarVideoReload('{{ URL::to('admin/video/borrar') }}', '{{$video->id}}');" class="btn pull-right"><i class="fa fa-times fa-lg"></i>eliminar</a>
+                </div>
+            @endforeach
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @if(count($item->videos) == 2)
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                @elseif(count($item->videos) == 1)
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                @elseif(count($item->videos) == 0)
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                    <div class="form-group marginBottom2">
+                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                    </div>
+                @endif
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
                 <!-- Indicar Sección a la que pertenece el producto  -->
                 <div class="divModIndicarSeccion">
                     @if($seccion_next != 'null')
@@ -85,37 +188,8 @@
                 @endif
 
                 </div>
-            </div><!--cierra columna datos de producto-->
-
-            <!-- Abre columna de imágenes -->
-           
-                <h3>Imagen principal</h3>
-                <div class="col-md-6 divCargarImg">
-                    <h4>Carga y recorte de la imagen</h4>
-                    <p class="infoTxt"><i class="fa fa-info-circle"></i>
-                    La imagen original puede ser vertical u horizontal pero no debe exceder los 500kb de peso.</p>
-                @if(!is_null($item->imagen_destacada()))
-
-                    <div class="divCargaImgProducto">
-                        <div class="divImgCargada">
-                            <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
-                            <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
-                        </div>
-                        <input type="hidden" name="imagen_portada_editar" value="{{$item->imagen_destacada()->id}}">
-                        <input class="form-control" type="text" name="epigrafe_imagen_portada_editar" placeholder="Ingrese una descripción de la foto" value="{{ $item->imagen_destacada()->epigrafe }}">
-                    </div>
-                @else
-                    @include('imagen.modulo-imagen-angular-crop')
-                @endif
-                
             </div>
-
-            <div class="clear"></div>
-            <!-- cierran columnas -->
-
-
-        </div>  
-            
+        </div>
 
         <div class="row">
             <div class="col-md-12">
@@ -127,16 +201,17 @@
         </div>
 
 
-            {{Form::hidden('continue', $continue)}}
-            {{Form::hidden('id', $item->id)}}
-            {{Form::hidden('producto_id', $producto->id)}}
-            {{Form::hidden('descripcion', '')}}
-            {{Form::hidden('tipo_precio_id[]', '2')}}
-            @if($seccion_next != 'null')
-                {{Form::hidden('seccion_id', $seccion_next)}}
-            @endif
-        {{Form::close()}}
-    </section>
+        {{Form::hidden('continue', $continue)}}
+        {{Form::hidden('id', $item->id)}}
+        {{Form::hidden('producto_id', $producto->id)}}
+        {{Form::hidden('descripcion', '')}}
+        {{Form::hidden('tipo_precio_id[]', '2')}}
+        @if($seccion_next != 'null')
+            {{Form::hidden('seccion_id', $seccion_next)}}
+        @endif
+    {{Form::close()}}
+    </div>
+</section>
 @stop
 
 @section('footer')

@@ -3,51 +3,28 @@
 @section('contenido')
 <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
 <script src="{{URL::to('js/producto-funcs.js')}}"></script>
-    <section class="container"  id="ng-app" ng-app="app">    
-        <div ng-controller="ImagenMultiple" nv-file-drop="" uploader="uploader" filters="customFilter, sizeLimit">
+    <section class="container">    
         {{ Form::open(array('url' => 'admin/producto/agregar', 'files' => true, 'role' => 'form')) }}
         <h2><span>Nuevo producto</span></h2>
         <div class="marginBottom2">
             <a class="volveraSeccion" href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ Seccion::find($seccion_id) -> menuSeccion() -> nombre }}</a>
         </div>
-        <h3>Código del producto</h3>
-        <div class="form-group marginBottom2">
-            <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9">
-            <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual código. Máximo 9 caracteres.</p>
-        </div>
-        <div class="row marginBottom2">
-            <!-- Abre columna de imágenes -->
-            <div class="col-md-12 cargaImg">
-                    <div class="fondoDestacado">
-                        <h3>Recorte de imágenes</h3>
-                        <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
-                        @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
-                    <div class="row">
-                        <div class="col-md-12" ng-show='imagenes_seleccionadas.length > 0'>
-                            <h3>Imágenes cargadas</h3>
-                        </div>
+        <div class="row datosProducto">
+            <!-- Abre columna de descripción de Producto -->
+            <div class="col-md-6">
 
-                        <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">
-                            <div class="col-md-3">
-                                <div class="thumbnail">
-                                    <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
-                                    <img ng-src="<% img.src %>">
-                                    <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
-                                    <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
-                                    <i ng-click="borrarImagenCompleto($index)" class="fa fa-times-circle fa-lg"></i>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Nombre del producto -->
+                <div class="divCargaTitProd">
+                    <h3>Código del producto</h3>
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9">
+                        <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual código. Máximo 9 caracteres.</p>
                     </div>
                 </div>
-            </div>
-        </div>  
-        
-        <div class="row">
-            <div class="col-md-6">
+
                 <!-- Estado  -->
                 <div class="divEstado">
-                    <h3>Estado</h3>
+                <h3>Estado</h3>
                     <div class="divEstadoNuevo">
                         <div class="radio">
                             <label>
@@ -81,35 +58,7 @@
                     </div>
                     <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p>
                 </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Texto descriptivo de la obra</h3>
-                <div class="divEditorTxt marginBottom2">
-                    <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Videos</h3>
-                <div class="form-group marginBottom2">
-                    <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                </div>
-                <div class="form-group marginBottom2">
-                    <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                </div>
-                <div class="form-group marginBottom2">
-                    <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-12">
                 <!-- Indicar Sección a la que pertenece el producto  -->
                 <div class="divModIndicarSeccion">
                     <h3>Ubicación</h3>
@@ -128,9 +77,24 @@
                             @endforeach
                     </div>
                 </div>
+
+            </div><!--cierra columna datos de producto-->
+
+            <!-- Abre columna de imágenes -->
+            <h3>Imagen del producto</h3>
+            <div class="col-md-6 divCargarImg">
+                <h4>Carga y recorte de la imagen</h4>
+
+                @include('imagen.modulo-imagen-angular-crop')
+
             </div>
-        </div>
-        
+
+            <div class="clear"></div>
+            <!-- cierran columnas -->
+
+
+        </div>  
+            
         <div class="row">
             <div class="col-md-12">
                 <div class="border-top">                
@@ -144,7 +108,6 @@
             {{Form::hidden('descripcion', '')}}
             {{Form::hidden('tipo_precio_id[]', '2')}}
         {{Form::close()}}
-        </div>
     </section>
 @stop
 

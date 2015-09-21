@@ -22,6 +22,7 @@
                         <a onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', '{{$seccion->id}}', '{{$i->id}}');"><i  class="fa fa-usd prodDestacado fa-lg"></i>Oferta</a>
                     @endif
                 @endif
+                <a href="{{URL::to('producto/'.$i->url)}}"><i class="fa fa-eye fa-lg"></i></a>
                 </span>
                 <span class="pull-right editarEliminar">
                     @if(Auth::user()->can("editar_item"))
