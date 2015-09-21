@@ -40,7 +40,7 @@
                             <a  onclick="pasarSeccionesCategoria('../admin/menu/pasar-secciones-categoria', '{{$menu->id}}');" class="btn"><i class="icon-subcategoria"></i>Convertir en subcategorías</a>
                         @endif
                         @if(Auth::user()->can("ordenar_seccion_dinamica"))
-                            <a href="{{URL::to('admin/seccion/ordenar-por-menu/'.$menu->id)}}" class="btn"><i class="fa fa-exchange fa-lg"></i>Ordenar secciones</a>
+                            <a href="{{URL::to('admin/seccion/ordenar-por-menu/'.$menu->id)}}" class="btn popup-nueva-seccion"><i class="fa fa-exchange fa-lg"></i>Ordenar secciones</a>
                         @endif
                     @endif
                     @if(Auth::user()->can("agregar_seccion"))

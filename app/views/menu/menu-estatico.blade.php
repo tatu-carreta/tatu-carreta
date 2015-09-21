@@ -48,7 +48,7 @@
 
         @foreach($menu -> secciones as $seccion)
             @if((count($seccion->items) > 0) || (count($seccion->slides) > 0))
-                @include('seccion.'.$project_name.'-ver-seccion-estatica')
+                @include('seccion.seccion-estatica')
             @endif
         @endforeach
 

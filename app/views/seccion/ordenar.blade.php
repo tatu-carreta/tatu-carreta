@@ -4,26 +4,29 @@
 @section('header')@stop
 
 @section('contenido')
-<div>
     <script>
         $(function () {
             $('.sortable').sortable();
-        });</script>
-    {{ Form::open(array('url' => 'admin/seccion/ordenar-por-menu', 'id' => 'ordenar')) }}
-
-    <ul class="sortable">
-        @foreach($secciones as $seccion)
-        <li id="{{$seccion->id}}"><span><b>Sección:</b> <strong>{{ $seccion->id }}</strong> {{ $seccion -> titulo }}</span><input type="hidden" name="orden[]" value="{{$seccion->id}}"></li><br>
-        @endforeach
-    </ul>
-    {{Form::hidden('menu_id', $menu->id)}}
-    <div class="floatRight">
-        <a onclick="cancelarPopup('agregar-seccion');" class="btnGris marginRight5">Cancelar</a>
-        <input type="submit" value="Guardar" class="btn">
+        });
+    </script>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Carga y modificación de secciones</h4>
     </div>
-
+    {{ Form::open(array('url' => 'admin/seccion/ordenar-por-menu', 'id' => 'ordenar')) }}
+        <div class="modal-body">
+            <ul class="sortable">
+                @foreach($secciones as $seccion)
+                <li id="{{$seccion->id}}"><span><b>Sección:</b> <strong>{{ $seccion->id }}</strong> {{ $seccion -> titulo }}</span><input type="hidden" name="orden[]" value="{{$seccion->id}}"></li><br>
+                @endforeach
+            </ul>
+            {{Form::hidden('menu_id', $menu->id)}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
     {{Form::close()}}
-</div>
 @stop
 
 @section('footer')@stop
