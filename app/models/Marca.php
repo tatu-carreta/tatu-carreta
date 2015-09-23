@@ -15,7 +15,7 @@ class Marca extends Eloquent {
 
         //Se definen las reglas con las que se van a validar los datos..
         $reglas = array(
-            'nombre' => array('max:30', 'unique:marca'),
+            'nombre' => array('max:50', 'unique:marca'),
         );
 
 
@@ -23,7 +23,7 @@ class Marca extends Eloquent {
         $validator = Validator::make($input, $reglas);
 
         if ($validator->fails()) {
-            $respuesta['mensaje'] = "El nombre de la marca ya existe o supera los 30 caracteres.";
+            $respuesta['mensaje'] = "El nombre de la marca ya existe o supera los 50 caracteres.";
 
             //Si está todo mal, carga lo que corresponde en el mensaje.
 
@@ -42,11 +42,14 @@ class Marca extends Eloquent {
             //Lo crea definitivamente
             $marca = static::create($datos);
 
-            if (isset($input['file']) && ($input['file'] != "")) {
+            //if (isset($input['file']) && ($input['file'] != "")) {
+            if (isset($input['imagen_portada_crop']) && ($input['imagen_portada_crop'] != "")) {
 
-                $imagen_creada = Imagen::agregarImagen($input['file']);
+                //$imagen_creada = Imagen::agregarImagen($input['file']);
+                $imagen_creada = Imagen::agregarImagenCropped($input['imagen_portada_crop'], $input['imagen_portada_crop'], null);
 
-                $marca->imagen_id = $imagen_creada['data']->miniatura()->id;
+                //$marca->imagen_id = $imagen_creada['data']->miniatura()->id;
+                $marca->imagen_id = $imagen_creada['data']->id;
                 $marca->save();
             }
 
@@ -64,13 +67,13 @@ class Marca extends Eloquent {
         $respuesta = array();
 
         $reglas = array(
-            'nombre' => array('max:30', 'unique:marca,nombre,' . $input['id']),
+            'nombre' => array('max:50', 'unique:marca,nombre,' . $input['id']),
         );
 
         $validator = Validator::make($input, $reglas);
 
         if ($validator->fails()) {
-            $respuesta['mensaje'] = "El nombre de la marca ya existe o supera los 30 caracteres.";
+            $respuesta['mensaje'] = "El nombre de la marca ya existe o supera los 50 caracteres.";
             $respuesta['error'] = true;
         } else {
 
@@ -82,11 +85,14 @@ class Marca extends Eloquent {
 
             $marca->save();
 
-            if (isset($input['file']) && ($input['file'] != "")) {
+            //if (isset($input['file']) && ($input['file'] != "")) {
+            if (isset($input['imagen_portada_crop']) && ($input['imagen_portada_crop'] != "")) {
 
-                $imagen_creada = Imagen::agregarImagen($input['file']);
+                //$imagen_creada = Imagen::agregarImagen($input['file']);
+                $imagen_creada = Imagen::agregarImagenCropped($input['imagen_portada_crop'], $input['imagen_portada_crop'], null);
 
-                $marca->imagen_id = $imagen_creada['data']->miniatura()->id;
+                //$marca->imagen_id = $imagen_creada['data']->miniatura()->id;
+                $marca->imagen_id = $imagen_creada['data']->id;
                 $marca->save();
             }
 

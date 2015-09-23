@@ -1,58 +1,58 @@
 @extends($project_name.'-master')
 
 @section('contenido')
-<script>
-    function verificar_cancelar(){
-        if(!$(".imgMarcaCargada").length)
-        {
-            alert('Usted no puede Cancelar sin establecer la imagen de la Marca.');
-        }
-        else
-        {
-            window.history.back();
-        }
-    }
-</script>
-    @if (Session::has('mensaje'))
-        <div class="divAlerta error alert-success">{{ Session::get('mensaje') }}<i onclick="" class="cerrarDivAlerta fa fa-times fa-lg"></i></div>
-    @endif
     <section class="container">
-        {{ Form::open(array('url' => 'admin/marca/editar', 'files' => true)) }}
+        {{ Form::open(array('url' => 'admin/marca/editar', 'files' => true, 'role' => 'form')) }}
             <h2><span>Carga y modificación de marcas</span></h2>
 
-            <input class="block col50 marginBottom" type="text" name="nombre" placeholder="Nombre" value="{{$marca->nombre}}" required="true">
-
-            <div class="grupoForm marginBottom2">
-                <h3>Tipo de Marca</h3>
-                <select class="form-control" name="tipo" required="true">
-                    <option value="">Seleccione un Tipo de Marca</option>
-                    <option value="P" @if($marca->tipo == "P") selected @endif>Marca de Producto</option>
-                    <option value="S" @if($marca->tipo == "S") selected @endif>Marca Técnica</option>
-                </select>
+            <div class="form-group marginBottom2">
+                <input class="form-control" type="text" name="nombre" placeholder="Nombre de la marca" required="true" maxlength="50" value="{{$marca->nombre}}">
+                <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual código. Máximo 50 caracteres.</p>
             </div>
-
-            <div class="clear"></div>
-
             
-                @if(!is_null($marca->imagen()))
-                <div class="fondoDestacado padding1 marginBottom2 col50">
-                    <div class="divCargaMarca">
-                        <img class="imgMarcaCargada" alt="{{$marca->nombre}}"  src="{{ URL::to($marca->imagen()->carpeta.$marca->imagen()->nombre) }}">
-                        <i onclick="borrarImagenReload('{{URL::to('admin/marca/quitar-imagen')}}', '{{$marca->id}}');" class="fa fa-times fa-lg"></i>
+            <h3>Tipo de Marca</h3>
+            <div class="row marginBottom2">
+                <div class="col-md-6">
+                    <select name="tipo" class="form-control" required="true">
+                        <option value="">Seleccione un Tipo de Marca</option>
+                        <option value="P" @if($marca->tipo == "P") selected @endif>Marca de Producto</option>
+                        <option value="S" @if($marca->tipo == "S") selected @endif>Marca Técnica</option>
+                    </select>
+                </div>
+            </div>
+            
+            <h3>Imagen principal</h3>
+            @if(!is_null($marca->imagen()))
+                <div class="divCargaImgProducto" style="margin-bottom:0 !important">
+                    <div class="marginBottom2 divCargaImg">
+                        <img alt="{{$marca->nombre}}"  src="{{ URL::to($marca->imagen()->carpeta.$marca->imagen()->nombre) }}">
+                        <i onclick="borrarImagenReload('{{URL::to('admin/marca/quitar-imagen')}}', '{{$marca->id}}');" class="fa fa-times-circle fa-lg"></i>
                     </div>
                     {{Form::hidden('imagen_id', $marca->imagen()->id)}}
-                    <div class="clear"></div>
                 </div>
-                @else
-                    @include('imagen.modulo-imagen-maxi')
-                @endif
+            @else
+                @include('imagen.modulo-imagen-angular-crop-horizontal')
                 
+                @section('footer')
 
-            <div>
-                <input type="submit" value="Guardar" class="btn marginRight5">
-                <a onclick="verificar_cancelar();" class="btnGris ">Cancelar</a>
+                    @parent
+
+                    <script src="{{URL::to('js/angular-1.3.0.min.js')}}"></script>
+                    <script src="{{URL::to('js/angular-file-upload.js')}}"></script>
+                    <script src="{{URL::to('js/ng-img-crop.js')}}"></script>
+                    <script src="{{URL::to('js/controllers.js')}}"></script>
+
+                @stop
+            @endif
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="border-top">                
+                        <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
+                        <a href="{{URL::to('/admin/marca')}}" class="btn btn-default">Cancelar</a>
+                    </div>
+                </div>
             </div>
-            <div class="clear"></div>
             {{Form::hidden('id', $marca->id)}}
         {{Form::close()}}
     </section>

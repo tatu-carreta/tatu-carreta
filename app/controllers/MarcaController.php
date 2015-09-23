@@ -29,10 +29,10 @@ class MarcaController extends BaseController {
         $respuesta = Marca::agregar(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name . '/agregar/')->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name . '/agregar/')->with('mensaje', $respuesta['mensaje'])->with('error', true);
             //return Redirect::to('admin/marca')->withErrors($respuesta['mensaje'])->withInput();
         } else {
-            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
         }
     }
 
@@ -57,10 +57,10 @@ class MarcaController extends BaseController {
         $respuesta = Marca::editar(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('id'))->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('id'))->with('mensaje', $respuesta['mensaje'])->with('error', true);
             //return Redirect::to('admin/marca')->withErrors($respuesta['mensaje'])->withInput();
         } else {
-            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
         }
     }
 
