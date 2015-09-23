@@ -77,7 +77,7 @@ class SeccionController extends BaseController {
     public function vistaOrdenar($menu_id) {
         $menu = Menu::find($menu_id);
 
-        $this->array_view['secciones'] = $menu->secciones;
+        $this->array_view['secciones'] = $menu->seccionesConItems();
         $this->array_view['menu'] = $menu;
 
         return View::make($this->folder_name . '.ordenar', $this->array_view);

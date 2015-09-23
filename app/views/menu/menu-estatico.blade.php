@@ -13,7 +13,7 @@
         
         @if(Auth::check())
             @if(Auth::user()->can("ordenar_seccion_estatica"))
-                @if(count($menu->secciones) >= 2)
+                @if(count($menu->seccionesConItems()) >= 2)
                     <div class="row">
                         <div class="col-md-12">
                             <a href="{{URL::to('admin/seccion/ordenar-por-menu/'.$menu->id)}}" class="btn pull-right popup-nueva-seccion iconoBtn-texto"><i class="fa fa-exchange fa-lg"></i>Ordenar secciones</a>

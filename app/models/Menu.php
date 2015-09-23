@@ -266,6 +266,7 @@ class Menu extends Eloquent {
 
 
 
+
     }
 
 //Me quedo con los precios del Producto
@@ -282,6 +283,16 @@ public function modulo() {
     }
 
     return $modulo;
+}
+
+public function seccionesConItems() {
+    $secciones_con_items = array();
+    foreach ($this->secciones as $seccion) {
+        if (count($seccion->items) > 0) {
+            array_push($secciones_con_items, $seccion);
+        }
+    }
+    return $secciones_con_items;
 }
 
 }
