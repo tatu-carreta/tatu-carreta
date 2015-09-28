@@ -84,7 +84,7 @@
                         <a href="{{URL::to('admin/seccion')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Secciones</a>
                     @endif
                     @if(Auth::user()->can("agregar_slide"))
-                        <a href="{{URL::to('admin/slide/agregar/2/I')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Slide Home</a>
+                        <a href="{{URL::to('admin/slide/agregar/8/I')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Slide Home</a>
                     @endif
                     @if(Auth::user()->can("ver_marca_admin"))
                         <a href="{{URL::to('admin/marca')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Marcas</a>
