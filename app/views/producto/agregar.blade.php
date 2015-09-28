@@ -10,53 +10,47 @@
         <div class="marginBottom2">
             <a class="volveraSeccion" href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ Seccion::find($seccion_id) -> menuSeccion() -> nombre }}</a>
         </div>
-        <h3>Código del producto</h3>
-        <div class="form-group marginBottom2">
-            <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9">
-            <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual código. Máximo 9 caracteres.</p>
-        </div>
-        <div class="row marginBottom2">
-            <!-- Abre columna de imágenes -->
-            <div class="col-md-12 cargaImg">
-                    <div class="fondoDestacado">
-                        <h3>Recorte de imágenes</h3>
-                        <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
-                        @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
-                    <div class="row">
-                        <div class="col-md-12" ng-show='imagenes_seleccionadas.length > 0'>
-                            <h3>Imágenes cargadas</h3>
-                        </div>
 
-                        <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">
-                            <div class="col-md-3">
-                                <div class="thumbnail">
-                                    <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
-                                    <img ng-src="<% img.src %>">
-                                    <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
-                                    <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
-                                    <i ng-click="borrarImagenCompleto($index)" class="fa fa-times-circle fa-lg"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="row">
+            <!-- Título del Producto, Obra o Muestra -->
+            <div class="col-md-6 divDatos divCargaTitulo">
+                <h3>Nombre de producto</h3>
+                <div class="form-group fondoDestacado">
+                    <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9">
+                    <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual nombre. Máximo 9 caracteres.</p>
                 </div>
             </div>
-        </div>  
-        
-        <div class="row">
-            <div class="col-md-6">
-                <!-- Estado  -->
-                <div class="divEstado">
-                    <h3>Estado</h3>
-                    <div class="divEstadoNuevo">
-                        <div class="radio">
-                            <label>
-                                <input id="" class="" type="checkbox" name="item_destacado" value="N">
-                                <i class="fa fa-tag prodDestacado fa-lg"></i>
-                                Nuevo
-                            </label>
-                        </div>
+
+            <!-- Marca -->
+            <div class="col-md-6 divDatos divCargaMarca">
+                <h3>Marca</h3>
+                <div class="form-group fondoDestacado">
+                    <!-- <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9"> -->
+                    <p class="infoTxt"><i class="fa fa-info-circle"></i>...</p>
+                </div>
+            </div>
+
+            <!-- Precio -->
+            <div class="col-md-6 divDatos divCargaPrecio">
+                <h3>Precio</h3>
+                <div class="form-group fondoDestacado">
+                    <!-- <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9"> -->
+                    <p class="infoTxt"><i class="fa fa-info-circle"></i>...</p>
+                </div>
+            </div>
+
+            <!-- Estado -->
+            <div class="col-md-6 divDatos divEstado">
+                <h3>Destacado (opcional)</h3>
+                <div class="fondoDestacado">
+                    <div class="radio divEstadoNuevo">
+                        <label>
+                            <input id="" class="" type="checkbox" name="item_destacado" value="N">
+                            <i class="fa fa-tag prodDestacado fa-lg"></i>
+                            Nuevo
+                        </label>
                     </div>
+
                     <div class="divEstadoOferta">
                         <div class="checkEstado">
                             <div class="radio">
@@ -79,38 +73,82 @@
                         </div>   
                         <div class="clearfix"></div>
                     </div>
-                    <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p>
+                    <!-- <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p> -->
                 </div>
             </div>
-        </div>
+        </div><!--  -->
         
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Texto descriptivo de la obra</h3>
-                <div class="divEditorTxt marginBottom2">
-                    <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
-                </div>
-            </div>
-        </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <h3>Videos</h3>
-                <div class="form-group marginBottom2">
-                    <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                </div>
-                <div class="form-group marginBottom2">
-                    <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                </div>
-                <div class="form-group marginBottom2">
-                    <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+            <!-- Imágenes -->
+            <div class="col-md-12 divDatos divCargaImg">
+                <h3>Imágenes del producto</h3>
+                <div class="fondoDestacado">
+                    <h4>Seleccione la imagen desde su PC y defina el recorte que se mostrará en el catálogo</h4>
+                    <p class="infoTxt"><i class="fa fa-info-circle"></i>La imagen original no debe exceder los 500kb de peso.</p>
+
+                    <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
+                        @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
+                    <div class="row">
+                        <div class="col-md-12" ng-show='imagenes_seleccionadas.length > 0'>
+                            <h3>Imágenes cargadas</h3>
+                        </div>
+
+                        <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">
+                            <div class="col-md-3">
+                                <div class="thumbnail">
+                                    <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
+                                    <img ng-src="<% img.src %>">
+                                    <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
+                                    <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
+                                    <i ng-click="borrarImagenCompleto($index)" class="fa fa-times-circle fa-lg"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div>  
+        
         
         <div class="row">
-            <div class="col-md-12">
-                <!-- Indicar Sección a la que pertenece el producto  -->
+            <div class="col-md-6 divDatos">
+                <!-- Texto Descriptivo del Producto u obra -->
+                <div class="divCargaTxtDesc">
+                    <h3>Texto descriptivo de la obra</h3>
+                    <div class="divEditorTxt fondoDestacado">
+                        <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
+                    </div>
+                </div>
+
+                <!-- PDF -->
+                <div class="divCargaVideos">
+                    <h3>Agregar archivos PDF</h3>
+                    <div class="fondoDestacado">
+                        
+                    </div>   
+                </div>
+
+                <!-- Videos -->
+                <div class="divCargaVideos">
+                    <h3>Videos</h3>
+                    <div class="fondoDestacado">
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                        </div>
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                        </div>
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                        </div> 
+                    </div>   
+                </div>
+            </div>
+
+            
+            <div class="col-md-6 divDatos">
+                <!-- Indicar Sección a la que pertenece el producto -->
                 <div class="divModIndicarSeccion">
                     <h3>Ubicación</h3>
                     <div class="modIndicarSeccion">

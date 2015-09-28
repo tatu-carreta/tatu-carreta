@@ -21,6 +21,16 @@ ul, li {
 a {
   text-decoration: none !important;
 }
+.fondoDestacado {
+  background: #f4f4ef;
+  padding: 1em;
+  box-sizing: border-box !important;
+}
+.divDatos h3 {
+  color: #517cba;
+  font-weight: 400;
+  font-size: 1.25em;
+}
 /* -- Botones y tooltips-- */.btn {
   box-shadow: none;
 }
@@ -256,16 +266,7 @@ section * > * > * {
   margin-bottom: 2em;
 }
 .divEstadoNuevo {
-  background: #f4f4ef;
-  padding: 1em;
-  box-sizing: border-box !important;
-  margin-bottom: 0.5em;
-}
-.divEstadoOferta {
-  background: #f4f4ef;
-  padding: 1em;
-  box-sizing: border-box !important;
-  margin-bottom: 0.5em;
+  border-bottom: 1px solid #f4f4ef;
 }
 .divEstadoOferta label {
   font-weight: normal;
@@ -275,8 +276,6 @@ section * > * > * {
 }
 .divEstadoOferta input[type=text] {
   width: 60px;
-}
-.divEstadoOferta input {
   display: inline-block;
 }
 .checkEstado {
@@ -292,6 +291,7 @@ section * > * > * {
   background: #f4f4ef;
   padding: 1em;
   box-sizing: border-box !important;
+  margin-bottom: 2em;
   display: table;
   width: 100%;
 }
@@ -399,6 +399,7 @@ img-crop canvas {
   background: #f4f4ef;
   padding: 1em;
   box-sizing: border-box !important;
+  margin-bottom: 2em;
   margin-bottom: 2em;
 }
 .resultadoImgCargada h3 {

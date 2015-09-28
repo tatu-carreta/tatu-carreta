@@ -9,7 +9,7 @@ and open the template in the editor.
     Author     : Estudio Laura Chuburu | Maxi Angeletti, Laura Chuburu, Carolina Labella, Eugenia Molinero
 */
 
-body {margin:0; font-family: 'Source Sans Pro', arial,  sans-serif !important;}
+body {margin:0; font-family: 'Source Sans Pro', arial, sans-serif !important;}
 
 h1, h2, h3 {font-weight: 300}
 ul, li {margin:0; padding:0; list-style: none}
@@ -18,11 +18,14 @@ a {text-decoration: none !important;}
 $color_btn_principal: #286090;
 $color_btn_principal_hover: #337ab7;
 
-@mixin fondoDestacado {background: #F4F4EF; padding: 1em; box-sizing: border-box !important;}
+@mixin fondoDestacado {background: #F4F4EF; padding: 1em; box-sizing: border-box !important; margin-bottom:2em }
 @mixin marginBottom05 {margin-bottom: 0.5em}
 @mixin marginBottom1 {margin-bottom: 1em}
 @mixin marginBottom2 {margin-bottom: 2em}
 @mixin ajustarImg {width:100%; height: auto}
+
+.fondoDestacado {background: #F4F4EF; padding: 1em; box-sizing: border-box !important;}
+.divDatos h3 {color: #517CBA; font-weight: 400; font-size:1.250em}
 
 /* -- Botones y tooltips-- */
 
@@ -41,7 +44,7 @@ $color_btn_principal_hover: #337ab7;
 	i {margin-right: 0.5em;}
 }
 // estilos para ocultar y dar forma el input type file
-.oculto {z-index: 999;line-height: 0;font-size: 30px; position: absolute;opacity: 0;filter: alpha(opacity = 0);-ms-filter: "alpha(opacity=0)"; margin: 0;padding:0;left:0;top: 0;width: 130px;}
+.oculto {z-index: 999;line-height: 0; font-size: 30px; position: absolute;opacity: 0;filter: alpha(opacity = 0);-ms-filter: "alpha(opacity=0)"; margin: 0;padding:0;left:0;top: 0;width: 130px;}
 .tooltip {background: #000; color:#fff;}
 
 
@@ -121,14 +124,13 @@ footer {margin-top: 1em; padding: 4em 0}
 
 // Agregar Productos
 .divCargaTitProd, .divEstado  {@include marginBottom2;}
-.divEstadoNuevo  {@include fondoDestacado; @include marginBottom05}
-.divEstadoOferta  {@include fondoDestacado; @include marginBottom05;
+.divEstadoNuevo  {border-bottom: 1px solid #F4F4EF}
+.divEstadoOferta  {
 	label {font-weight:normal;
 			span{margin-right: 0.5em;}
 		}
-	input[type=text]{width: 60px; }
+	input[type=text]{width: 60px; display: inline-block;}
 }
-.divEstadoOferta input {display: inline-block;}
 
 .checkEstado {float: left; padding-top: 0.5em;}
 .divPrecio {display: inline-block; float: right; margin-left: 1em;}
@@ -142,7 +144,7 @@ footer {margin-top: 1em; padding: 4em 0}
 	}
  }
 // Carga Imagen Producto
-.divCargarImg {@include fondoDestacado; @include marginBottom2;}
+.divCargarImg {@include fondoDestacado;}
 //.divCargaImgProducto {margin: 0px 0px 4em; position: relative;}
 .divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
 	i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}
