@@ -39,8 +39,10 @@
             <div class="row">
                 @foreach($item->imagenes_producto_editar() as $img)
                 <div class="col-md-6">
-                    <img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
-                    <p>{{$img->epigrafe}}</p>
+                    <div class="divImgItem">
+                        <img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
+                        <p>{{$img->epigrafe}}</p>
+                    </div>
                 </div>
                 @endforeach
             </div>
