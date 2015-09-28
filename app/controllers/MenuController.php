@@ -78,7 +78,7 @@ class MenuController extends BaseController {
                         $texto_modulo = "productos";
                         break;
                     case "noticia":
-                        $this->array_view['ancla'] = "#" . $menu->estado . $menu->id;
+                        //$this->array_view['ancla'] = "#" . $menu->estado . $menu->id;
 
                         $textoAgregar = "Nueva Noticia";
                         $texto_modulo = "noticias";
