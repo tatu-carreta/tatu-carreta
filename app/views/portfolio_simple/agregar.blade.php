@@ -13,7 +13,7 @@
                 <div class="col-md-12">
                 	<div class="divCargaImgHoriz">
 	                    <h3>Recorte de imágenes</h3>
-	                    @include('imagen.modulo-imagen-angular-crop-horizontal-rect')
+	                    @include('imagen.modulo-imagen-angular-crop-horizontal')
 	                </div>
                 </div>
             </div>  
