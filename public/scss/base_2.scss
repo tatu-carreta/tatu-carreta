@@ -19,6 +19,7 @@ $color_btn_principal: #286090;
 $color_btn_principal_hover: #337ab7;
 
 @mixin fondoDestacado {background: #F4F4EF; padding: 1em; box-sizing: border-box !important; margin-bottom:2em }
+@mixin lineaPunteada {border: 1px dashed #999;}
 @mixin marginBottom05 {margin-bottom: 0.5em}
 @mixin marginBottom1 {margin-bottom: 1em}
 @mixin marginBottom2 {margin-bottom: 2em}
@@ -34,6 +35,12 @@ $color_btn_principal_hover: #337ab7;
 	&:active {box-shadow: none;}
 }
 .btn + .btn {margin-left:0.5em}
+.divInputFile {display: table;
+	label.btn {width:30%}
+	input.form-control {width:98.5%}
+}
+label.btn {display:table-cell}
+label.btn + input.form-control {display:table-cell; vertical-align:middle; margin-left: 0.5em}
 .btn-primary {background: $color_btn_principal;
 	&:hover {background: $color_btn_principal_hover}
 }
@@ -63,12 +70,12 @@ header {background: #000;}
 .navbar-toggle {margin-top: 1em}
 .divMenu {float: right;}
 #menuPrincipal {
-	a {background: transparent; font-size: 15px; color:#fff; font-weight: 300;background: transparent; height: 88px; line-height: 88px; padding: 0 30px !important; text-transform: uppercase; box-sizing: border-box;}
+	a {background: transparent; font-size: 0.938em; color:#fff; font-weight: 300;background: transparent; height: 88px; line-height: 88px; padding: 0 30px !important; text-transform: uppercase; box-sizing: border-box;}
 	a:hover {background: #878979}
-	.dropdown li a {height: 35px; line-height: 35px; font-size: 15px;}
+	.dropdown li a {height: 35px; line-height: 35px; font-size: 0.938em;}
 }
 
-.btnCarrito {font-weight: 300; font-size: 15px; height: 88px; line-height: 88px; margin: 0 !important; background: #302F2F; color:#fff; padding: 0 30px !important; text-transform: uppercase; box-sizing: border-box; position: relative; z-index: 1000; float: right;
+.btnCarrito {font-weight: 300; font-size: 0.938em; height: 88px; line-height: 88px; margin: 0 !important; background: #302F2F; color:#fff; padding: 0 30px !important; text-transform: uppercase; box-sizing: border-box; position: relative; z-index: 1000; float: right;
 	&:hover {color:#fff;}
 	i {display:none;}
 }
@@ -95,7 +102,7 @@ footer {margin-top: 1em; padding: 4em 0}
 	&:nth-child(1) {border-top: 0 none;}
 	h3 {margin: 0 1em 0 0 !important}
 } 
-.sinContenido {border: 1px dashed #C6C6C6; width: 218px; height: 218px; text-align: center; line-height: 200px; margin: 2em 0px 4em;}
+.sinContenido {@include lineaPunteada; width: 218px; height: 218px; text-align: center; line-height: 200px; margin: 2em 0px 4em;}
 
 .thumbnail {border-radius: 0; border:none; padding:0}
 .bandaInfoProd {background: #efefef; padding: 0.5em 1em; color: #777774 !important; 
@@ -146,15 +153,17 @@ footer {margin-top: 1em; padding: 4em 0}
 
 // Carga Imagen Producto
 .divCargarImg {@include fondoDestacado;}
-//.divCargaImgProducto {margin: 0px 0px 4em; position: relative;}
-.divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
+.divVistaImgCargada {@include lineaPunteada; width:230px; height:230px; background:#fff; margin-bottom:1em}
+
+/*.divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
 	i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}
-}
+}*/
  
 
 // Recorte de Imágenes
-.cropArea {@include marginBottom2; background: #E4E4E4; margin-left: auto; margin-right: auto;overflow: hidden; width:100%; height:250px;}
-.divImgResultante {@include marginBottom1; background: #fff; height:300px; text-align:center;}
+.cropArea {@include lineaPunteada; background: #fff; margin-left: auto; margin-right: auto;overflow: hidden; width:100%; height:380px;}
+
+/*.divImgResultante {@include marginBottom1; background: #fff; height:300px; text-align:center;}*/
 img-crop {width: 100%; height: 100%; display: block; position: relative; overflow: hidden;}
 img-crop canvas {display: block; position: absolute; top: 0%; left: 50%; outline: none; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
  /* mobile webkit */}
@@ -187,8 +196,8 @@ img-crop canvas {display: block; position: absolute; top: 0%; left: 50%; outline
 	i:before {color: #337ABA} // cambia color del ícono del Menú Admin a tono del cliente
 	i:hover i:before {color: #337ABA;}
 }
-.infoTxt {font-size: 14px !important;
-	i {margin-right: 0.3em; color: #ADADAD; font-size: 1.6em; vertical-align: middle;}
+.infoTxt {font-size: 14px !important; color: #9E9E9E;
+	i {margin-right: 0.3em; font-size: 1.6em; color:#CACACA; vertical-align: middle;}
 }
 
 
