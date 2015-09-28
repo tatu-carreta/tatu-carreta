@@ -25,6 +25,7 @@ a {
   background: #f4f4ef;
   padding: 1em;
   box-sizing: border-box !important;
+  margin-bottom: 2em;
 }
 .divDatos h3 {
   color: #517cba;
@@ -261,9 +262,6 @@ section * > * > * {
 }
 .sortable div {
   cursor: move;
-}
-.divCargaTitProd, .divEstado {
-  margin-bottom: 2em;
 }
 .divEstadoNuevo {
   border-bottom: 1px solid #f4f4ef;

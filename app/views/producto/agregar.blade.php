@@ -115,7 +115,7 @@
             <div class="col-md-6 divDatos">
                 <!-- Texto Descriptivo del Producto u obra -->
                 <div class="divCargaTxtDesc">
-                    <h3>Texto descriptivo de la obra</h3>
+                    <h3>Detalles técnicos</h3>
                     <div class="divEditorTxt fondoDestacado">
                         <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
                     </div>
@@ -150,7 +150,7 @@
             <div class="col-md-6 divDatos">
                 <!-- Indicar Sección a la que pertenece el producto -->
                 <div class="divModIndicarSeccion">
-                    <h3>Ubicación</h3>
+                    <h3>Otras ubicaciones (opcional)</h3>
                     <div class="modIndicarSeccion">
                             @foreach($menues as $men)
                             <div class="cadaSeccion">
