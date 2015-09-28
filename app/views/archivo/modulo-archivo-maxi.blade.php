@@ -7,24 +7,41 @@
     });
 </script>
 
-<!--Campos ficticios para enmascarar el file-->
-    <input type="text" class="url-file1" class="anchoTotal">
+<div class="row marginBottom1">
+    <div class="col-md-8">
+        <input type="text" class="url-file1 form-control">
+    </div>
+    <div class="col-md-4">
+        <label class="btn btn-primary"> Seleccionar archivo
+            <span>
+                <input id="fileInput" type="file" accept="application/pdf" name="archivo[]" class='oculto file archivo' data="1">
+            </span>
+        </label>
+    </div>
+</div>
 
-    <label class="btn cargar marginRight"> Seleccionar archivo
-    <span>
-        <input type="file" accept="application/pdf" name="archivo[]" class='oculto file archivo' data="1">
-    </span>
-    </label>
-<!-- fin -->
-<div class="clear"></div>
+<div class="row marginBottom1">
+    <div class="col-md-8">
+        <input type="text" class="url-file2 form-control">
+    </div>
+    <div class="col-md-4">
+        <label class="btn btn-primary"> Seleccionar archivo
+            <span>
+                <input id="fileInput" type="file" accept="application/pdf" name="archivo[]" class='oculto file archivo' data="2">
+            </span>
+        </label>
+    </div>
+</div>
 
-<!--Campos ficticios para enmascarar el file-->
-    <input type="text" class="url-file2" class="anchoTotal">
-
-    <label class="btn cargar marginRight"> Seleccionar archivo
-    <span>
-        <input type="file" accept="application/pdf" name="archivo[]" class='oculto file archivo' data="2">
-    </span>
-    </label>
-<!-- fin -->
-<div class="clear"></div>
+<div class="row marginBottom1">
+    <div class="col-md-8">
+        <input type="text" class="url-file3 form-control">
+    </div>
+    <div class="col-md-4">
+        <label class="btn btn-primary"> Seleccionar archivo
+            <span>
+                <input id="fileInput" type="file" accept="application/pdf" name="archivo[]" class='oculto file archivo' data="3">
+            </span>
+        </label>
+    </div>
+</div>

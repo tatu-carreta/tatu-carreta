@@ -31,7 +31,7 @@ $(function () {
             $('.precioAble').focusout();
         }
     });
-
+/*
     $(".selectMarca").change(function () {
         var id = $(".selectMarca option:selected").val();
         if (id != "")
@@ -45,6 +45,7 @@ $(function () {
             $(".marca_imagen_preview").html("");
         }
     });
+    */
 });
 
 $(document).ready(function () {

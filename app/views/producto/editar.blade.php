@@ -1,6 +1,24 @@
 @extends($project_name.'-master')
 
 @section('contenido')
+<script>
+    $(function(){
+        $(".selectMarca").change(function () {
+            var id = $(".selectMarca option:selected").val();
+            if (id != "")
+            {
+                $.post("{{URL::to('admin/marca/imagen')}}", {'marca_id': id}, function (data) {
+                    $(".marca_imagen_preview").html(data);
+                });
+            }
+            else
+            {
+                $(".marca_imagen_preview").html("");
+            }
+        });
+    });
+    
+</script>
 <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
 <script src="{{URL::to('js/producto-funcs.js')}}"></script>
 <section class="container"  id="ng-app" ng-app="app">    
@@ -11,20 +29,101 @@
             <a class="volveraSeccion" href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif"><i class="fa fa-caret-left"></i>Volver a @if($seccion_next != 'null'){{ Seccion::find($seccion_next) -> menuSeccion() -> nombre }}@else Home @endif</a>
         </div>
 
-        <h3>Código del producto</h3>
-        <div class="form-group">
-            <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9" value="{{ $item->titulo }}">
-            <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual código. Máximo 9 caracteres.</p>
-        </div>
+        <div class="row">
+            <!-- Título del Producto, Obra o Muestra -->
+            <div class="col-md-6 divDatos divCargaTitulo">
+                <h3>Nombre de producto</h3>
+                <div class="form-group fondoDestacado">
+                    <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9" value="{{ $item->titulo }}">
+                    <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual nombre. Máximo 9 caracteres.</p>
+                </div>
+            </div>
+        
+            <!-- Marca -->
+            <div class="col-md-6 divDatos divCargaMarca">
+                <h3>Marca</h3>
+                <div class="form-group fondoDestacado">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <select class="form-control selectMarca" name="marca_principal" id="marca_principal">
+                                <option value="">Seleccione una Marca</option>
+                                @foreach($marcas_principales as $marca)
+                                    <option value="{{$marca->id}}" @if(!is_null($producto->marca_principal())) @if($marca->id == $producto->marca_principal()->id) selected @endif @endif>{{$marca->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="marca_imagen_preview"></div>
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9"> -->
+                    <p class="infoTxt"><i class="fa fa-info-circle"></i>...</p>
+                </div>
+            </div>
+            
+            <!-- Precio -->
+            <div class="col-md-6 divDatos divCargaPrecio">
+                <h3>Precio</h3>
+                <div class="form-group fondoDestacado">
+                    <input id="" class="form-control inputWidth60 precio-number" type="text" name="precio" value="{{ $producto->precio(2) }}">
+                    <!-- <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9"> -->
+                    <p class="infoTxt"><i class="fa fa-info-circle"></i>...</p>
+                </div>
+            </div>
+            
+            <!-- Estado -->
+            <div class="col-md-6 divDatos divEstado">
+                <h3>Destacado (opcional)</h3>
+                <div class="fondoDestacado">
+                    <div class="radio divEstadoNuevo">
+                        <label>
+                            <input id="" class="" type="checkbox" name="item_destacado" value="N" @if($item->producto()->nuevo()) checked="true" @endif>
+                            <i class="fa fa-tag prodDestacado fa-lg"></i>
+                            Nuevo
+                        </label>
+                    </div>
 
-        <div class="row marginBottom2">
-            <!-- Abre columna de imágenes -->
-            <div class="col-md-12 cargaImg">
+                    <div class="divEstadoOferta">
+                        <div class="checkEstado">
+                            <div class="radio">
+                                <label>
+                                    <input id="" class=" precioDisabled" type="checkbox" name="item_destacado" value="O" @if($item->producto()->oferta()) checked="true" @endif>
+                                    <i  class="fa fa-usd prodDestacado fa-lg"></i>
+                                    Oferta
+                                </label>
+                            </div>
+                        </div>
+                        <div class="divPrecio">
+                            <label for="" >
+                                <span>Precio después $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_actual" value="{{ $producto->precio(2) }}">
+                            </label>
+                        </div>
+                        <div class="divPrecio">
+                            <label for="" >
+                                <span>Precio antes $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_antes" value="{{ $producto->precio(1) }}">
+                            </label>
+                        </div>   
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p> -->
+                </div>
+            </div>
+        </div>
+            
+        <div class="row">
+            <!-- Imágenes -->
+            <div class="col-md-12 divDatos divCargaImg">
+                <h3>Imágenes del producto</h3>
                     <div class="fondoDestacado">
-                        <h3>Recorte de imágenes</h3>
+                        <h4>Nueva imagen</h4>
+                        <p class="infoTxt"><i class="fa fa-info-circle"></i>La imagen original no debe exceder los 500kb de peso.</p>
+                        
                         <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
                         @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
-                    <div class="row">
+                    
+                        <div class="row">
                         @if((count($item->imagen_destacada()) > 0) || (count($item->imagenes) > 0))
                             <div class="col-md-12">
                                 <h3>Imágenes cargadas</h3>
@@ -71,126 +170,67 @@
         </div>  
 
         <div class="row">
-            <div class="col-md-6">
-                <!-- Estado  -->
-                <div class="divEstado">
-                <h3>Estado</h3>
-                    <div class="divEstadoNuevo">
-                        <div class="radio">
-                            <label>
-                                <input id="" class="" type="checkbox" name="item_destacado" value="N" @if($item->producto()->nuevo()) checked="true" @endif>
-                                 <i class="fa fa-tag prodDestacado fa-lg"></i>
-                                Nuevo
-                            </label>
-                        </div>
+            <div class="col-md-6 divDatos">
+                <!-- Texto Descriptivo del Producto u obra -->
+                <div class="divCargaTxtDesc">
+                    <h3>Texto descriptivo de la obra</h3>
+                    <div class="divEditorTxt fondoDestacado">
+                        <textarea id="texto" contenteditable="true" name="cuerpo">{{ $item->producto()->cuerpo }}</textarea>
                     </div>
-                    <div class="divEstadoOferta">
-                        <div class="checkEstado">
-                            <div class="radio">
-                                <label>
-                                    <input id="" class="precioDisabled" type="checkbox" name="item_destacado" value="O" @if($item->producto()->oferta()) checked="true" @endif>
-                                    <i  class="fa fa-usd prodDestacado fa-lg"></i>
-                                    Oferta
-                                </label>
-                            </div>
+                </div>
+
+                <!-- PDF -->
+                <div class="divCargaVideos">
+                    <h3>Agregar archivos PDF</h3>
+                    <div class="fondoDestacado">
+                        @include('archivo.modulo-archivo-maxi')
+                    </div>   
+                </div>
+
+                <!-- Videos -->
+                <div class="divCargaVideos">
+                    <h3>Videos</h3>
+                    <div class="fondoDestacado">
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
                         </div>
-                        <div class="divPrecio">
-                            <label for="" >
-                                <span>Precio después $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_antes" value="">
-                            </label>
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
                         </div>
-                        <div class="divPrecio">
-                            <label for="" >
-                                <span>Precio antes $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_actual" value="">
-                            </label>
-                        </div>   
-                        <div class="clearfix"></div>
-                    </div>
-                    <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p>
+                        <div class="form-group marginBottom2">
+                            <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                        </div> 
+                    </div>   
                 </div>
             </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <h3>Texto descriptivo de la obra</h3>
-                <div class="divEditorTxt marginBottom2">
-                    <textarea id="texto" contenteditable="true" name="cuerpo">{{ $item->producto()->cuerpo }}</textarea>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <h3>Videos</h3>
-            </div>
-        </div>
-        <div class="row">
-            @foreach($item->videos as $video)
-                <div class="col-md-4 marginBottom2">
-                    <iframe class="video-tc" src="@if($video->tipo == 'youtube')https://www.youtube.com/embed/@else//player.vimeo.com/video/@endif{{ $video->url }}"></iframe>
-                    <a onclick="borrarVideoReload('{{ URL::to('admin/video/borrar') }}', '{{$video->id}}');" class="btn pull-right"><i class="fa fa-times fa-lg"></i>eliminar</a>
-                </div>
-            @endforeach
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                @if(count($item->videos) == 2)
-                    <div class="form-group marginBottom2">
-                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                    </div>
-                @elseif(count($item->videos) == 1)
-                    <div class="form-group marginBottom2">
-                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                    </div>
-                    <div class="form-group marginBottom2">
-                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                    </div>
-                @elseif(count($item->videos) == 0)
-                    <div class="form-group marginBottom2">
-                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                    </div>
-                    <div class="form-group marginBottom2">
-                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                    </div>
-                    <div class="form-group marginBottom2">
-                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                    </div>
-                @endif
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <!-- Indicar Sección a la que pertenece el producto  -->
+            @if($seccion_next != 'null')
+            <div class="col-md-6 divDatos">
+                <!-- Indicar Sección a la que pertenece el producto -->
                 <div class="divModIndicarSeccion">
-                    @if($seccion_next != 'null')
                     <h3>Ubicación</h3>
-                        <div class="modIndicarSeccion">
-                                @foreach($menues as $men)
-                                <div class="cadaSeccion">
-                                    @if(count($men->children) == 0)
-                                        <div>
-                                            @foreach($men->secciones as $seccion)
-                                                <span><input id="menu{{$men->id}}" type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if(in_array($seccion->id, $item->secciones->lists('id'))) checked="true" @endif @if($seccion->id == $seccion_next) disabled @endif>{{-- @if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif --}}</span>
-                                            @endforeach
-                                        </div>
-                                        <div><label for="menu{{$men->id}}">{{$men->nombre}}</label></div>
-                                    @endif
+                    <div class="modIndicarSeccion">
+                        @foreach($menues as $men)
+                        <div class="cadaSeccion">
+                            @if(count($men->children) == 0)
+                                <div>
+                                    @foreach($men->secciones as $seccion)
+                                        <span><input id="menu{{$men->id}}" type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if(in_array($seccion->id, $item->secciones->lists('id'))) checked="true" @endif @if($seccion->id == $seccion_next) disabled @endif>{{-- @if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif --}}</span>
+                                    @endforeach
                                 </div>
-                                @endforeach
+                                <div><label for="menu{{$men->id}}">{{$men->nombre}}</label></div>
+                            @endif
                         </div>
-                    @else
-
-                    @foreach($item->secciones as $seccion)
-                        <input type="hidden" name="secciones[]" value="{{$seccion->id}}">
-                    @endforeach
-                @endif
-
+                        @endforeach
+                    </div>
                 </div>
             </div>
+            @else
+                @foreach($item->secciones as $seccion)
+                    <input type="hidden" name="secciones[]" value="{{$seccion->id}}">
+                @endforeach
+            @endif
         </div>
-
+        
         <div class="row">
             <div class="col-md-12">
                 <div class="border-top">

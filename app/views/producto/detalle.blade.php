@@ -15,93 +15,94 @@
     });
 </script>
 @endif
-<section>
-    @if (Session::has('mensaje'))
-        <div class="divAlerta ok alert-success">{{ Session::get('mensaje') }}<i onclick="" class="cerrarDivAlerta fa fa-times fa-lg"></i></div>
-    @endif
-    <div class="container">
-        <h2><span class=""><a class="volveraSeccion" href="{{URL::to('/'.$item -> seccionItem() -> menuSeccion() -> url)}}">{{ $item -> seccionItem() -> menuSeccion() -> nombre }}</a></span></h2>
-       
-        @if(Auth::check())
-            @if(Auth::user()->can("editar_item"))
-            <a href="{{URL::to('admin/producto/editar/'.$item->producto()->id)}}" data='{{$item -> seccionItem() -> id}}' style="display:none">Editar<i class="fa fa-pencil fa-lg"></i></a>
-            @endif
-        @endif
-        
-        <!--columna producto y descripcion -->
-        <div class="col70">
-            <div class="imgProd">
-                <div class="slideProducto">
-                    <ul class="slides">
-                        @if(count($item->imagenes_producto()) > 0)
-                            @foreach($item->imagenes_producto() as $img)
-                            <li>
-                                <img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
-                                <p>{{$img->epigrafe}}</p>
-                            </li>
-                            @endforeach
-                        @else
-                            <li><img src="{{ URL::to('images/sinImg.gif') }}" alt="{{$item->titulo}}"></li>
-                        @endif
-                    </ul>
+<section class="container">
+    <div class="row">
+        <div class="col-md-12 marginBottom2">
+            <h2>{{ $item -> seccionItem() -> titulo }}</h2>
+            <a class="volveraSeccion" href="{{URL::to('/'.$item -> seccionItem() -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ $item -> seccionItem() -> menuSeccion() -> nombre }}</a>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            @if(!is_null($item->imagen_destacada()))
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="divImgItem">
+                        <img class="lazy" src="{{URL::to($item->imagen_destacada()->ampliada()->carpeta.$item->imagen_destacada()->ampliada()->nombre)}}">
+                    </div>
                 </div>
             </div>
             
-            <div class="detalleProd">
-                <h2>{{ $item -> titulo }}</h2> 
-                <h2 class="marcaTit">Marca: @if(!is_null($item->producto()->marca_principal())){{ $item->producto()->marca_principal()->nombre }}@endif</h2>
-
-                @if(!is_null($item->producto()->marca_principal()))
-                    <img class="marcaPrincipal" src="@if(!is_null($item->producto()->marca_principal()->imagen())){{URL::to($item->producto()->marca_principal()->imagen()->carpeta.$item->producto()->marca_principal()->imagen()->nombre)}}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$item->producto()->marca_principal()->nombre}}">
-                @endif
-
-                @if($item->destacado())
-                    <p class="precioTit">Precio: <span>${{ $item->producto()->precio(2) }}</span></p>
-                @else
-                    <p class="precioTit naranja">Precio: consulte</p>
-                @endif
-
-                @if($item->producto()->cuerpo != "")
-                <div class="editor">
-                    <h4>Detalles técnicos</h4>
-                    {{ $item->producto()->cuerpo }}
+            @endif
+            @if(count($item->imagenes_producto_editar()) > 0)
+            <div class="row">
+                @foreach($item->imagenes_producto_editar() as $img)
+                <div class="col-md-6">
+                    <img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
+                    <p>{{$img->epigrafe}}</p>
                 </div>
-                @endif
-                @if(count($item->producto()->marcas_secundarias()) > 0)
-                        @foreach($item->producto()->marcas_secundarias() as $marca)
-                            <img class="marcaSecundaria" src="@if(!is_null($marca->imagen())){{ URL::to($marca->imagen()->carpeta.$marca->imagen()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$marca->nombre}}">
-                        @endforeach
+                @endforeach
+            </div>
+            @endif
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="divImgItem">
+                    @if(!is_null($item->producto()->marca_principal()))
+                        <img class="marcaPrincipal lazy" src="@if(!is_null($item->producto()->marca_principal()->imagen())){{URL::to($item->producto()->marca_principal()->imagen()->carpeta.$item->producto()->marca_principal()->imagen()->nombre)}}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$item->producto()->marca_principal()->nombre}}">
                     @endif
-                
-                @if(count($item->archivos) > 0)
-                    <h4 class="marginBottom05">Descargas PDF</h4>
-
-                    @foreach($item->archivos as $archivo)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>{{ $item -> titulo }}</h2>
+                </div>
+            </div>
+            @if($item->producto()->oferta())
+            <div class="row">
+                <div class="col-md-12">
+                    <span>OFERTA: ${{$item->producto()->precio(1)}} <span>(antes: ${{$item->producto()->precio(2)}})</span></span>
+                </div>
+            </div>
+            @elseif($item->producto()->nuevo())
+            <div class="row">
+                <div class="col-md-12">
+                    <span>NUEVO</span>
+                </div>
+            </div>
+            @elseif($item->producto()->precio(2) != 0)
+            <div class="row">
+                <div class="col-md-12">
+                    <span>PRECIO: ${{ $item->producto()->precio(2) }}</span>
+                </div>
+            </div>
+            @endif
+            @if($item->producto()->cuerpo != "")
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Descripción técnica</h4>
+                    <p>{{ $item->producto()->cuerpo }}</p>
+                </div>
+            </div>
+            @endif
+            @if(count($item->archivos) > 0)
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Descargas PDF</h4>
+                </div>
+            </div>
+            <div class="row">
+                @foreach($item->archivos as $archivo)
+                <div class="col-md-12">
                     <a href="{{URL::to($archivo->carpeta.$archivo->nombre)}}" class="descargarPDF">{{$archivo->titulo}}</a>
-                    @endforeach
-                @endif
+                </div>
+                @endforeach
             </div>
-            <div class="clear"></div>
+            @endif
         </div>
-        <!--columna info Contacto -->
-        <div class="col30">
-            <div class="telHead">
-                <span>Tiene dudas? Consúltenos:</span><br>
-                <span class="num">(011) <strong>5197-0808</strong></span>
-            </div>
-            {{ Form::open(array('url' => 'admin/producto/producto-consulta', 'class' => 'formCol')) }}
-                <h4>Consulte por este producto:</h4>
-                <input type="text" name="nombre" placeholder="Nombre y Apellido">
-                <input type="text" name="telefono" placeholder="Teléfono">
-                <input type="email" name="email" placeholder="E-mail">
-                <textarea name="mensaje" placeholder="Mensaje"></textarea>
-                <input class="btnNaranja floatRight" type="submit" value="consultar">
-                <div class="clear"></div>
-                {{Form::hidden('producto_consulta_id', $item->producto()->id)}}
-                {{Form::hidden('continue', 'detalle')}}
-            {{Form::close()}}
-        </div>
-        <div class="clear"></div>
     </div>
 </section>
 @stop

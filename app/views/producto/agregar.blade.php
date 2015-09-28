@@ -1,6 +1,24 @@
 @extends($project_name.'-master')
 
 @section('contenido')
+<script>
+    $(function(){
+        $(".selectMarca").change(function () {
+            var id = $(".selectMarca option:selected").val();
+            if (id != "")
+            {
+                $.post("{{URL::to('admin/marca/imagen')}}", {'marca_id': id}, function (data) {
+                    $(".marca_imagen_preview").html(data);
+                });
+            }
+            else
+            {
+                $(".marca_imagen_preview").html("");
+            }
+        });
+    });
+    
+</script>
 <script src="{{URL::to('js/ckeditorLimitado.js')}}"></script>
 <script src="{{URL::to('js/producto-funcs.js')}}"></script>
     <section class="container"  id="ng-app" ng-app="app">    
@@ -25,6 +43,21 @@
             <div class="col-md-6 divDatos divCargaMarca">
                 <h3>Marca</h3>
                 <div class="form-group fondoDestacado">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <select class="form-control selectMarca" name="marca_principal" id="marca_principal">
+                                <option value="">Seleccione una Marca</option>
+                                @foreach($marcas_principales as $marca)
+                                    <option value="{{$marca->id}}">{{$marca->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="marca_imagen_preview"></div>
+                        </div>
+                    </div>
+                    
+                    
                     <!-- <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9"> -->
                     <p class="infoTxt"><i class="fa fa-info-circle"></i>...</p>
                 </div>
@@ -34,6 +67,7 @@
             <div class="col-md-6 divDatos divCargaPrecio">
                 <h3>Precio</h3>
                 <div class="form-group fondoDestacado">
+                    <input id="" class="form-control inputWidth60 precio-number" type="text" name="precio" value="">
                     <!-- <input class="form-control" type="text" name="titulo" placeholder="Código" required="true" maxlength="9"> -->
                     <p class="infoTxt"><i class="fa fa-info-circle"></i>...</p>
                 </div>
@@ -84,11 +118,11 @@
             <div class="col-md-12 divDatos divCargaImg">
                 <h3>Imágenes del producto</h3>
                 <div class="fondoDestacado">
-                    <h4>Seleccione la imagen desde su PC y defina el recorte que se mostrará en el catálogo</h4>
+                    <h4>Nueva imagen</h4>
                     <p class="infoTxt"><i class="fa fa-info-circle"></i>La imagen original no debe exceder los 500kb de peso.</p>
 
                     <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
-                        @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
+                    @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
                     <div class="row">
                         <div class="col-md-12" ng-show='imagenes_seleccionadas.length > 0'>
                             <h3>Imágenes cargadas</h3>
@@ -125,7 +159,7 @@
                 <div class="divCargaVideos">
                     <h3>Agregar archivos PDF</h3>
                     <div class="fondoDestacado">
-                        
+                        @include('archivo.modulo-archivo-maxi')
                     </div>   
                 </div>
 
