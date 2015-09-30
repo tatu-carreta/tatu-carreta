@@ -183,7 +183,7 @@
                 <div class="divCargaVideos">
                     <h3>Agregar archivos PDF</h3>
                     <div class="fondoDestacado">
-                        @include('archivo.modulo-archivo-maxi')
+                        @include('archivo.modulo-archivo-maxi-editar')
                     </div>   
                 </div>
 
