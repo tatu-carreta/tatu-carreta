@@ -123,49 +123,52 @@
                         <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
                         @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
                     
-                        <div class="row">
+
                         @if((count($item->imagen_destacada()) > 0) || (count($item->imagenes) > 0))
-                            <div class="col-md-12">
-                                <h3>Imágenes cargadas</h3>
-                            </div>
+
                         @endif
                         @if(count($item->imagen_destacada()) > 0)
-                        <div class="imgSeleccionadas">
-                            <div class="col-md-3">
-                                <div class="thumbnail">
-                                    <input type="hidden" name="imagen_crop_editar[]" value="{{$item->imagen_destacada()->id}}">
-                                    <img class="marginBottom1" src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}">
-                                    <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$item->imagen_destacada()->epigrafe}}">
-                                    <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
+                        <div class="row">
+                            <div class="col-md-12 imgSeleccionadas">
+                                <h4>Imágenes cargadas</h4>
+                                <p class="infoTxt"><i class="fa fa-info-circle"></i>La primer imagen cargada se mostrará en el catálogo. Puede cambiar el orden arrastrando con el mouse. </p>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="thumbnail">
+                                            <input type="hidden" name="imagen_crop_editar[]" value="{{$item->imagen_destacada()->id}}">
+                                            <img class="marginBottom1" src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}">
+                                            <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$item->imagen_destacada()->epigrafe}}">
+                                            <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+                            @endif
+                            @foreach($item->imagenes as $img)
+                            <div class="imgSeleccionadas">
+                                <div class="col-md-2">
+                                    <div class="thumbnail">
+                                        <input type="hidden" name="imagen_crop_editar[]" value="{{$img->id}}">
+                                        <img class="marginBottom1" src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
+                                        <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$img->epigrafe}}">
+                                        <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$img->id}}');" class="fa fa-times-circle fa-lg"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        @endif
-                        @foreach($item->imagenes as $img)
-                         <div class="imgSeleccionadas">
-                            <div class="col-md-3">
-                                <div class="thumbnail">
-                                    <input type="hidden" name="imagen_crop_editar[]" value="{{$img->id}}">
-                                    <img class="marginBottom1" src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
-                                    <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$img->epigrafe}}">
-                                    <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$img->id}}');" class="fa fa-times-circle fa-lg"></i>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                        <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">
-                            <div class="col-md-3">
-                                <div class="thumbnail">
-                                    <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
-                                    <img class="marginBottom1" ng-src="<% img.src %>">
-                                    <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
-                                    <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
-                                    <i ng-click="borrarImagenCompleto($index)" class="fa fa-times-circle fa-lg"></i>
+                            @endforeach
+                            <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">
+                                <div class="col-md-2">
+                                    <div class="thumbnail">
+                                        <input type="hidden" name="imagen_portada_ampliada[]" value="<% img.imagen_portada_ampliada %>">
+                                        <img class="marginBottom1" ng-src="<% img.src %>">
+                                        <input type="hidden" name="epigrafe_imagen_portada[]" value="<% img.epigrafe %>">
+                                        <input type="hidden" name="imagen_portada_crop[]" value="<% img.imagen_portada %>">
+                                        <i ng-click="borrarImagenCompleto($index)" class="fa fa-times-circle fa-lg"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>  
 

@@ -20,7 +20,7 @@
     <div class="col-md-6"></div>
 </div>
 
-<div class="row">
+<div class="row marginBottom1">
     <div class="col-md-6">
         <p>Modifique la selección para definir el recorte:</p>
         <div class="cropArea" ng-class="{'big':size == 'big', 'medium':size == 'medium', 'small':size == 'small'}">
@@ -68,5 +68,3 @@
     <div class="clearfix"></div>
 </div> <!-- Cierra row -->
     
-</div>
-<!-- cierra row -->

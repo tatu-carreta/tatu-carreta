@@ -18,12 +18,14 @@ a {text-decoration: none !important;}
 $color_btn_principal: #286090;
 $color_btn_principal_hover: #337ab7;
 
+
 @mixin fondoDestacado {background: #F4F4EF; padding: 1em; box-sizing: border-box !important; margin-bottom:2em }
 @mixin lineaPunteada {border: 1px dashed #999;}
 @mixin marginBottom05 {margin-bottom: 0.5em}
 @mixin marginBottom1 {margin-bottom: 1em}
 @mixin marginBottom2 {margin-bottom: 2em}
 @mixin ajustarImg {width:100%; height: auto}
+@mixin position_i_top_right {position:absolute; top: 0.6em; right:0.4em; font-size:1.4em !important}
 
 .fondoDestacado {background: #F4F4EF; padding: 1em; box-sizing: border-box !important; margin-bottom:2em}
 .divDatos h3 {color: #517CBA; font-weight: 400; font-size:1.250em}
@@ -104,7 +106,10 @@ footer {margin-top: 1em; padding: 4em 0}
 } 
 .sinContenido {@include lineaPunteada; width: 218px; height: 218px; text-align: center; line-height: 200px; margin: 2em 0px 4em;}
 
-.thumbnail {border-radius: 0; border:none; padding:0}
+.thumbnail {background: transparent; border-radius: 0; border:none; padding:0; position:relative;
+	img {background:#fff; }
+	.fa-times-circle {@include position_i_top_right;}
+}
 .bandaInfoProd {background: #efefef; padding: 0.5em 1em; color: #777774 !important; 
 	.btn-default {color: #777774 !important;}
 	.btn-default:hover {color: #fff !important; background: #00A9E0; border: none;}
@@ -154,6 +159,7 @@ footer {margin-top: 1em; padding: 4em 0}
 // Carga Imagen Producto
 .divCargarImg {@include fondoDestacado;}
 .divVistaImgCargada {@include lineaPunteada; width:230px; height:230px; background:#fff; margin-bottom:1em}
+.imgSeleccionadas .thumbnail {margin-bottom:0}
 
 /*.divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
 	i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}

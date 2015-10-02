@@ -214,9 +214,20 @@ section * > * > * {
   margin: 2em 0px 4em;
 }
 .thumbnail {
+  background: transparent;
   border-radius: 0;
   border: none;
   padding: 0;
+  position: relative;
+}
+.thumbnail img {
+  background: #fff;
+}
+.thumbnail .fa-times-circle {
+  position: absolute;
+  top: 0.6em;
+  right: 0.4em;
+  font-size: 1.4em !important;
 }
 .bandaInfoProd {
   background: #efefef;
@@ -347,6 +358,9 @@ section * > * > * {
   height: 230px;
   background: #fff;
   margin-bottom: 1em;
+}
+.imgSeleccionadas .thumbnail {
+  margin-bottom: 0;
 }
 /*.divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
  i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}
