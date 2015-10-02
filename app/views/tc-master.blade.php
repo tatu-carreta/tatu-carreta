@@ -15,10 +15,10 @@
         
         <!-- B O O T S T R A P -->
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="{{URL::to('bootstrap-3.3.4-dist/css/bootstrap.css')}}">
+        <link rel="stylesheet" href="{{URL::to('bootstrap-3.3.4-dist/css/bootstrap.min.css')}}">
         
-        <link rel="stylesheet" type="text/css" href="{{URL::to('css/jquery-ui.css')}}">
-        <link rel="stylesheet" href="{{URL::to('font-awesome-4.2.0/css/font-awesome.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{URL::to('css/jquery-ui.min.css')}}">
+        <link rel="stylesheet" href="{{URL::to('font-awesome-4.2.0/css/font-awesome.min.css')}}">
         <!-- <link rel="stylesheet" href="{{URL::to('css/flexslider.css')}}">-->
         <link rel="stylesheet" href="{{URL::to('css/owl.carousel.css')}}">
         <link rel="stylesheet" href="{{URL::to('css/owl.theme.css')}}">
@@ -168,11 +168,11 @@
                 @endif
             @show
         </footer>
-        
+        <!--
         <script src="{{URL::to('ckeditor/ckeditor.js')}}"></script>
-        <script src="{{URL::to('ckeditor/adapters/jquery.js')}}"></script>
-        <script src="{{URL::to('js/jquery.lazyload.js')}}"></script>
-        <script src="{{URL::to('js/jquery-ui.min.js')}}"></script>
+        <script src="{{URL::to('ckeditor/adapters/jquery.js')}}"></script>-->
+        <script src="{{URL::to('js/jquery.lazyload.min.js')}}"></script>
+        <!--<script src="{{URL::to('js/jquery-ui.min.js')}}"></script>
         <!--<script src="{{URL::to('js/div-ventana-carrito.js')}}"></script>-->
         
         <script>
