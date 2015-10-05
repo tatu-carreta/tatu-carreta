@@ -111,6 +111,7 @@ footer {margin-top: 1em; padding: 4em 0}
 	img {background:#fff; }
 	.fa-times-circle {@include position_i_top_right;}
 }
+
 .bandaInfoProd {background: #efefef; padding: 0.5em 1em; color: #777774 !important; 
 	.btn-default {color: #777774 !important;}
 	.btn-default:hover {color: #fff !important; background: #00A9E0; border: none;}
@@ -159,12 +160,17 @@ footer {margin-top: 1em; padding: 4em 0}
 
 // Carga Imagen Producto
 .divCargarImg {@include fondoDestacado;}
-.divVistaImgCargada {@include lineaPunteada; width:230px; height:230px; background:#fff; margin-bottom:1.3em}
+.divVistaImgCargada {@include lineaPunteada; width:230px; height:230px; background:#fff; margin-bottom:1.3em;
+	img {@include ajustarImg;}
+	}
 .imgSeleccionadas .thumbnail {margin-bottom:0}
-
-/*.divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
+.divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
 	i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}
-}*/
+}
+.divImgCargadaPortSimple {height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
+	i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}
+}
+
 // Carga de Videos
 .divCargaVideos .form-group:last-child {margin:0}
 
@@ -188,6 +194,8 @@ img-crop canvas {display: block; position: absolute; top: 0%; left: 50%; outline
 /*.divCargaImgHoriz {@include fondoDestacado; @include marginBottom2;}*/
 .resultadoImgCargada h3 {margin-top: 12px !important;}
 .divCargaImg .fa-lg {font-size: 1.2em; color:#286090; cursor: pointer }
+
+
 
 /* -- Menu ADMIN -- */
 

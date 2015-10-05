@@ -8,8 +8,9 @@
                 <a class="volveraSeccion" href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif"><i class="fa fa-caret-left"></i>Volver a @if($seccion_next != 'null'){{ Seccion::find($seccion_next) -> menuSeccion() -> nombre }}@else Home @endif</a>
             </div>
             
-            <div class="row">
-                <div class="col-md-12">
+            <div class="row marginBottom1">
+                <div class="col-md-6 divDatos">
+                    <h3>Ubicación en sección</h3>
                     @if(Auth::user()->can('cambiar_seccion_item'))
                         <select name="seccion_nueva_id" class="form-control  marginBottom2">
                             <option value="">Seleccione Nueva Sección</option>
@@ -19,11 +20,12 @@
                         </select>
                     @endif
                 </div>
+                <div class="col-md-6"></div>
             </div>
             
             <div class="row">
                 <!-- Abre columna Imagen del Portfolio -->
-                <div class="col-md-12 divDatos divCargaImg">
+                <div class="col-md-12 divDatos divCargaImgPortSimple">
                     <h3>Imagen de la obra</h3>
                     <div class="fondoDestacado">
                         <h4>Editar imagen</h4>
@@ -31,8 +33,8 @@
 
                         <h3>Imagen principal</h3>
                         @if(!is_null($item->imagen_destacada()))
-                            <div class="divCargaImgProducto" style="margin-bottom:0 !important">
-                                <div class="marginBottom2 divCargaImg">
+                            <div>
+                                <div class="marginBottom1 divImgCargadaPortSimple">
                                     <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
                                     <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
                                 </div>

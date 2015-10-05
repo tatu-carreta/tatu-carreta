@@ -9,7 +9,7 @@
             </div>
         
             <div class="row">
-                <!-- Abre columna Imagen del POrtfolio -->
+                <!-- Abre columna Imagen del Portfolio -->
                 <div class="col-md-12 divDatos divCargaImg">
                     <h3>Imagen de la obra</h3>
                 	<div class="fondoDestacado">

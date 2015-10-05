@@ -368,12 +368,50 @@ section * > * > * {
   background: #fff;
   margin-bottom: 1.3em;
 }
+.divVistaImgCargada img {
+  width: 100%;
+  height: auto;
+}
 .imgSeleccionadas .thumbnail {
   margin-bottom: 0;
 }
-/*.divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
- i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}
- }*/.divCargaVideos .form-group:last-child {
+.divImgCargada {
+  height: 20em;
+  width: 20em;
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 2em;
+}
+.divImgCargada i {
+  position: absolute;
+  top: 0.6em;
+  right: 0.6em;
+  font-size: 1.4em;
+  color: #337ab7;
+  background: #fff;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+.divImgCargadaPortSimple {
+  height: 20em;
+  width: 20em;
+  position: relative;
+  box-sizing: border-box;
+  margin-bottom: 2em;
+}
+.divImgCargadaPortSimple i {
+  position: absolute;
+  top: 0.6em;
+  right: 0.6em;
+  font-size: 1.4em;
+  color: #337ab7;
+  background: #fff;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+}
+.divCargaVideos .form-group:last-child {
   margin: 0;
 }
 .cropArea {
