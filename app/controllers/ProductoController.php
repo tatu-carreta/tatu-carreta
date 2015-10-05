@@ -55,6 +55,12 @@ class ProductoController extends BaseController {
         $this->array_view['marcas_principales'] = $marcas_principales;
         $this->array_view['marcas_secundarias'] = $marcas_secundarias;
 
+        $this->array_view['titulo_texto'] = 'Nuevo producto';
+        $this->array_view['modulo_pagina_nombre'] = $modulo->nombre;
+        
+        $this->array_view['placeholder_nombre'] = 'Código';
+        $this->array_view['max_length'] = 9;
+
         return View::make($this->folder_name . '.agregar', $this->array_view);
     }
 
@@ -146,7 +152,7 @@ class ProductoController extends BaseController {
         } else {
             if (Input::get('continue') == "home") {
                 $anclaProd = '#Pr' . $respuesta['data']->id;
-                
+
                 return Redirect::to('/')->with('mensaje', $respuesta['mensaje'])->with('ok', true)->with('anclaProd', $anclaProd);
             } else {
                 $seccion = Seccion::find(Input::get('seccion_id'));
@@ -297,18 +303,18 @@ class ProductoController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name);//->with('mensaje', $respuesta['mensaje'])->with('error', true);
+            return Redirect::to('admin/' . $this->folder_name); //->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
             if (Input::get('continue') == "home") {
                 $anclaProd = '#Pr' . $respuesta['data']->id;
-                return Redirect::to('/')->with('anclaProd', $anclaProd);//->with('mensaje', $respuesta['mensaje'])->with('ok', true);
+                return Redirect::to('/')->with('anclaProd', $anclaProd); //->with('mensaje', $respuesta['mensaje'])->with('ok', true);
             } else {
                 $seccion = Seccion::find(Input::get('seccion_id'));
                 $menu = $seccion->menuSeccion()->url;
                 $ancla = '#' . $seccion->estado . $seccion->id;
 
                 $anclaProd = '#Pr' . $respuesta['data']->id;
-                return Redirect::to('/' . $menu)->with('ancla', $ancla)->with('anclaProd', $anclaProd);//->with('mensaje', $respuesta['mensaje'])->with('ok', true);
+                return Redirect::to('/' . $menu)->with('ancla', $ancla)->with('anclaProd', $anclaProd); //->with('mensaje', $respuesta['mensaje'])->with('ok', true);
             }
         }
     }

@@ -39,6 +39,15 @@ class PortfolioController extends BaseController {
     public function vistaAgregar($seccion_id) {
 
         $this->array_view['seccion_id'] = $seccion_id;
+        
+        $seccion = Seccion::find($seccion_id);
+        
+        $modulo = $seccion->menuSeccion()->modulo();
+        
+        $this->array_view['titulo_texto'] = 'Nueva obra';
+        $this->array_view['titulo_modulo_imagen'] = 'Imagen de la obra';
+        
+        $this->array_view['modulo_pagina_nombre'] = $modulo->nombre;
 
         return View::make($this->folder_name . '.agregar', $this->array_view);
     }

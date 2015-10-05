@@ -45,6 +45,11 @@ class PortfolioCompletoController extends BaseController {
         $modulo = $seccion->menuSeccion()->modulo();
 
         $this->array_view['menues'] = $modulo->menus;
+        
+        $this->array_view['titulo_texto'] = 'Nueva obra';
+        $this->array_view['titulo_modulo_imagen'] = 'Imágenes de la obra';
+        
+        $this->array_view['modulo_pagina_nombre'] = $modulo->nombre;
 
         return View::make($this->folder_name . '.agregar', $this->array_view);
     }
