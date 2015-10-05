@@ -176,14 +176,14 @@
             <div class="col-md-6 divDatos">
                 <!-- Texto Descriptivo del Producto u obra -->
                 <div class="divCargaTxtDesc">
-                    <h3>Texto descriptivo de la obra</h3>
+                    <h3>Detalles técnicos</h3>
                     <div class="divEditorTxt fondoDestacado">
                         <textarea id="texto" contenteditable="true" name="cuerpo">{{ $item->producto()->cuerpo }}</textarea>
                     </div>
                 </div>
 
                 <!-- PDF -->
-                <div class="divCargaVideos">
+                <div class="divCargaArchivosPDF">
                     <h3>Agregar archivos PDF</h3>
                     <div class="fondoDestacado">
                         @include('archivo.modulo-archivo-maxi-editar')
@@ -194,13 +194,13 @@
                 <div class="divCargaVideos">
                     <h3>Videos</h3>
                     <div class="fondoDestacado">
-                        <div class="form-group marginBottom2">
+                        <div class="form-group">
                             <input class="form-control" type="text" name="video[]" placeholder="URL de video">
                         </div>
-                        <div class="form-group marginBottom2">
+                        <div class="form-group">
                             <input class="form-control" type="text" name="video[]" placeholder="URL de video">
                         </div>
-                        <div class="form-group marginBottom2">
+                        <div class="form-group">
                             <input class="form-control" type="text" name="video[]" placeholder="URL de video">
                         </div> 
                     </div>   

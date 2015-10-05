@@ -8,11 +8,13 @@
                 <a class="volveraSeccion" href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ Seccion::find($seccion_id) -> menuSeccion() -> nombre }}</a>
             </div>
         
-            <div class="row marginBottom2">
-                <!-- Abre columna de imágenes -->
-                <div class="col-md-12">
-                	<div class="divCargaImgHoriz">
-	                    <h3>Recorte de imágenes</h3>
+            <div class="row">
+                <!-- Abre columna Imagen del POrtfolio -->
+                <div class="col-md-12 divDatos divCargaImg">
+                    <h3>Imagen de la obra</h3>
+                	<div class="fondoDestacado">
+	                    <h4>Nueva imagen</h4>
+                        <p class="infoTxt"><i class="fa fa-info-circle"></i>La imagen original no debe exceder los 500kb de peso.</p>
 	                    @include('imagen.modulo-imagen-angular-crop-horizontal')
 	                </div>
                 </div>

@@ -8,7 +8,7 @@
  Author     : Estudio Laura Chuburu | Maxi Angeletti, Laura Chuburu, Carolina Labella, Eugenia Molinero
  */body {
   margin: 0;
-  font-family: 'Source Sans Pro', arial, sans-serif !important;
+  font-family: 'Source Sans Pro', arial, sans-serif;
 }
 h1, h2, h3 {
   font-weight: 300;
@@ -42,7 +42,7 @@ a {
   box-shadow: none;
 }
 .btn + .btn {
-  margin-left: 0.5em;
+  margin-left: 1em;
 }
 .divInputFile {
   display: table;
@@ -51,7 +51,7 @@ a {
   width: 30%;
 }
 .divInputFile input.form-control {
-  width: 98.5%;
+  width: calc(100%  - 1em);
 }
 label.btn {
   display: table-cell;
@@ -59,7 +59,7 @@ label.btn {
 label.btn + input.form-control {
   display: table-cell;
   vertical-align: middle;
-  margin-left: 0.5em;
+  margin-left: 1em;
 }
 .btn-primary {
   background: #286090;
@@ -112,9 +112,18 @@ label.btn + input.form-control {
 }
 /* -- NAV -- */.navbar {
   margin: 0;
+  border: none;
+}
+.navbar-default {
+  background: transparent;
+  border: none;
 }
 .dropdown-menu {
   background: #878979;
+  padding: 15px 0;
+  font-size: 16px;
+  border-radius: 0;
+  border: none;
 }
 .open {
   background: #878979;
@@ -357,21 +366,24 @@ section * > * > * {
   width: 230px;
   height: 230px;
   background: #fff;
-  margin-bottom: 1em;
+  margin-bottom: 1.3em;
 }
 .imgSeleccionadas .thumbnail {
   margin-bottom: 0;
 }
 /*.divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
  i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}
- }*/.cropArea {
+ }*/.divCargaVideos .form-group:last-child {
+  margin: 0;
+}
+.cropArea {
   border: 1px dashed #999;
   background: #fff;
   margin-left: auto;
   margin-right: auto;
   overflow: hidden;
   width: 100%;
-  height: 380px;
+  height: 390px;
 }
 /*.divImgResultante {@include marginBottom1; background: #fff; height:300px; text-align:center;}*/img-crop {
   width: 100%;
@@ -409,14 +421,7 @@ img-crop canvas {
 .glyphicon-remove {
   color: red;
 }
-/* -- PORTFOLIO SIMPLE -- */.divCargaImgHoriz {
-  background: #f4f4ef;
-  padding: 1em;
-  box-sizing: border-box !important;
-  margin-bottom: 2em;
-  margin-bottom: 2em;
-}
-.resultadoImgCargada h3 {
+/* -- PORTFOLIO SIMPLE -- *//*.divCargaImgHoriz {@include fondoDestacado; @include marginBottom2;}*/.resultadoImgCargada h3 {
   margin-top: 12px !important;
 }
 .divCargaImg .fa-lg {

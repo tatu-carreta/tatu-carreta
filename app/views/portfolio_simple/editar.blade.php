@@ -8,12 +8,14 @@
                 <a class="volveraSeccion" href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif"><i class="fa fa-caret-left"></i>Volver a @if($seccion_next != 'null'){{ Seccion::find($seccion_next) -> menuSeccion() -> nombre }}@else Home @endif</a>
             </div>
             
-
-            <div class="row marginBottom2">
-                <!-- Abre columna de imágenes -->
-                <div class="col-md-12">
-                    <div class="divCargaImgHoriz">
-
+            <div class="row">
+                <!-- Abre columna Imagen del Portfolio -->
+                <div class="col-md-12 divDatos divCargaImg">
+                    <h3>Imagen de la obra</h3>
+                    <div class="fondoDestacado">
+                        <h4>Editar imagen</h4>
+                        <p class="infoTxt"><i class="fa fa-info-circle"></i>La imagen original no debe exceder los 500kb de peso.</p>
+                        
                     @if(Auth::user()->can('cambiar_seccion_item'))
                         <select name="seccion_nueva_id" class="form-control  marginBottom2">
                             <option value="">Seleccione Nueva Sección</option>
@@ -41,7 +43,7 @@
             </div>  
             
 
-            <div class="punteado">
+            <div class="border-top">
                 <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
                 <a href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif" class="btn btn-default">Cancelar</a>
             </div>

@@ -52,7 +52,7 @@
         <input class="form-control marginBottom1" id="epigrafe" type="text" name="epigrafe_imagen_portada" placeholder="Ingrese una descripción de la foto (opcional)">
         <div class="nombre-peso marginBottom2">
             <div>
-                Progreso:
+                <p>Progreso:</p>
                 <div class="progress" style="">
                     <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                 </div>

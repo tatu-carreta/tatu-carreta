@@ -156,7 +156,7 @@
                 </div>
 
                 <!-- PDF -->
-                <div class="divCargaVideos">
+                <div class="divCargaArchivosPDF">
                     <h3>Agregar archivos PDF</h3>
                     <div class="fondoDestacado">
                         @include('archivo.modulo-archivo-maxi')
@@ -167,13 +167,13 @@
                 <div class="divCargaVideos">
                     <h3>Videos</h3>
                     <div class="fondoDestacado">
-                        <div class="form-group marginBottom2">
+                        <div class="form-group">
                             <input class="form-control" type="text" name="video[]" placeholder="URL de video">
                         </div>
-                        <div class="form-group marginBottom2">
+                        <div class="form-group">
                             <input class="form-control" type="text" name="video[]" placeholder="URL de video">
                         </div>
-                        <div class="form-group marginBottom2">
+                        <div class="form-group">
                             <input class="form-control" type="text" name="video[]" placeholder="URL de video">
                         </div> 
                     </div>   
