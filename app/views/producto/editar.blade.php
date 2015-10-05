@@ -265,5 +265,8 @@
     <script src="{{URL::to('js/angular-file-upload.js')}}"></script>
     <script src="{{URL::to('js/ng-img-crop.js')}}"></script>
     <script src="{{URL::to('js/controllers.js')}}"></script>
+    
+    <script src="{{URL::to('ckeditor/ckeditor.js')}}"></script>
+        <script src="{{URL::to('ckeditor/adapters/jquery.js')}}"></script>
 
 @stop

@@ -4,6 +4,8 @@
 @section('header')@stop
 
 @section('contenido')
+<script src="{{URL::to('ckeditor/ckeditor.js')}}"></script>
+        <script src="{{URL::to('ckeditor/adapters/jquery.js')}}"></script>
     <script>
         $(document).ready(function() {
             //$('textarea#cuerpo').ckeditor();
