@@ -21,6 +21,9 @@ ul, li {
 a {
   text-decoration: none !important;
 }
+.fa-lg {
+  font-size: 1.1em;
+}
 .fondoDestacado {
   background: #f4f4ef;
   padding: 1em;
@@ -274,8 +277,8 @@ section * > * > * {
 .iconos i:hover {
   color: #3885c7;
 }
-.iconos .fa-pencil {
-  margin-right: 0.5em;
+.iconos a + a {
+  margin-left: 0.5em;
 }
 .lazy {
   margin: 0;

@@ -14,6 +14,7 @@ body {margin:0; font-family: 'Source Sans Pro', arial, sans-serif;}
 h1, h2, h3 {font-weight: 300}
 ul, li {margin:0; padding:0; list-style: none}
 a {text-decoration: none !important;}
+.fa-lg {font-size:1.1em}
 
 $color_btn_principal: #286090;
 $color_btn_principal_hover: #337ab7;
@@ -125,7 +126,7 @@ footer {margin-top: 1em; padding: 4em 0}
 	i{cursor: pointer;
 		&:hover {color:#3885C7;}
 	}
-	.fa-pencil{margin-right: 0.5em}
+	a + a {margin-left:0.5em}
 }
 
 .lazy {margin: 0}

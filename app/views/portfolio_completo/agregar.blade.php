@@ -19,18 +19,26 @@
                         <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual nombre. Máximo 9 caracteres.</p>
                     </div>
                 </div>
+
+                <!-- Obra Destacada -->
+                <div class="col-md-6 divDatos">
+                    <h3>Destacado (opcional)</h3>
+                    <div class="form-group fondoDestacado">
+                        <p class="infoTxt"><i class="fa fa-info-circle"></i>...</p>
+                    </div>
+                </div>
             </div>
             
             <div class="row marginBottom2">
                 <!-- Abre columna de imágenes -->
                 <div class="col-md-12 cargaImg">
                 	<div class="fondoDestacado">
-	                    <h3>Recorte de imágenes</h3>
+	                    <h4>Recorte de imágenes</h4>
                             <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
 	                    @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
     	                <div class="row">
                             <div class="col-md-12" ng-show='imagenes_seleccionadas.length > 0'>
-                                <h3>Imágenes cargadas</h3>
+                                <h4>Imágenes cargadas</h4>
                             </div>
 
                             <div ng-repeat="img in imagenes_seleccionadas" class="imgSeleccionadas">
@@ -54,7 +62,7 @@
                 <div class="col-md-6 divDatos">
                     <!-- Texto Descriptivo del Producto u obra -->
                     <div class="divCargaTxtDesc">
-                        <h3>Detalles técnicos</h3>
+                        <h3>Texto descriptivo de la obra</h3>
                         <div class="divEditorTxt fondoDestacado">
                             <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
                         </div>
@@ -73,6 +81,7 @@
                             <div class="form-group">
                                 <input class="form-control" type="text" name="video[]" placeholder="URL de video">
                             </div> 
+                            <p class="infoTxt"><i class="fa fa-info-circle"></i>Copie la URL del video de Youtube o Vimeo.</p>
                         </div>   
                     </div>
                 </div>
@@ -122,5 +131,5 @@
     <script src="{{URL::to('js/controllers.js')}}"></script>
 
     <script src="{{URL::to('ckeditor/ckeditor.js')}}"></script>
-        <script src="{{URL::to('ckeditor/adapters/jquery.js')}}"></script>
+    <script src="{{URL::to('ckeditor/adapters/jquery.js')}}"></script>
 @stop
