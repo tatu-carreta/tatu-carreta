@@ -9,13 +9,7 @@
             </div>
             
             <div class="row">
-                <!-- Abre columna Imagen del Portfolio -->
-                <div class="col-md-12 divDatos divCargaImg">
-                    <h3>Imagen de la obra</h3>
-                    <div class="fondoDestacado">
-                        <h4>Editar imagen</h4>
-                        <p class="infoTxt"><i class="fa fa-info-circle"></i>La imagen original no debe exceder los 500kb de peso.</p>
-                        
+                <div class="col-md-12">
                     @if(Auth::user()->can('cambiar_seccion_item'))
                         <select name="seccion_nueva_id" class="form-control  marginBottom2">
                             <option value="">Seleccione Nueva Sección</option>
@@ -24,20 +18,30 @@
                             @endforeach
                         </select>
                     @endif
+                </div>
+            </div>
             
-                    <h3>Imagen principal</h3>
-                    @if(!is_null($item->imagen_destacada()))
-                        <div class="divCargaImgProducto" style="margin-bottom:0 !important">
-                            <div class="marginBottom2 divCargaImg">
-                                <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
-                                <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
+            <div class="row">
+                <!-- Abre columna Imagen del Portfolio -->
+                <div class="col-md-12 divDatos divCargaImg">
+                    <h3>Imagen de la obra</h3>
+                    <div class="fondoDestacado">
+                        <h4>Editar imagen</h4>
+                        <p class="infoTxt"><i class="fa fa-info-circle"></i>La imagen original no debe exceder los 500kb de peso.</p>
+
+                        <h3>Imagen principal</h3>
+                        @if(!is_null($item->imagen_destacada()))
+                            <div class="divCargaImgProducto" style="margin-bottom:0 !important">
+                                <div class="marginBottom2 divCargaImg">
+                                    <img alt="{{$item->titulo}}"  src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}">
+                                    <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
+                                </div>
+                                <input type="hidden" name="imagen_portada_editar" value="{{$item->imagen_destacada()->id}}">
+                                <input class="block marginBottom form-control" type="text" name="epigrafe_imagen_portada_editar" placeholder="Ingrese una descripción de la foto" value="{{ $item->imagen_destacada()->epigrafe }}">
                             </div>
-                            <input type="hidden" name="imagen_portada_editar" value="{{$item->imagen_destacada()->id}}">
-                            <input class="block marginBottom form-control" type="text" name="epigrafe_imagen_portada_editar" placeholder="Ingrese una descripción de la foto" value="{{ $item->imagen_destacada()->epigrafe }}">
-                        </div>
-                    @else
-                        @include('imagen.modulo-imagen-angular-crop-horizontal')
-                    @endif
+                        @else
+                            @include('imagen.modulo-imagen-angular-crop-horizontal')
+                        @endif
                     </div>
                 </div>
             </div>  
