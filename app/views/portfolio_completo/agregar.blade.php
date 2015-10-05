@@ -10,9 +10,15 @@
                 <a class="volveraSeccion" href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ Seccion::find($seccion_id) -> menuSeccion() -> nombre }}</a>
             </div>
         
-            <h3>Título de la obra</h3>
-            <div class="form-group marginBottom2">
-                <input class="form-control" type="text" name="titulo" placeholder="Título de la obra" required="true" maxlength="50">
+            <div class="row">
+                <!-- Título del Producto, Obra o Muestra -->
+                <div class="col-md-6 divDatos divCargaTitulo">
+                    <h3>Título de la obra</h3>
+                    <div class="form-group fondoDestacado">
+                        <input class="form-control" type="text" name="titulo" placeholder="Título de la obra" required="true" maxlength="50">
+                        <p class="infoTxt"><i class="fa fa-info-circle"></i>No puede haber dos productos con igual nombre. Máximo 9 caracteres.</p>
+                    </div>
+                </div>
             </div>
             
             <div class="row marginBottom2">
@@ -42,27 +48,54 @@
                     </div>
                 </div>
             </div>  
+
             
             <div class="row">
-                <div class="col-md-12">
-                    <h3>Texto descriptivo de la obra</h3>
-                    <div class="divEditorTxt marginBottom2">
-                        <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
+                <div class="col-md-6 divDatos">
+                    <!-- Texto Descriptivo del Producto u obra -->
+                    <div class="divCargaTxtDesc">
+                        <h3>Detalles técnicos</h3>
+                        <div class="divEditorTxt fondoDestacado">
+                            <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Videos -->
+                    <div class="divCargaVideos">
+                        <h3>Videos</h3>
+                        <div class="fondoDestacado">
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+                            </div> 
+                        </div>   
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Videos</h3>
-                    <div class="form-group marginBottom2">
-                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                    </div>
-                    <div class="form-group marginBottom2">
-                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
-                    </div>
-                    <div class="form-group marginBottom2">
-                        <input class="form-control" type="text" name="video[]" placeholder="URL de video">
+
+                <div class="col-md-6 divDatos">
+                    <!-- Indicar Sección a la que pertenece el producto -->
+                    <div class="divModIndicarSeccion">
+                        <h3>Otras ubicaciones (opcional)</h3>
+                        <div class="modIndicarSeccion">
+                                @foreach($menues as $men)
+                                <div class="cadaSeccion">
+                                    @if(count($men->children) == 0)
+                                        <div>
+                                            @foreach($men->secciones as $seccion)
+                                                <span><input id="menu{{$men->id}}" type="checkbox" name="secciones[]" value="{{$seccion->id}}" @if($seccion->id == $seccion_id) checked="true" disabled @endif>{{-- @if($seccion->titulo != ""){{$seccion->titulo}}@else Sección {{$seccion->id}} @endif --}}</span>
+                                            @endforeach
+                                        </div>
+                                        <div><label for="menu{{$men->id}}">{{$men->nombre}}</label></div>
+                                    @endif
+                                </div>
+                                @endforeach
+                        </div>
                     </div>
                 </div>
             </div>
