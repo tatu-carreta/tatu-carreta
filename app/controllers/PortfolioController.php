@@ -98,7 +98,16 @@ class PortfolioController extends BaseController {
             $this->array_view['secciones'] = $secciones;
             $this->array_view['continue'] = $next;
             $this->array_view['seccion_next'] = $seccion_next;
-            return View::make($this->folder_name . '.editar', $this->array_view);
+            
+            $seccion = Seccion::find($seccion_next);
+        
+            $modulo = $seccion->menuSeccion()->modulo();
+            
+            $this->array_view['titulo_texto'] = 'Editar obra';
+            $this->array_view['titulo_modulo_imagen'] = 'Imagen de la obra';
+
+            $this->array_view['modulo_pagina_nombre'] = $modulo->nombre;
+            return View::make($this->folder_name . '.editar-prueba', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);

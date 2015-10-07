@@ -118,7 +118,13 @@ class ProductoController extends BaseController {
             $this->array_view['producto'] = $producto;
             $this->array_view['continue'] = $next;
             $this->array_view['seccion_next'] = $seccion_next;
-            return View::make($this->folder_name . '.editar', $this->array_view);
+            
+            $this->array_view['titulo_texto'] = 'Editar producto';
+            $this->array_view['modulo_pagina_nombre'] = $modulo->nombre;
+
+            $this->array_view['placeholder_nombre'] = 'Código';
+            $this->array_view['max_length'] = 9;
+            return View::make($this->folder_name . '.editar-prueba', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
             //return View::make($this->project_name . '-error', $this->array_view);

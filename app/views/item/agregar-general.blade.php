@@ -31,42 +31,12 @@
             <div class="col-md-6 divDatos divEstado">
                 <h3>Destacado (opcional)</h3>
                 <div class="fondoDestacado">
-                    <div class="radio divEstadoNuevo">
-                        <label>
-                            <input id="" class="" type="checkbox" name="item_destacado" value="N">
-                            <i class="fa fa-tag prodDestacado fa-lg"></i>
-                            Nuevo
-                        </label>
-                    </div>
-
-                    <div class="divEstadoOferta">
-                        <div class="checkEstado">
-                            <div class="radio">
-                                <label>
-                                    <input id="" class=" precioDisabled" type="checkbox" name="item_destacado" value="O">
-                                    <i  class="fa fa-usd prodDestacado fa-lg"></i>
-                                    Oferta
-                                </label>
-                            </div>
-                        </div>
-                        <div class="divPrecio">
-                            <label for="" >
-                                <span>Precio después $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_antes" value="">
-                            </label>
-                        </div>
-                        <div class="divPrecio">
-                            <label for="" >
-                                <span>Precio antes $ </span><input id="" class="form-control inputWidth60 precioAble1 precio-number" type="text" name="precio_actual" value="">
-                            </label>
-                        </div>   
-                        <div class="clearfix"></div>
-                    </div>
-                    <!-- <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p> -->
+                    @section('destacado-contenido')
+                    @show
                 </div>
             </div>
+            @show
         </div><!--  -->
-        @show
-        
 
         <div class="row">
             <!-- Imágenes -->
