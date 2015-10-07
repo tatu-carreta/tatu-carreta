@@ -106,5 +106,21 @@
             @endif
         </div>
     </div>
+    
+    @if(count($item->videos) > 0)
+        {{--<div class="row ">
+            <div class="col-md-12">
+                <h3>Videos</h3>
+            </div>
+        </div>
+        --}}
+        <div class="row">
+            @foreach($item->videos as $video)
+                <div class="col-md-4">
+                    <iframe class="video-tc" src="@if($video->tipo == 'youtube')https://www.youtube.com/embed/@else//player.vimeo.com/video/@endif{{ $video->url }}"></iframe>
+                </div>
+            @endforeach
+        </div>
+    @endif
 </section>
 @stop
