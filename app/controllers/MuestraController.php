@@ -40,6 +40,16 @@ class MuestraController extends BaseController {
 
         $this->array_view['seccion_id'] = $seccion_id;
 
+        $seccion = Seccion::find($seccion_id);
+        
+        $modulo = $seccion->menuSeccion()->modulo();
+
+        $this->array_view['menues'] = $modulo->menus;
+        
+        $this->array_view['titulo_texto'] = 'Nueva muestra';
+        $this->array_view['titulo_modulo_imagen'] = 'Imágenes de la muestra';
+        
+        $this->array_view['modulo_pagina_nombre'] = $modulo->nombre;
         return View::make($this->folder_name . '.agregar', $this->array_view);
     }
 
@@ -89,6 +99,17 @@ class MuestraController extends BaseController {
             $this->array_view['secciones'] = $secciones;
             $this->array_view['continue'] = $next;
             $this->array_view['seccion_next'] = $seccion_next;
+            
+            $seccion = Seccion::find($seccion_next);
+        
+            $modulo = $seccion->menuSeccion()->modulo();
+            
+            $this->array_view['menues'] = $modulo->menus;
+            
+            $this->array_view['titulo_texto'] = 'Editar muestra';
+            $this->array_view['titulo_modulo_imagen'] = 'Imágenes de la muestra';
+
+            $this->array_view['modulo_pagina_nombre'] = $modulo->nombre;
             return View::make($this->folder_name . '.editar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
