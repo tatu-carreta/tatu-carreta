@@ -188,6 +188,9 @@ img-crop canvas {display: block; position: absolute; top: 0%; left: 50%; outline
 .glyphicon-ok {color:green}
 .glyphicon-remove {color:red}
 
+// Marca
+.marca_imagen_preview img {@include ajustarImg;}
+
 /* -- PORTFOLIO SIMPLE -- */
 //Listados Productos
 

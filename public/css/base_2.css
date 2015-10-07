@@ -462,6 +462,10 @@ img-crop canvas {
 .glyphicon-remove {
   color: red;
 }
+.marca_imagen_preview img {
+  width: 100%;
+  height: auto;
+}
 /* -- PORTFOLIO SIMPLE -- *//*.divCargaImgHoriz {@include fondoDestacado; @include marginBottom2;}*/.resultadoImgCargada h3 {
   margin-top: 12px !important;
 }
