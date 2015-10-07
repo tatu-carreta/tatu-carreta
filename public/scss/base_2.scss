@@ -40,7 +40,7 @@ $color_btn_principal_hover: #337ab7;
 .btn + .btn {margin-left:1em}
 .divInputFile {display: table;
 	label.btn {width:30%}
-	input.form-control {width: calc(100%  - 1em);}
+	input.form-control {width: calc(100% - 1em);}
 }
 label.btn {display:table-cell}
 label.btn + input.form-control {display:table-cell; vertical-align:middle; margin-left: 1em}
