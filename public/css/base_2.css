@@ -54,7 +54,7 @@ a {
   width: 30%;
 }
 .divInputFile input.form-control {
-  width: calc(100%  - 1em);
+  width: calc(100% - 1em);
 }
 label.btn {
   display: table-cell;
