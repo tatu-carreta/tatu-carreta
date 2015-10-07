@@ -111,7 +111,7 @@ class PortfolioCompletoController extends BaseController {
             $this->array_view['titulo_modulo_imagen'] = 'Imágenes de la obra';
 
             $this->array_view['modulo_pagina_nombre'] = $modulo->nombre;
-            return View::make($this->folder_name . '.editar-prueba', $this->array_view);
+            return View::make($this->folder_name . '.editar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';
             return View::make($this->project_name . '-error', $this->array_view);
