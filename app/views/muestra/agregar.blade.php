@@ -8,6 +8,16 @@
 
 @section('info_nombre') No puede haber dos muestras con igual nombre. Máximo {{$max_legth or '...'}} caracteres. @stop
 
+@section('destacado-contenido')
+<div class="radio divEstadoNuevo">
+    <label>
+        <input id="" class="" type="checkbox" name="item_destacado" value="A">
+        Destacado
+    </label>
+</div>
+<!-- <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p> -->
+@stop
+
 @section('precio')@stop
 
 @section('archivos')@stop
