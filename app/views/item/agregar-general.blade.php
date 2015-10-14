@@ -36,6 +36,8 @@
                 </div>
             </div>
             @show
+            
+            @yield('mas-datos')
         </div><!--  -->
 
         <div class="row">
@@ -81,7 +83,7 @@
                 @section('cuerpo')
                 <!-- Texto Descriptivo del Producto u obra -->
                 <div class="divCargaTxtDesc">
-                    <h3>Detalles técnicos</h3>
+                    <h3>@section('titulo-cuerpo') Detalles técnicos @show</h3>
                     <div class="divEditorTxt fondoDestacado">
                         <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
                     </div>

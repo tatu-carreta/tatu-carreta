@@ -48,6 +48,14 @@ class NoticiaController extends BaseController {
 
         $this->array_view['seccion'] = $seccion;
         
+        $this->array_view['titulo_texto'] = 'Nueva noticia';
+        $this->array_view['titulo_modulo_imagen'] = 'Imágenes de la noticia';
+        
+        $this->array_view['modulo_pagina_nombre'] = $modulo->nombre;
+        
+        $this->array_view['placeholder_nombre'] = 'Título de la noticia';
+        $this->array_view['max_length'] = 50;
+        
         return View::make($this->folder_name . '.agregar', $this->array_view);
     }
 
