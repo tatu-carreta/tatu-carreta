@@ -23,7 +23,7 @@
         </div>
     </div>
     
-    <div class="row">
+    <div class="row marginBottom2">
         <div class="col-md-6">
             @if(!is_null($item->imagen_destacada()))
             <div class="row">
@@ -50,8 +50,8 @@
         </div>
         <div class="col-md-6">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="divImgItem">
+                <div class="col-md-2">
+                    <div class="marca_imagen_preview marginBottom1">
                     @if(!is_null($item->producto()->marca_principal()))
                         <img class="marcaPrincipal lazy" src="@if(!is_null($item->producto()->marca_principal()->imagen())){{URL::to($item->producto()->marca_principal()->imagen()->carpeta.$item->producto()->marca_principal()->imagen()->nombre)}}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$item->producto()->marca_principal()->nombre}}">
                     @endif
@@ -76,14 +76,14 @@
                 </div>
             </div>
             @elseif($item->producto()->precio(2) != 0)
-            <div class="row">
+            <div class="row marginBottom2">
                 <div class="col-md-12">
-                    <span>PRECIO: ${{ $item->producto()->precio(2) }}</span>
+                    <span class="precio-detProd">PRECIO: ${{ $item->producto()->precio(2) }}</span>
                 </div>
             </div>
             @endif
             @if($item->producto()->cuerpo != "")
-            <div class="row">
+            <div class="row marginBottom2">
                 <div class="col-md-12">
                     <h4>Descripción técnica</h4>
                     <p>{{ $item->producto()->cuerpo }}</p>
@@ -91,12 +91,10 @@
             </div>
             @endif
             @if(count($item->archivos) > 0)
-            <div class="row">
+            <div class="row marginBottom2">
                 <div class="col-md-12">
                     <h4>Descargas PDF</h4>
                 </div>
-            </div>
-            <div class="row">
                 @foreach($item->archivos as $archivo)
                 <div class="col-md-12">
                     <a href="{{URL::to($archivo->carpeta.$archivo->nombre)}}" class="descargarPDF">{{$archivo->titulo}}</a>
@@ -108,18 +106,17 @@
     </div>
     
     @if(count($item->videos) > 0)
-        {{--<div class="row ">
+        <div class="row ">
             <div class="col-md-12">
-                <h3>Videos</h3>
-            </div>
-        </div>
-        --}}
-        <div class="row">
-            @foreach($item->videos as $video)
-                <div class="col-md-4">
-                    <iframe class="video-tc" src="@if($video->tipo == 'youtube')https://www.youtube.com/embed/@else//player.vimeo.com/video/@endif{{ $video->url }}"></iframe>
+                <h4>Videos</h4>
+                <div class="row "> 
+                    @foreach($item->videos as $video)
+                        <div class="col-md-4">
+                            <iframe class="video-tc" src="@if($video->tipo == 'youtube')https://www.youtube.com/embed/@else//player.vimeo.com/video/@endif{{ $video->url }}"></iframe>
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
+            </div>
         </div>
     @endif
 </section>
