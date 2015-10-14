@@ -53,7 +53,12 @@
 
         @else
             @if(Auth::check())
-            <div class="sinContenido">Sin {{$texto_modulo}}</div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="sinContenido">Sin {{$texto_modulo}}</div>
+                </div>
+            </div>
+            
             @endif
         @endif
 
