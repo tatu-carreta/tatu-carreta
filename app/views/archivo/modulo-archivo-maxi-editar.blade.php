@@ -8,9 +8,10 @@
 </script>
 @if(count($item->archivos) > 0)
     @foreach($item->archivos as $archivo)
-    <div>
-        <a class="descargarPDF">{{$archivo->titulo}}</a>
-        <a class="btn btn-link" onclick="borrarImagenReload('{{ URL::to('admin/archivo/borrar') }}', '{{$archivo->id}}');"><i class="fa fa-times fa-lg"></i></a>
+    <div class="archivoCargado">
+        <a class="descargarPDF pull-left">{{$archivo->titulo}}</a>
+        <a class="btn btn-link pull-right" onclick="borrarImagenReload('{{ URL::to('admin/archivo/borrar') }}', '{{$archivo->id}}');"><i class="fa fa-times-circle fa-lg"></i></a>
+        <div class="clearfix"></div>
     </div>
     @endforeach
 @endif

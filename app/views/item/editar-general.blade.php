@@ -61,7 +61,7 @@
                                 <h4>Imágenes cargadas</h4>
                                 <p class="infoTxt"><i class="fa fa-info-circle"></i>La primer imagen cargada se mostrará en el catálogo. Puede cambiar el orden arrastrando con el mouse. </p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 imgSelecDestacada">
                                 <div class="thumbnail">
                                     <input type="hidden" name="imagen_crop_editar[]" value="{{$item->imagen_destacada()->id}}">
                                     <img class="marginBottom1" src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}">

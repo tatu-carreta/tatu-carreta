@@ -167,6 +167,10 @@ footer {margin-top: 1em; padding: 4em 0}
 	img {@include ajustarImg;}
 	}
 .imgSeleccionadas .thumbnail {margin-bottom:0}
+.imgSelecDestacada {
+	img {border: 4px solid #3074B1; box-sizing: content-box; position: relative;top: -4px;}
+	input.form-control {position:relative; top:-8px; left:4px}
+}
 .divImgCargada { height: 20em; width: 20em; position: relative; box-sizing: border-box; @include marginBottom2;
 	i {position: absolute; top: 0.6em; right: 0.6em; font-size: 1.4em; color: #337ab7; background: #fff; border-radius: 50%; -webkit-border-radius: 50%; -moz-border-radius: 50%;}
 }
@@ -199,6 +203,10 @@ img-crop canvas {display: block; position: absolute; top: 0%; left: 50%; outline
 
 // Carga PDF
 .descargarPDF {background: url(../images/pdficon_large.png) no-repeat; padding: 10px 0 0 40px; height: 32px; display: inline-block; margin-bottom: 15px;}
+.archivoCargado {background:#fff; padding: 0.25em 0.25em 0.4em; margin-bottom:1em;
+	.descargarPDF {margin-bottom:0}
+	i {font-size: 1.4em;}
+}
 
 /* -- PORTFOLIO SIMPLE -- */
 //Listados Obras
