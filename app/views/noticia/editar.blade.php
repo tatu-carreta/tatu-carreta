@@ -23,31 +23,41 @@
             </div>
             @endif
             
-            <h3>Título de la noticia</h3>
-            <div class="form-group marginBottom2">
-                <input class="form-control" type="text" name="titulo" placeholder="Título de la noticia" required="true" value="{{ $item->titulo }}" maxlength="100">
-            </div>
+            <div class="row">
+                <div class="col-md-6 divDatos">
+                    <h3>Título de la noticia</h3>
+                    <div class="form-group fondoDestacado">
+                        <input class="form-control" type="text" name="titulo" placeholder="Título de la noticia" required="true" value="{{ $item->titulo }}" maxlength="100">
+                    </div>
+                </div>
+                
+                <div class="col-md-6 divDatos">
+                    <h3>Fecha</h3>
+                    <div class="form-group fondoDestacado">
+                        <input class="form-control" type="date" name="fecha" placeholder="Fecha de la noticia" required="true" value="{{ $noticia->fecha }}" maxlength="12">
+                    </div>
+                </div>
 
-            <h3>Fecha</h3>
-            <div class="form-group marginBottom2">
-                <input class="form-control" type="date" name="fecha" placeholder="Fecha de la noticia" required="true" value="{{ $noticia->fecha }}" maxlength="12">
-            </div>
+                <div class="col-md-6 divDatos">
+                    <h3>Fuente</h3>
+                    <div class="form-group fondoDestacado">
+                        <input class="form-control" type="text" name="fuente" placeholder="Fuente de la noticia" required="true" value="{{ $noticia->fuente }}" maxlength="50">
+                    </div>
+                </div>
 
-            <h3>Fuente</h3>
-            <div class="form-group marginBottom2">
-                <input class="form-control" type="text" name="fuente" placeholder="Fuente de la noticia" required="true" value="{{ $noticia->fuente }}" maxlength="50">
-            </div>
-
-            <h3>Descripción</h3>
-            <div class="form-group marginBottom2">
-                <input class="form-control" type="text" name="descripcion" placeholder="Descripción de la noticia" required="true" value="{{ $item->descripcion }}" maxlength="200">
+                <div class="col-md-6 divDatos">
+                    <h3>Descripción</h3>
+                    <div class="form-group fondoDestacado">
+                        <input class="form-control" type="text" name="descripcion" placeholder="Descripción de la noticia" required="true" value="{{ $item->descripcion }}" maxlength="200">
+                    </div>
+                </div>
             </div>
 
             <div class="row marginBottom2">
             <!-- Abre columna de imágenes -->
                 <div class="col-md-12 cargaImg">
                         <div class="fondoDestacado">
-                            <h3>Recorte de imágenes</h3>
+                            <h4>Recorte de imágenes</h4>
                             <input type="hidden" ng-model="url_public" ng-init="url_public = '{{URL::to('/')}}'">
                             @include('imagen.modulo-imagen-angular-crop-horizontal-multiples')
                         <div class="row">
