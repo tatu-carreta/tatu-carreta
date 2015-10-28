@@ -108,6 +108,12 @@ class NoticiaController extends BaseController {
 
             $this->array_view['menues'] = $modulo->menus;
             
+            $this->array_view['titulo_texto'] = 'Editar noticia';
+            $this->array_view['modulo_pagina_nombre'] = $modulo->nombre;
+
+            $this->array_view['placeholder_nombre'] = 'Título de la noticia';
+            $this->array_view['max_length'] = 50;
+            
             return View::make($this->folder_name . '.editar', $this->array_view);
         } else {
             $this->array_view['texto'] = 'Error al cargar la página.';

@@ -36,6 +36,8 @@
                 </div>
             </div>
             @show
+            
+            @yield('mas-datos')
         </div>
 
         <div class="row">
