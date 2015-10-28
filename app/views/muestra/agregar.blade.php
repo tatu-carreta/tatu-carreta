@@ -18,7 +18,7 @@
 <!-- <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p> -->
 @stop
 
-@section('precio')@stop
+@section('bloque-3')@stop
 
 @section('archivos')@stop
 

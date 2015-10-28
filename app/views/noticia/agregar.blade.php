@@ -18,7 +18,7 @@
 <!-- <p class="infoTxt"><i class="fa fa-info-circle"></i>Los productos NUEVOS y las OFERTAS se muestran también en la home.</p> -->
 @stop
 
-@section('marca')
+@section('bloque-2')
 
     <!-- Fecha -->
     <div class="col-md-6 divDatos divCargaMarca">
@@ -36,7 +36,7 @@
     </div>
 @stop
 
-@section('precio')
+@section('bloque-3')
     <!-- Fuente -->
     <div class="col-md-6 divDatos divCargaPrecio">
         <h3>Fuente de la noticia</h3>
