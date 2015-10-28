@@ -8,7 +8,7 @@
 
 @section('info_nombre') No puede haber dos noticias con igual nombre. Máximo {{$max_length or '...'}} caracteres. @stop
 
-
+{{--
 @section('destacado-contenido')
 <div class="radio divEstadoNuevo">
     <label>
@@ -18,9 +18,21 @@
     <p class="infoTxt"><i class="fa fa-info-circle"></i>Las noticias destacadas se muestran también en la home.</p>
 </div>
 @stop
+--}}
 
 @section('bloque-2')
+    <!-- Fuente -->
+    <div class="col-md-6 divDatos divCargaPrecio">
+        <h3>Fuente de la noticia</h3>
+        <div class="form-group fondoDestacado">
+            <input id="" class="form-control inputWidth60 precio-number" type="text" name="fuente" placeholder="Fuente de la noticia" maxlength="100">
+        </div>
+    </div>
+    
+@stop
 
+@section('bloque-3')
+    
     <!-- Bajada -->
     <div class="col-md-6 divDatos divCargaPrecio">
         <h3>Bajada de la noticia</h3>
@@ -30,17 +42,7 @@
     </div>
 @stop
 
-@section('bloque-3')
-    <!-- Fuente -->
-    <div class="col-md-6 divDatos divCargaPrecio">
-        <h3>Fuente de la noticia</h3>
-        <div class="form-group fondoDestacado">
-            <input id="" class="form-control inputWidth60 precio-number" type="text" name="fuente" placeholder="Fuente de la noticia" maxlength="100">
-        </div>
-    </div>
-@stop
-
-@section('mas-datos')
+@section('bloque-4')
     <!-- Fecha -->
     <div class="col-md-6 divDatos divCargaMarca">
         <h3>Fecha de la noticia</h3>
@@ -55,7 +57,19 @@
     </div>
 @stop
 
-@section('titulo-cuerpo') Cuerpo de la noticia @stop
+@section('mas-datos')
+    <div class="col-md-6 divDatos">
+        <!-- Cuerpo de la noticia -->
+        <div class="divCargaTxtDesc">
+            <h3>Cuerpo de la noticia</h3>
+            <div class="divEditorTxt fondoDestacado">
+                <textarea id="texto" contenteditable="true" name="cuerpo"></textarea>
+            </div>
+        </div>
+    </div>
+@stop
+
+@section('cuerpo')@stop
 
 @section('ubicacion')
 
