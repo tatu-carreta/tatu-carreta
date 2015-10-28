@@ -11,7 +11,7 @@
         </div>
 
         <div class="row">
-            @section('nombre')
+            @section('bloque-1')
             <!-- Título del Producto, Obra o Muestra -->
             <div class="col-md-6 divDatos divCargaTitulo">
                 <h3>@section('titulo_nombre') Nombre @show</h3>
@@ -22,11 +22,11 @@
             </div>
             @show
             
-            @yield('marca')
+            @yield('bloque-2')
             
-            @yield('precio')
+            @yield('bloque-3')
 
-            @section('destacado')
+            @section('bloque-4')
             <!-- Estado -->
             <div class="col-md-6 divDatos divEstado">
                 <h3>Destacado (opcional)</h3>

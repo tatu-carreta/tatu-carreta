@@ -1,12 +1,12 @@
 @extends('item.editar-general')
 
-@section('nombre')@stop
+@section('bloque-1')@stop
 
-@section('precio')@stop
+@section('bloque-3')@stop
 
 @section('archivos')@stop
 
-@section('destacado')@stop
+@section('bloque-4')@stop
 
 @section('detalles-tecnicos')@stop
 

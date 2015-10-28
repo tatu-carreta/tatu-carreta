@@ -17,7 +17,7 @@
 </div>
 @stop
 
-@section('precio')@stop
+@section('bloque-3')@stop
 
 @section('archivos')@stop
 
