@@ -5,23 +5,23 @@
         <div class="row">
             <div class="col-md-12 marginBottom2">
                 <h2 class="pull-left">Administración de Marcas</h2>
+                 @if(Auth::user()->can("agregar_marca"))
+                 <div class="pull-right">
+                    <a href="{{URL::to('admin/marca/agregar/')}}" class="btn btn-primary"><i class="fa fa-plus fa-lg"></i>Nueva Marca</a>
+                </div>
+        @endif
+            <div class="clear"></div>
             </div>
         </div>
 
-        @if(Auth::user()->can("agregar_marca"))
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="{{URL::to('admin/marca/agregar/')}}" class="btn btn-primary"><i class="fa fa-plus fa-lg"></i>Nueva Marca</a>
-                </div>
-            </div>
-        @endif
+       
 
         <div class="row">
-            <div class="col-md-12 marginBottom2">
+            <div class="col-md-12">
                 <h3>Marcas de Producto</h3>
             </div>
         </div>
-        <div class="row">
+        <div class="row marginBottom2">
             @foreach($marcas_principales as $marca)
                 <div class="col-md-2 col-sm-4 col-xs-4 moduloItem">
                     <div class="thumbnail">
@@ -47,7 +47,7 @@
                 </div>
             @endforeach
         </div>
-        <div class="clear"></div>
+
         <div class="row">
             <div class="col-md-12 marginBottom2">
                 <h3>Marcas Técnicas</h3>
