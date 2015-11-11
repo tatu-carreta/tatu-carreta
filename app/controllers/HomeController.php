@@ -9,7 +9,7 @@ class HomeController extends BaseController {
         $total_home = 12;
 
         $slideIndex = parent::slideIndex();
-        $items_oferta = parent::itemsOferta($total_home);
+/*        $items_oferta = parent::itemsOferta($total_home);
 
         if (count($items_oferta) < $total_home) {
             foreach ($items_oferta as $item_of) {
