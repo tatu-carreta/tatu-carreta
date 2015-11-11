@@ -11,11 +11,11 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Carga y modificación de texto</h4>
     </div>
-    {{ Form::open(array('url' => 'admin/texto/editar')) }}
+    {{ Form::open(array('url' => $prefijo.'/admin/texto/editar')) }}
         <div class="modal-body">
             <!--<input class="form-control" type="text" name="titulo" placeholder="Nombre de la Sección">-->
             <div class="divEditorTxt">
-                <textarea id="texto" contenteditable="true" class="" name="cuerpo">{{ $texto->cuerpo }}</textarea>
+                <textarea id="texto" contenteditable="true" class="" name="cuerpo">{{ $texto->lang()->cuerpo }}</textarea>
             </div>
             {{Form::hidden('titulo', '')}}
             {{Form::hidden('texto_id', $texto->id)}}

@@ -1,11 +1,11 @@
 <?php
 
-class Item extends Eloquent {
+class Item_v2 extends Eloquent {
 
     //Tabla de la BD
     protected $table = 'item';
     //Atributos que van a ser modificables
-    protected $fillable = array('estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
+    protected $fillable = array('titulo', 'descripcion', 'url', 'estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
     //Hace que no se utilicen los default: create_at y update_at
     public $timestamps = false;
 
@@ -16,9 +16,9 @@ class Item extends Eloquent {
 
         //Se definen las reglas con las que se van a validar los datos..
         $reglas = array(
-            'titulo' => array('max:50', 'unique:item_lang'),
+            'titulo' => array('max:50', 'unique:item'),
             'seccion_id' => array('integer'),
-                //'imagen_portada_crop' => array('required'),
+            //'imagen_portada_crop' => array('required'),
         );
         /*
           if (isset($input['titulo']) && ($input['titulo'] != "")) {
@@ -67,9 +67,9 @@ class Item extends Eloquent {
 
             //Se cargan los datos necesarios para la creacion del Item
             $datos = array(
-//                'titulo' => $input['titulo'],
-//                'descripcion' => $input['descripcion'],
-//                'url' => Str::slug($url),
+                'titulo' => $input['titulo'],
+                'descripcion' => $input['descripcion'],
+                'url' => Str::slug($url),
                 'estado' => 'A',
                 'fecha_carga' => date("Y-m-d H:i:s"),
                 'fecha_modificacion' => date("Y-m-d H:i:s"),
@@ -78,27 +78,6 @@ class Item extends Eloquent {
 
             //Lo crea definitivamente
             $item = static::create($datos);
-
-            $datos_lang = array(
-                'titulo' => $input['titulo'],
-                'descripcion' => $input['descripcion'],
-                'url' => Str::slug($url),
-                'estado' => 'A',
-                'fecha_carga' => date("Y-m-d H:i:s"),
-                'usuario_id_carga' => Auth::user()->id
-            );
-
-            $idiomas = Idioma::where('estado', 'A')->get();
-
-            foreach ($idiomas as $idioma) {
-                /*
-                  if ($idioma->codigo != Config::get('app.locale')) {
-                  $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                  }
-                 * 
-                 */
-                $item->idiomas()->attach($idioma->id, $datos_lang);
-            }
 
             if (isset($input['file']) && ($input['file'] != "")) {
                 if (is_array($input['file'])) {
@@ -403,51 +382,30 @@ class Item extends Eloquent {
         } else {
 
             $item = Item::find($input['id']);
-//
-//            $item_anterior = array(
-//                'item_id' => $item->id,
-//                'titulo' => $item->titulo,
-//                'descripcion' => $item->descripcion,
-//                'url' => $item->url,
-//                'fecha_modificacion' => date("Y-m-d H:i:s"),
-//                'usuario_id' => Auth::user()->id
-//            );
-//
-//            if ($input['titulo'] == "") {
-//                $url = $item->url;
-//            } else {
-//                $url = Str::slug($input['titulo']);
-//            }
-//
-//            $item->titulo = $input['titulo'];
-//            $item->descripcion = $input['descripcion'];
-//            $item->url = $url;
-//            $item->fecha_modificacion = date("Y-m-d H:i:s");
-//
-//            $item->save();
-//            $item_modificacion = DB::table('item_modificacion')->insert($item_anterior);
 
-            $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-
-//            echo $lang->id." - ".App::getLocale()." - ".$input['id'];
-//            die();
-
-            $item_lang = Item::join('item_lang', 'item_lang.item_id', '=', 'item.id')->where('item_lang.lang_id', $lang->id)->where('item_lang.estado', 'A')->where('item.id', $input['id'])->first();
+            $item_anterior = array(
+                'item_id' => $item->id,
+                'titulo' => $item->titulo,
+                'descripcion' => $item->descripcion,
+                'url' => $item->url,
+                'fecha_modificacion' => date("Y-m-d H:i:s"),
+                'usuario_id' => Auth::user()->id
+            );
 
             if ($input['titulo'] == "") {
-                $url = $item_lang->url;
+                $url = $item->url;
             } else {
                 $url = Str::slug($input['titulo']);
             }
 
-            $datos = array(
-                'titulo' => $input['titulo'],
-                'descripcion' => $input['descripcion'],
-                'url' => $url,
-                'fecha_modificacion' => date("Y-m-d H:i:s")
-            );
+            $item->titulo = $input['titulo'];
+            $item->descripcion = $input['descripcion'];
+            $item->url = $url;
+            $item->fecha_modificacion = date("Y-m-d H:i:s");
 
-            $item_modificacion = DB::table('item_lang')->where('id', $item_lang->id)->update($datos);
+            $item->save();
+
+            $item_modificacion = DB::table('item_modificacion')->insert($item_anterior);
 
             if (isset($input['file']) && ($input['file'] != "")) {
                 if (is_array($input['file'])) {
@@ -875,39 +833,16 @@ class Item extends Eloquent {
             $item = Item::find($input['id']);
 
             $item->fecha_baja = date("Y-m-d H:i:s");
-//            $item->titulo = $item->titulo . "-borrado";
-//            $item->url = $item->url . "-borrado";
+            $item->titulo = $item->titulo . "-borrado";
+            $item->url = $item->url . "-borrado";
             $item->estado = 'B';
             $item->usuario_id_baja = Auth::user()->id;
 
             $item->save();
 
-            $idiomas = Idioma::where('estado', 'A')->get();
-
-            foreach ($idiomas as $idioma) {
-                /*
-                  if ($idioma->codigo != Config::get('app.locale')) {
-                  $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                  }
-                 * 
-                 */
-                //$menu->idiomas()->attach($idioma->id, $datos_lang);
-
-                $item_lang = Item::join('item_lang', 'item_lang.item_id', '=', 'item.id')->where('item_lang.lang_id', $idioma->id)->where('item_lang.estado', 'A')->where('item.id', $input['id'])->first();
-
-                $datos = array(
-                    'titulo' => $item_lang->titulo . "-borrado",
-                    'url' => $item_lang->url . "-borrado",
-                    'fecha_baja' => date("Y-m-d H:i:s"),
-                    'usuario_id_baja' => Auth::user()->id,
-                    'estado' => 'B'
-                );
-                $item_lang_baja = DB::table('item_lang')->where('id', $item_lang->id)->update($datos);
-            }
-
-
-            $respuesta['mensaje'] = $item->tipo()['tipo_singular'] . ' eliminado.';
-
+            
+            $respuesta['mensaje'] = $item->tipo()['tipo_singular'].' eliminado.';
+            
             //$respuesta['mensaje'] = 'Producto eliminado';
             $respuesta['error'] = false;
             $respuesta['data'] = $item;
@@ -935,8 +870,8 @@ class Item extends Eloquent {
                 'estado' => 'B'));
 
             $it = Item::find($input['item_id']);
-
-            $respuesta['mensaje'] = $it->tipo()['tipo_singular'] . ' eliminado.';
+            
+            $respuesta['mensaje'] = $it->tipo()['tipo_singular'].' eliminado.';
             $respuesta['error'] = false;
             $respuesta['data'] = $baja_item_seccion;
         }
@@ -973,7 +908,7 @@ class Item extends Eloquent {
 
             $item = DB::table('item_seccion')->where(
                             $input)->update(array('orden' => $orden));
-
+            
             $it = Item::find($item_id);
 
             $respuesta['mensaje'] = 'Los ' . $it->tipo()['tipo_plural'] . ' han sido ordenados.';
@@ -1244,24 +1179,6 @@ class Item extends Eloquent {
         }
 
         return $result;
-    }
-
-    public function idiomas() {
-        return $this->belongsToMany('Idioma', 'item_lang', 'item_id', 'lang_id');
-    }
-
-    public function lang() {
-        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-
-        $item = Item::join('item_lang', 'item_lang.item_id', '=', 'item.id')->where('item_lang.lang_id', $lang->id)->where('item_lang.estado', 'A')->where('item.id', $this->id)->first();
-
-        if (is_null($item)) {
-            echo "Por null";
-            $lang = Idioma::where('codigo', 'es')->where('estado', 'A')->first();
-            $item = Item::join('item_lang', 'item_lang.item_id', '=', 'item.id')->where('item_lang.lang_id', $lang->id)->where('item_lang.estado', 'A')->where('item.id', $this->id)->first();
-        }
-
-        return $item;
     }
 
 }

@@ -1,6 +1,6 @@
 <h3>Editar Categoría</h3>
 
-{{ Form::open(array('url' => 'admin/categoria/editar')) }}
+{{ Form::open(array('url' => $prefijo.'/admin/categoria/editar')) }}
 
     <div class="form-group">
         <p><label for="nombre">Nombre</label></p>
@@ -37,7 +37,7 @@
     @endif
     
     <div class="floatRight">
-    {{Form::hidden('id', $categoria->id)}}
+    {{Form::hidden('id', $categoria->categoria_id)}}
     {{Form::submit('Guardar', array('class' => 'btn'))}}
     </div>
 {{Form::close()}}

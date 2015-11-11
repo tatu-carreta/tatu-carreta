@@ -1,24 +1,23 @@
 <?php
 
-class Muestra extends Item {
+class PortfolioCompleto_v2 extends Portfolio {
 
     //Tabla de la BD
-    protected $table = 'muestra';
+    protected $table = 'portfolio_completo';
     //Atributos que van a ser modificables
-    protected $fillable = array('item_id');
+    protected $fillable = array('portfolio_simple_id', 'cuerpo');
     //Hace que no se utilicen los default: create_at y update_at
     public $timestamps = false;
 
     //Función de Agregación de Item
     public static function agregar($input) {
-        //Lo crea definitivamente
 
         $respuesta = array();
 
         //Se definen las reglas con las que se van a validar los datos
         //del PRODUCTO
         $reglas = array(
-            'titulo' => array('required', 'max:50', 'unique:item_lang'),
+            'titulo' => array('required', 'max:50', 'unique:item'),
             'seccion_id' => array('integer'),
             'imagen_portada_crop' => array('required'),
         );
@@ -30,11 +29,11 @@ class Muestra extends Item {
 
             $messages = $validator->messages();
             if ($messages->has('titulo')) {
-                $respuesta['mensaje'] = 'El título de la muestra contiene más de 50 caracteres o ya existe.';
+                $respuesta['mensaje'] = 'El título de la obra contiene más de 50 caracteres o ya existe.';
             } elseif ($messages->has('imagen_portada_crop')) {
                 $respuesta['mensaje'] = 'Se olvidó de guardar la imagen recortada.';
             } else {
-                $respuesta['mensaje'] = 'Los datos necesarios para la muestra son erróneos.';
+                $respuesta['mensaje'] = 'Los datos necesarios para la obra son erróneos.';
             }
 
             //Si está todo mal, carga lo que corresponde en el mensaje.
@@ -97,15 +96,8 @@ class Muestra extends Item {
 
             if ($ok) {
 
-                if (isset($input['descripcion'])) {
-
-                    $input['descripcion'] = $input['descripcion'];
-                } else {
-                    $input['descripcion'] = NULL;
-                }
-
-
-                $item = Item::agregarItem($input);
+                //Lo crea definitivamente
+                $portfolio_simple = Portfolio::agregar($input);
 
                 if (isset($input['cuerpo'])) {
 
@@ -114,32 +106,16 @@ class Muestra extends Item {
                     $cuerpo = NULL;
                 }
 
-                if (!$item['error']) {
+                if (!$portfolio_simple['error']) {
 
-                    $muestra = static::create(['item_id' => $item['data']->id]);
+                    $portfolio_completo = static::create(['portfolio_simple_id' => $portfolio_simple['data']->id, 'cuerpo' => $cuerpo]);
 
-                    $datos_lang = array(
-                        'cuerpo' => $cuerpo,
-                    );
-
-                    $idiomas = Idioma::where('estado', 'A')->get();
-
-                    foreach ($idiomas as $idioma) {
-                        /*
-                          if ($idioma->codigo != Config::get('app.locale')) {
-                          $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                          }
-                         * 
-                         */
-                        $muestra->idiomas()->attach($idioma->id, $datos_lang);
-                    }
-
-                    $respuesta['data'] = $muestra;
+                    $respuesta['data'] = $portfolio_completo;
                     $respuesta['error'] = false;
-                    $respuesta['mensaje'] = "Muestra creada.";
+                    $respuesta['mensaje'] = "Obra creada.";
                 } else {
                     $respuesta['error'] = true;
-                    $respuesta['mensaje'] = "La muestra no pudo ser creada. Compruebe los campos.";
+                    $respuesta['mensaje'] = "Hubo un error al agregar la obra. Compruebe los campos.";
                 }
             } else {
                 $respuesta['error'] = true;
@@ -151,9 +127,9 @@ class Muestra extends Item {
 
     public static function editar($input) {
         $respuesta = array();
-
+        
         $reglas = array(
-            'titulo' => array('required', 'max:50', 'unique:item_lang,titulo,' . $input['id']),
+            'titulo' => array('required', 'max:50', 'unique:item,titulo,' . $input['id']),
         );
 
         if (isset($input['imagen_portada_crop'])) {
@@ -173,6 +149,8 @@ class Muestra extends Item {
             }
             $respuesta['error'] = true;
         } else {
+
+
             $ok = false;
             if (isset($input['video']) && ($input['video'] != "")) {
                 if (is_array($input['video'])) {
@@ -213,12 +191,9 @@ class Muestra extends Item {
                         }
                     } else {
                         $hosts = array('youtube.com', 'www.youtube.com');
-
                         $paths = array('/watch');
 
-                        if (Video::
-
-                                validarUrl($input['video'], $hosts, $paths)['estado']) {
+                        if (Video::validarUrl($input['video'], $hosts, $paths)['estado']) {
                             if ($ID_video = Youtube::parseVIdFromURL($input['video'])) {
                                 $ok = true;
                             }
@@ -231,7 +206,7 @@ class Muestra extends Item {
 
             if ($ok) {
 
-                $muestra = Muestra::find($input['muestra_id']);
+                $portfolio_completo = PortfolioCompleto::find($input['portfolio_completo_id']);
 
                 if (isset($input['cuerpo'])) {
 
@@ -240,33 +215,17 @@ class Muestra extends Item {
                     $cuerpo = NULL;
                 }
 
-//                $muestra->cuerpo = $cuerpo;
-//
-//                $muestra->save();
+                $portfolio_completo->cuerpo = $cuerpo;
 
-                $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+                $portfolio_completo->save();
 
-                $muestra_lang = Muestra::join('muestra_lang', 'muestra_lang.muestra_id', '=', 'muestra.id')->where('muestra_lang.lang_id', $lang->id)->where('muestra.id', $muestra->id)->first();
+                $input['portfolio_id'] = $portfolio_completo->portfolio_simple_id;
 
-                $datos = array(
-                    'cuerpo' => $cuerpo,
-                );
+                $portfolio_simple = Portfolio::editar($input);
 
-                $muestra_modificacion = DB::table('muestra_lang')->where('id', $muestra_lang->id)->update($datos);
-
-
-                if (isset($input['descripcion'])) {
-
-                    $input['descripcion'] = $input['descripcion'];
-                } else {
-                    $input['descripcion'] = NULL;
-                }
-
-                $item = Item::editarItem($input);
-
-                $respuesta['mensaje'] = 'Muestra modificada.';
+                $respuesta['mensaje'] = 'Portfolio modificado.';
                 $respuesta['error'] = false;
-                $respuesta['data'] = $muestra;
+                $respuesta['data'] = $portfolio_completo;
             } else {
                 $respuesta['error'] = true;
                 $respuesta['mensaje'] = "Problema en la/s url de video cargada.";
@@ -275,30 +234,90 @@ class Muestra extends Item {
         return $respuesta;
     }
 
-    public function item() {
-        return Item::find($this->item_id);
-    }
+    public static function borrar($input) {
+        $respuesta = array();
 
-    public static function buscar($item_id) {
-        return Muestra::where('item_id', $item_id)->first();
-    }
+        $reglas = array(
+        );
 
-    public function idiomas() {
-        return $this->belongsToMany('Idioma', 'muestra_lang', 'muestra_id', 'lang_id');
-    }
+        $validator = Validator::make($input, $reglas);
 
-    public function lang() {
-        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+        if ($validator->fails()) {
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = true;
+        } else {
 
-        $muestra = Muestra::join('muestra_lang', 'muestra_lang.muestra_id', '=', 'muestra.id')->where('muestra_lang.lang_id', $lang->id)->where('muestra.id', $this->id)->first();
+            $item = Item::find($input['id']);
 
-        if (is_null($muestra)) {
-            echo "Por null";
-            $lang = Idioma::where('codigo', 'es')->where('estado', 'A')->first();
-            $muestra = Muestra::join('muestra_lang', 'muestra_lang.muestra_id', '=', 'muestra.id')->where('muestra_lang.lang_id', $lang->id)->where('muestra.id', $this->id)->first();
+            $item->fecha_baja = date("Y-m-d H:i:s");
+            $item->url = $item->url . "-borrado";
+            $item->estado = 'B';
+            $item->usuario_id_baja = Auth::user()->id;
+
+            $item->save();
+
+            $respuesta['mensaje'] = 'Portfolio eliminado.';
+            $respuesta['error'] = false;
+            $respuesta['data'] = $item;
         }
 
-        return $muestra;
+        return $respuesta;
+    }
+
+    public static function borrarItemSeccion($input) {
+        $respuesta = array();
+
+        $reglas = array(
+        );
+
+        $validator = Validator::make($input, $reglas);
+
+        if ($validator->fails()) {
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = true;
+        } else {
+
+            $baja_item_seccion = DB::table('item_seccion')->where($input)->update(array('estado' => 'B'));
+
+            $respuesta['mensaje'] = 'Portfolio eliminado.';
+            $respuesta['error'] = false;
+            $respuesta['data'] = $baja_item_seccion;
+        }
+
+        return $respuesta;
+    }
+
+    public static function destacar($input) {
+        $respuesta = array();
+
+        $reglas = array();
+
+        $validator = Validator::make($input, $reglas);
+
+        if ($validator->fails()) {
+            $respuesta['mensaje'] = $validator;
+            $respuesta['error'] = true;
+        } else {
+
+            $portfolio_completo = PortfolioCompleto::find($input['portfolio_completo_id']);
+
+            $data = array(
+                'item_id' => $portfolio_completo->portfolio_simple()->item()->id,
+                'seccion_id' => $portfolio_completo->portfolio_simple()->item()->seccionItem()->id
+            );
+
+            $item = Item::destacar($data);
+
+            $respuesta['mensaje'] = 'Portfolio destacado.';
+            $respuesta['error'] = false;
+            $respuesta['data'] = $portfolio_completo;
+        }
+
+        return $respuesta;
+    }
+
+    public function portfolio_simple() {
+        return Portfolio::find($this->portfolio_simple_id);
     }
 
 }

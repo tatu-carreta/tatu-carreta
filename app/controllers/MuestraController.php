@@ -28,8 +28,13 @@ class MuestraController extends BaseController {
 
     public function mostrarInfo($url) {
 
+        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+        
+        $item_lang = Item::join('item_lang', 'item_lang.item_id', '=', 'item.id')->where('item_lang.lang_id', $lang->id)->where('item_lang.url', $url)->first();
+        
         //Me quedo con el item, buscando por url
-        $item = Item::where('url', $url)->first();
+        //$item = Item::where('url', $url)->first();
+        $item = Item::find($item_lang->item_id);
 
         $this->array_view['item'] = $item;
 
@@ -70,18 +75,18 @@ class MuestraController extends BaseController {
         if ($respuesta['error'] == true) {
             $seccion = Seccion::find(Input::get('seccion_id'));
 
-            $menu = $seccion->menuSeccion()->url;
+            $menu = $seccion->menuSeccion()->lang()->url;
             $ancla = '#' . $seccion->estado . $seccion->id;
 
-            return Redirect::to('admin/' . $this->folder_name . '/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje'])->with('error', true); //->with('ancla', $ancla);
+            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name . '/agregar/' . $seccion->id)->with('mensaje', $respuesta['mensaje'])->with('error', true); //->with('ancla', $ancla);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             $seccion = Seccion::find(Input::get('seccion_id'));
 
-            $menu = $seccion->menuSeccion()->url;
+            $menu = $seccion->menuSeccion()->lang()->url;
             $ancla = '#' . $seccion->estado . $seccion->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
+            return Redirect::to($this->array_view['prefijo'].'/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -132,7 +137,7 @@ class MuestraController extends BaseController {
          * 
          */
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name . '/editar/' . Input::get('muestra_id'))->with('mensaje', $respuesta['mensaje'])->with('error', true);
+            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name . '/editar/' . Input::get('muestra_id'))->with('mensaje', $respuesta['mensaje'])->with('error', true);
             //return Redirect::to('admin/producto')->withErrors($respuesta['mensaje'])->withInput();
         } else {
             if (Input::get('continue') == "home") {
@@ -140,10 +145,10 @@ class MuestraController extends BaseController {
             } else {
                 $seccion = Seccion::find(Input::get('seccion_id'));
 
-                $menu = $seccion->menuSeccion()->url;
+                $menu = $seccion->menuSeccion()->lang()->url;
                 $ancla = '#' . $seccion->estado . $seccion->id;
 
-                return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
+                return Redirect::to($this->array_view['prefijo'].'/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
             }
         }
     }

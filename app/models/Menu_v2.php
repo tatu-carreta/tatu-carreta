@@ -1,9 +1,9 @@
 <?php
 
-class Menu extends Eloquent {
+class Menu_v2 extends Eloquent {
 
     protected $table = 'menu';
-    protected $fillable = array('orden', 'estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
+    protected $fillable = array('nombre', 'url', 'orden', 'estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
     public $timestamps = false;
 
     public static function agregarMenu($input) {
@@ -11,7 +11,7 @@ class Menu extends Eloquent {
         $respuesta = array();
 
         $reglas = array(
-            'nombre' => array('required', 'max:80', 'unique:menu_lang'),
+            'nombre' => array('required', 'max:80', 'unique:menu'),
         );
 
         $validator = Validator::make($input, $reglas);
@@ -41,6 +41,8 @@ class Menu extends Eloquent {
             }
 
             $datos = array(
+                'nombre' => $input['nombre'],
+                'url' => $url,
                 'orden' => $orden,
                 'estado' => 'A',
                 'fecha_carga' => date("Y-m-d H:i:s"),
@@ -48,27 +50,6 @@ class Menu extends Eloquent {
             );
 
             $menu = static::create($datos);
-
-            $datos_lang = array(
-                'nombre' => $input['nombre'],
-                'url' => $url,
-                'estado' => 'A',
-                'fecha_carga' => date("Y-m-d H:i:s"),
-                'usuario_id_carga' => Auth::user()->id
-            );
-
-            $idiomas = Idioma::where('estado', 'A')->get();
-
-            foreach ($idiomas as $idioma) {
-                /*
-                  if ($idioma->codigo != Config::get('app.locale')) {
-                  $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                  }
-                 * 
-                 */
-                $menu->idiomas()->attach($idioma->id, $datos_lang);
-            }
-
             if (isset($input['categoria_id']) && ($input['categoria_id'] != "")) {
                 $menu->categorias()->attach($input['categoria_id']);
             }
@@ -113,53 +94,33 @@ class Menu extends Eloquent {
             $respuesta['error'] = true;
         } else {
 
-            $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+            $menu = Menu::find($input['id']);
 
-//            echo $lang->id." - ".App::getLocale()." - ".$input['id'];
-//            die();
-            
-            $menu = Menu::join('menu_lang', 'menu_lang.menu_id', '=', 'menu.id')->where('menu_lang.lang_id', $lang->id)->where('menu_lang.estado', 'A')->where('menu.id', $input['id'])->first();
-            //$menu = Menu::where($input['id']);
-//            $menu_anterior = array(
-//                'menu_id' => $menu->id,
-//                'nombre' => $menu->nombre,
-//                'url' => $menu->url,
-//                'orden' => $menu->orden,
-//                'fecha_modificacion' => date("Y-m-d H:i:s"),
-//                'usuario_id_modificacion' => Auth::user()->id
-//            );
-
-            $datos = array(
-                'nombre' => $input['nombre'],
-                'url' => Str::slug($input['nombre']),
-                'fecha_modificacion' => date("Y-m-d H:i:s")
+            $menu_anterior = array(
+                'menu_id' => $menu->id,
+                'nombre' => $menu->nombre,
+                'url' => $menu->url,
+                'orden' => $menu->orden,
+                'fecha_modificacion' => date("Y-m-d H:i:s"),
+                'usuario_id_modificacion' => Auth::user()->id
             );
-//            $menu->nombre = $input['nombre'];
-//            $menu->url = Str::slug($input['nombre']);
-//            $menu->fecha_modificacion = date("Y-m-d H:i:s");
-//            $menu->save();
 
-            $menu_basic = Menu::find($input['id']);
-            
+            $menu->nombre = $input['nombre'];
+            $menu->url = Str::slug($input['nombre']);
+            $menu->fecha_modificacion = date("Y-m-d H:i:s");
+
+            $menu->save();
+
             if (isset($input['editar_asociado']) && ($input['editar_asociado'])) {
 
                 $baja_relacion_menu = DB::table('menu_asociado')->where('menu_id_asociado', $input['id'])->update(['estado' => 'B']);
 
                 if (isset($input['menu_id_asociado']) && ($input['menu_id_asociado'] != "")) {
-                    $menu_basic->parent()->attach($input['menu_id_asociado'], array('estado' => 'A'));
+                    $menu->parent()->attach($input['menu_id_asociado'], array('estado' => 'A'));
                 }
             }
-            /*
-              if ($lang->codigo != Config::get('app.locale')) {
-              $datos['url'] = $lang->codigo . "/" . $datos['url'];
-              }
-             * 
-             */
 
-//            var_dump($menu);
-//            die();
-            
-            $menu_modificacion = DB::table('menu_lang')->where('id', $menu->id)->update($datos);
+            $menu_modificacion = DB::table('menu_modificacion')->insert($menu_anterior);
 
             $respuesta['mensaje'] = 'Menú modificado.';
             $respuesta['error'] = false;
@@ -185,8 +146,8 @@ class Menu extends Eloquent {
             $menu = Menu::find($input['id']);
 
             $menu->fecha_baja = date("Y-m-d H:i:s");
-            //$menu->nombre = $menu->nombre . "-borrado";
-            //$menu->url = $menu->url . "-borrado";
+            $menu->nombre = $menu->nombre . "-borrado";
+            $menu->url = $menu->url . "-borrado";
             $menu->estado = 'B';
             $menu->usuario_id_baja = Auth::user()->id;
 
@@ -194,29 +155,6 @@ class Menu extends Eloquent {
 
             foreach ($menu->secciones as $seccion) {
                 Seccion::borrarSeccion(array('id' => $seccion->id));
-            }
-
-            $idiomas = Idioma::where('estado', 'A')->get();
-
-            foreach ($idiomas as $idioma) {
-                /*
-                  if ($idioma->codigo != Config::get('app.locale')) {
-                  $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                  }
-                 * 
-                 */
-                //$menu->idiomas()->attach($idioma->id, $datos_lang);
-                
-                $menu = Menu::join('menu_lang', 'menu_lang.menu_id', '=', 'menu.id')->where('menu_lang.lang_id', $idioma->id)->where('menu_lang.estado', 'A')->where('menu.id', $input['id'])->first();
-            
-                $datos = array(
-                    'nombre' => $menu->nombre . "-borrado",
-                    'url' => $menu->url . "-borrado",
-                    'fecha_baja' => date("Y-m-d H:i:s"),
-                    'usuario_id_baja' => Auth::user()->id,
-                    'estado' => 'B'
-                );
-                $menu_lang_baja = DB::table('menu_lang')->where('id', $menu->id)->update($datos);
             }
 
             $respuesta['mensaje'] = 'Menú eliminado.';
@@ -329,9 +267,6 @@ class Menu extends Eloquent {
 
 
 
-
-
-
     }
 
 //Me quedo con los precios del Producto
@@ -358,24 +293,6 @@ public function seccionesConItems() {
         }
     }
     return $secciones_con_items;
-}
-
-public function idiomas() {
-    return $this->belongsToMany('Idioma', 'menu_lang', 'menu_id', 'lang_id');
-}
-
-public function lang() {
-    $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-
-    $menu = Menu::join('menu_lang', 'menu_lang.menu_id', '=', 'menu.id')->where('menu_lang.lang_id', $lang->id)->where('menu_lang.estado', 'A')->where('menu.id', $this->id)->first();
-
-    if (is_null($menu)) {
-        echo "Por null";
-        $lang = Idioma::where('codigo', 'es')->where('estado', 'A')->first();
-        $menu = Menu::join('menu_lang', 'menu_lang.menu_id', '=', 'menu.id')->where('menu_lang.lang_id', $lang->id)->where('menu_lang.estado', 'A')->where('menu.id', $this->id)->first();
-    }
-
-    return $menu;
 }
 
 }

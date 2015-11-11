@@ -17,11 +17,11 @@
 <section class="container">
     <div class="row">
         <div class="col-md-12 marginBottom2">
-            <h2>{{ $item -> titulo }}</h2>
-            <a class="volveraSeccion" href="{{URL::to('/'.$item -> seccionItem() -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ $item -> seccionItem() -> menuSeccion() -> nombre }}</a>
+            <h2>{{ $item -> lang() -> titulo }}</h2>
+            <a class="volveraSeccion" href="{{URL::to($prefijo.'/'.$item -> seccionItem() -> menuSeccion() -> lang() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ $item -> seccionItem() -> menuSeccion() -> lang() -> nombre }}</a>
             @if(Auth::check())
                 @if(Auth::user()->can("editar_item"))
-                <a href="{{URL::to('admin/portfolio_completo/editar/'.$item->portfolio()->portfolio_completo()->id)}}" data='{{$item -> seccionItem() -> id}}' style="display:none">Editar<i class="fa fa-pencil fa-lg"></i></a>
+                <a href="{{URL::to($prefijo.'/admin/portfolio_completo/editar/'.$item->portfolio()->portfolio_completo()->id)}}" data='{{$item -> seccionItem() -> id}}' style="display:none">Editar<i class="fa fa-pencil fa-lg"></i></a>
                 @endif
             @endif
         </div>
@@ -37,18 +37,18 @@
             <div class="thumbnail">
                 @if(count($item->imagen_destacada()) > 0)
                     @if(!Auth::check())
-                        <a class="fancybox" href="{{URL::to($item->imagen_destacada()->ampliada()->carpeta.$item->imagen_destacada()->ampliada()->nombre)}}" title="{{ $item->imagen_destacada()->ampliada()->epigrafe }}" rel='group'>
+                        <a class="fancybox" href="{{URL::to($item->imagen_destacada()->ampliada()->carpeta.$item->imagen_destacada()->ampliada()->nombre)}}" title="{{ $item->imagen_destacada()->ampliada()->lang()->epigrafe }}" rel='group'>
                     @endif
-                        <img src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}">
+                        <img src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->lang()->titulo}}">
                     @if(!Auth::check())
                         </a>
                     @endif
                     {{-- <p>{{$item->imagen_destacada()->epigrafe}}</p> --}}
                 @else
                     @if(!Auth::check())
-                        <a class="fancybox" href="{{ URL::to('images/sinImg.gif') }}" title="{{$item->titulo}}" rel='group'>
+                        <a class="fancybox" href="{{ URL::to('images/sinImg.gif') }}" title="{{$item->lang()->titulo}}" rel='group'>
                     @endif
-                        <img src="{{ URL::to('images/sinImg.gif') }}" alt="{{$item->titulo}}">
+                        <img src="{{ URL::to('images/sinImg.gif') }}" alt="{{$item->lang()->titulo}}">
                     @if(!Auth::check())
                         </a>
                     @endif
@@ -63,9 +63,9 @@
             <div class="col-md-3 col-sm-4 col-xs-4 @if(Auth::check()) cursor-move @endif">
                 <div class="thumbnail ">
                     @if(!Auth::check())
-                        <a class="fancybox" href="{{URL::to($img->ampliada()->carpeta.$img->ampliada()->nombre)}}" title="{{ $img->ampliada()->epigrafe }}" rel='group'>
+                        <a class="fancybox" href="{{URL::to($img->ampliada()->carpeta.$img->ampliada()->nombre)}}" title="{{ $img->ampliada()->lang()->epigrafe }}" rel='group'>
                     @endif
-                            <img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
+                            <img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->lang()->titulo}}">
                     @if(!Auth::check())    
                         </a>
                     @endif
@@ -86,7 +86,7 @@
     <div class="clear"></div>
     <div class="row ">
         <div class="col-md-12 divCuerpoTxt">
-            {{ $item->portfolio()->portfolio_completo()->cuerpo }}
+            {{ $item->portfolio()->portfolio_completo()->lang()->cuerpo }}
         </div>
     </div>
     

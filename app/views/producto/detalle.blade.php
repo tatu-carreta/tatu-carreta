@@ -18,8 +18,8 @@
 <section class="container">
     <div class="row">
         <div class="col-md-12 marginBottom2">
-            <h2>{{ $item -> seccionItem() -> titulo }}</h2>
-            <a class="volveraSeccion" href="{{URL::to('/'.$item -> seccionItem() -> menuSeccion() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ $item -> seccionItem() -> menuSeccion() -> nombre }}</a>
+            <h2>{{ $item -> seccionItem() -> lang() -> titulo }}</h2>
+            <a class="volveraSeccion" href="{{URL::to($prefijo.'/'.$item -> seccionItem() -> menuSeccion() -> lang() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ $item -> seccionItem() -> menuSeccion() -> lang() -> nombre }}</a>
         </div>
     </div>
     
@@ -60,7 +60,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h2>{{ $item -> titulo }}</h2>
+                    <h2>{{ $item -> lang() -> titulo }}</h2>
                 </div>
             </div>
             @if($item->producto()->oferta())
@@ -82,11 +82,11 @@
                 </div>
             </div>
             @endif
-            @if($item->producto()->cuerpo != "")
+            @if($item->producto()->lang()->cuerpo != "")
             <div class="row marginBottom2">
                 <div class="col-md-12">
                     <h4>Descripción técnica</h4>
-                    <p>{{ $item->producto()->cuerpo }}</p>
+                    <p>{{ $item->producto()->lang()->cuerpo }}</p>
                 </div>
             </div>
             @endif

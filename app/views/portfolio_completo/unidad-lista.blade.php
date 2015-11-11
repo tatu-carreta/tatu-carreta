@@ -13,11 +13,11 @@
                                 <a onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', '{{$seccion->id}}', '{{$i->id}}');"><i class="fa fa-thumb-tack prodDestacado fa-lg"></i></a>
                                 @endif
                             @endif
-                            <a href="{{URL::to('portfolio_completo/'.$i->url)}}"><i class="fa fa-eye fa-lg"></i></a>
+                            <a href="{{URL::to($prefijo.'/portfolio_completo/'.$i->lang()->url)}}"><i class="fa fa-eye fa-lg"></i></a>
                         </span>
                         <span class="pull-right">
                             @if(Auth::user()->can("editar_item"))
-                                <a href="{{URL::to('admin/'.$seccion->menuSeccion()->modulo()->nombre.'/editar/'.$i->id.'/seccion/'.$seccion->id)}}" data='{{$seccion->id}}'><i class="fa fa-pencil fa-lg"></i></a>
+                                <a href="{{URL::to($prefijo.'/admin/'.$seccion->menuSeccion()->modulo()->nombre.'/editar/'.$i->id.'/seccion/'.$seccion->id)}}" data='{{$seccion->id}}'><i class="fa fa-pencil fa-lg"></i></a>
                             @endif
                             @if(Auth::user()->can("borrar_item"))
                                 <a onclick="borrarData('{{URL::to('admin/item/borrar')}}', '{{$i->id}}');"><i class="fa fa-times fa-lg"></i></a>
@@ -33,10 +33,10 @@
                  */
                 ?>
                         @if(!Auth::check())
-                            <a href="{{URL::to('portfolio_completo/'.$i->url)}}">
+                            <a href="{{URL::to($prefijo.'/portfolio_completo/'.$i->lang()->url)}}">
                         @endif
                         <div class="divImgItem">
-                            <img class="lazy" data-original="@if(!is_null($i->imagen_destacada())){{ URL::to($i->imagen_destacada()->carpeta.$i->imagen_destacada()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$i->titulo}}">
+                            <img class="lazy" data-original="@if(!is_null($i->imagen_destacada())){{ URL::to($i->imagen_destacada()->carpeta.$i->imagen_destacada()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$i->lang()->titulo}}">
                             {{--<figcaption><p class="pull-left">{{ $i->titulo }}</p></figcaption>--}}
                         </div>
                         @if(!Auth::check())

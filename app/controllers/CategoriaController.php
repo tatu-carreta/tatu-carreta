@@ -32,9 +32,9 @@ class CategoriaController extends BaseController {
         $respuesta = Categoria::agregarCategoria(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/menu')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to($this->array_view['prefijo'].'/admin/menu')->withErrors($respuesta['mensaje'])->withInput();
         } else {
-            return Redirect::to('admin/menu')->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to($this->array_view['prefijo'].'/admin/menu')->with('mensaje', $respuesta['mensaje']);
         }
     }
 
@@ -51,7 +51,10 @@ class CategoriaController extends BaseController {
     public function vistaEditar($id) {
 
         //Me quedo con la categoria, buscando por id
-        $categoria = Categoria::find($id);
+        //$categoria = Categoria::find($id);
+        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+        
+        $categoria = Categoria::join('categoria_lang', 'categoria_lang.categoria_id', '=', 'categoria.id')->where('categoria_lang.lang_id', $lang->id)->where('categoria_lang.estado', 'A')->where('categoria.id', $id)->first();
 
         $categorias = Categoria::where('estado', 'A')->where('id', '<>', $id)->get();
 
@@ -73,9 +76,9 @@ class CategoriaController extends BaseController {
         $respuesta = Categoria::editarCategoria(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/menu')->withErrors($respuesta['mensaje'])->withInput();
+            return Redirect::to($this->array_view['prefijo'].'/admin/menu')->withErrors($respuesta['mensaje'])->withInput();
         } else {
-            return Redirect::to('admin/menu')->with('mensaje', $respuesta['mensaje']);
+            return Redirect::to($this->array_view['prefijo'].'/admin/menu')->with('mensaje', $respuesta['mensaje']);
         }
     }
 

@@ -1,11 +1,11 @@
 <?php
 
-class Muestra extends Item {
+class Muestra_v2 extends Item {
 
     //Tabla de la BD
     protected $table = 'muestra';
     //Atributos que van a ser modificables
-    protected $fillable = array('item_id');
+    protected $fillable = array('item_id', 'cuerpo');
     //Hace que no se utilicen los default: create_at y update_at
     public $timestamps = false;
 
@@ -18,7 +18,7 @@ class Muestra extends Item {
         //Se definen las reglas con las que se van a validar los datos
         //del PRODUCTO
         $reglas = array(
-            'titulo' => array('required', 'max:50', 'unique:item_lang'),
+            'titulo' => array('required', 'max:50', 'unique:item'),
             'seccion_id' => array('integer'),
             'imagen_portada_crop' => array('required'),
         );
@@ -116,23 +116,7 @@ class Muestra extends Item {
 
                 if (!$item['error']) {
 
-                    $muestra = static::create(['item_id' => $item['data']->id]);
-
-                    $datos_lang = array(
-                        'cuerpo' => $cuerpo,
-                    );
-
-                    $idiomas = Idioma::where('estado', 'A')->get();
-
-                    foreach ($idiomas as $idioma) {
-                        /*
-                          if ($idioma->codigo != Config::get('app.locale')) {
-                          $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                          }
-                         * 
-                         */
-                        $muestra->idiomas()->attach($idioma->id, $datos_lang);
-                    }
+                    $muestra = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
 
                     $respuesta['data'] = $muestra;
                     $respuesta['error'] = false;
@@ -151,9 +135,9 @@ class Muestra extends Item {
 
     public static function editar($input) {
         $respuesta = array();
-
+        
         $reglas = array(
-            'titulo' => array('required', 'max:50', 'unique:item_lang,titulo,' . $input['id']),
+            'titulo' => array('required', 'max:50', 'unique:item,titulo,' . $input['id']),
         );
 
         if (isset($input['imagen_portada_crop'])) {
@@ -230,7 +214,7 @@ class Muestra extends Item {
             }
 
             if ($ok) {
-
+                
                 $muestra = Muestra::find($input['muestra_id']);
 
                 if (isset($input['cuerpo'])) {
@@ -240,20 +224,9 @@ class Muestra extends Item {
                     $cuerpo = NULL;
                 }
 
-//                $muestra->cuerpo = $cuerpo;
-//
-//                $muestra->save();
+                $muestra->cuerpo = $cuerpo;
 
-                $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-
-                $muestra_lang = Muestra::join('muestra_lang', 'muestra_lang.muestra_id', '=', 'muestra.id')->where('muestra_lang.lang_id', $lang->id)->where('muestra.id', $muestra->id)->first();
-
-                $datos = array(
-                    'cuerpo' => $cuerpo,
-                );
-
-                $muestra_modificacion = DB::table('muestra_lang')->where('id', $muestra_lang->id)->update($datos);
-
+                $muestra->save();
 
                 if (isset($input['descripcion'])) {
 
@@ -281,24 +254,6 @@ class Muestra extends Item {
 
     public static function buscar($item_id) {
         return Muestra::where('item_id', $item_id)->first();
-    }
-
-    public function idiomas() {
-        return $this->belongsToMany('Idioma', 'muestra_lang', 'muestra_id', 'lang_id');
-    }
-
-    public function lang() {
-        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-
-        $muestra = Muestra::join('muestra_lang', 'muestra_lang.muestra_id', '=', 'muestra.id')->where('muestra_lang.lang_id', $lang->id)->where('muestra.id', $this->id)->first();
-
-        if (is_null($muestra)) {
-            echo "Por null";
-            $lang = Idioma::where('codigo', 'es')->where('estado', 'A')->first();
-            $muestra = Muestra::join('muestra_lang', 'muestra_lang.muestra_id', '=', 'muestra.id')->where('muestra_lang.lang_id', $lang->id)->where('muestra.id', $this->id)->first();
-        }
-
-        return $muestra;
     }
 
 }

@@ -1,6 +1,6 @@
 <h3>Editar Menú</h3>
 
-{{ Form::open(array('url' => 'admin/menu/editar')) }}
+{{ Form::open(array('url' => $prefijo.'/admin/menu/editar')) }}
 
     <div class="form-group">
         <label for="nombre">Nombre</label>
@@ -15,7 +15,7 @@
         </div>
     @endif
     <div class="floatRight">
-        {{Form::hidden('id', $menu->id)}}
+        {{Form::hidden('id', $menu->menu_id)}}
         {{Form::submit('Guardar', array('class' => 'btn'))}}
     </div>
 {{Form::close()}}

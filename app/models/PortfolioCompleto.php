@@ -5,7 +5,7 @@ class PortfolioCompleto extends Portfolio {
     //Tabla de la BD
     protected $table = 'portfolio_completo';
     //Atributos que van a ser modificables
-    protected $fillable = array('portfolio_simple_id', 'cuerpo');
+    protected $fillable = array('portfolio_simple_id');
     //Hace que no se utilicen los default: create_at y update_at
     public $timestamps = false;
 
@@ -17,7 +17,7 @@ class PortfolioCompleto extends Portfolio {
         //Se definen las reglas con las que se van a validar los datos
         //del PRODUCTO
         $reglas = array(
-            'titulo' => array('required', 'max:50', 'unique:item'),
+            'titulo' => array('required', 'max:50', 'unique:item_lang'),
             'seccion_id' => array('integer'),
             'imagen_portada_crop' => array('required'),
         );
@@ -108,7 +108,23 @@ class PortfolioCompleto extends Portfolio {
 
                 if (!$portfolio_simple['error']) {
 
-                    $portfolio_completo = static::create(['portfolio_simple_id' => $portfolio_simple['data']->id, 'cuerpo' => $cuerpo]);
+                    $portfolio_completo = static::create(['portfolio_simple_id' => $portfolio_simple['data']->id]);
+
+                    $datos_lang = array(
+                        'cuerpo' => $cuerpo,
+                    );
+
+                    $idiomas = Idioma::where('estado', 'A')->get();
+
+                    foreach ($idiomas as $idioma) {
+                        /*
+                          if ($idioma->codigo != Config::get('app.locale')) {
+                          $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
+                          }
+                         * 
+                         */
+                        $portfolio_completo->idiomas()->attach($idioma->id, $datos_lang);
+                    }
 
                     $respuesta['data'] = $portfolio_completo;
                     $respuesta['error'] = false;
@@ -127,9 +143,9 @@ class PortfolioCompleto extends Portfolio {
 
     public static function editar($input) {
         $respuesta = array();
-        
+
         $reglas = array(
-            'titulo' => array('required', 'max:50', 'unique:item,titulo,' . $input['id']),
+            'titulo' => array('required', 'max:50', 'unique:item_lang,titulo,' . $input['id']),
         );
 
         if (isset($input['imagen_portada_crop'])) {
@@ -215,9 +231,19 @@ class PortfolioCompleto extends Portfolio {
                     $cuerpo = NULL;
                 }
 
-                $portfolio_completo->cuerpo = $cuerpo;
+//                $portfolio_completo->cuerpo = $cuerpo;
+//
+//                $portfolio_completo->save();
 
-                $portfolio_completo->save();
+                $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+
+                $portfolio_completo_lang = PortfolioCompleto::join('portfolio_completo_lang', 'portfolio_completo_lang.portfolio_completo_id', '=', 'portfolio_completo.id')->where('portfolio_completo_lang.lang_id', $lang->id)->where('portfolio_completo.id', $portfolio_completo->id)->first();
+
+                $datos = array(
+                    'cuerpo' => $cuerpo,
+                );
+
+                $portfolio_completo_modificacion = DB::table('portfolio_completo_lang')->where('id', $portfolio_completo_lang->id)->update($datos);
 
                 $input['portfolio_id'] = $portfolio_completo->portfolio_simple_id;
 
@@ -318,6 +344,24 @@ class PortfolioCompleto extends Portfolio {
 
     public function portfolio_simple() {
         return Portfolio::find($this->portfolio_simple_id);
+    }
+    
+    public function idiomas() {
+        return $this->belongsToMany('Idioma', 'portfolio_completo_lang', 'portfolio_completo_id', 'lang_id');
+    }
+
+    public function lang() {
+        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+
+        $portfolio_completo = PortfolioCompleto::join('portfolio_completo_lang', 'portfolio_completo_lang.portfolio_completo_id', '=', 'portfolio_completo.id')->where('portfolio_completo_lang.lang_id', $lang->id)->where('portfolio_completo.id', $this->id)->first();
+
+        if (is_null($portfolio_completo)) {
+            echo "Por null";
+            $lang = Idioma::where('codigo', 'es')->where('estado', 'A')->first();
+            $portfolio_completo = PortfolioCompleto::join('portfolio_completo_lang', 'portfolio_completo_lang.portfolio_completo_id', '=', 'portfolio_completo.id')->where('portfolio_completo_lang.lang_id', $lang->id)->where('portfolio_completo.id', $this->id)->first();
+        }
+
+        return $portfolio_completo;
     }
 
 }

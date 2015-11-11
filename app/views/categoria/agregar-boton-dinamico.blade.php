@@ -36,13 +36,13 @@
         <p><input type="radio" name="categoria_id" value="" checked="true" id="principal"><label for="principal">Es categoría principal</label></p>
         @if(Auth::user()->can("seleccionar_nivel_categoria"))
             @foreach($categorias as $categoria1)
-            <p><input type="radio" name="categoria_id" value="{{$categoria1->id}}" id="categoria_id{{$categoria1->id}}"><label for="categoria_id{{$categoria1->id}}">Es subcategoría de {{$categoria1->nombre}}</label></p>
+            <p><input type="radio" name="categoria_id" value="{{$categoria1->id}}" id="categoria_id{{$categoria1->id}}"><label for="categoria_id{{$categoria1->id}}">Es subcategoría de {{$categoria1->lang()->nombre}}</label></p>
                 @foreach($categoria1->children as $categoria2)
-                <p><input style="margin-left: 15px;" type="radio" name="categoria_id" value="{{$categoria2->id}}" id="categoria_id{{$categoria2->id}}"><label for="categoria_id{{$categoria2->id}}">Es subcategoría de {{$categoria1->nombre}} / {{$categoria2->nombre}}</label></p>
+                <p><input style="margin-left: 15px;" type="radio" name="categoria_id" value="{{$categoria2->id}}" id="categoria_id{{$categoria2->id}}"><label for="categoria_id{{$categoria2->id}}">Es subcategoría de {{$categoria1->lang()->nombre}} / {{$categoria2->lang()->nombre}}</label></p>
                     @foreach($categoria2->children as $categoria3)
-                    <p><input style="margin-left: 30px;" type="radio" name="categoria_id" value="{{$categoria3->id}}" id="categoria_id{{$categoria3->id}}"><label for="categoria_id{{$categoria3->id}}">Es subcategoría de {{$categoria1->nombre}} / {{$categoria2->nombre}} / {{$categoria3->nombre}}</label></p>
+                    <p><input style="margin-left: 30px;" type="radio" name="categoria_id" value="{{$categoria3->id}}" id="categoria_id{{$categoria3->id}}"><label for="categoria_id{{$categoria3->id}}">Es subcategoría de {{$categoria1->lang()->nombre}} / {{$categoria2->lang()->nombre}} / {{$categoria3->lang()->nombre}}</label></p>
                         @foreach($categoria3->children as $categoria4)
-                        <p><input style="margin-left: 45px;" type="radio" name="categoria_id" value="{{$categoria4->id}}" id="categoria_id{{$categoria4->id}}"><label for="categoria_id{{$categoria4->id}}">Es subcategoría de {{$categoria1->nombre}} / {{$categoria2->nombre}} / {{$categoria3->nombre}} / {{$categoria4->nombre}}</label></p>
+                        <p><input style="margin-left: 45px;" type="radio" name="categoria_id" value="{{$categoria4->id}}" id="categoria_id{{$categoria4->id}}"><label for="categoria_id{{$categoria4->id}}">Es subcategoría de {{$categoria1->lang()->nombre}} / {{$categoria2->lang()->nombre}} / {{$categoria3->lang()->nombre}} / {{$categoria4->lang()->nombre}}</label></p>
                         @endforeach
                     @endforeach
                 @endforeach

@@ -72,22 +72,22 @@
                         <a href="{{URL::to('admin/exportar-clientes')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Exportar Clientes</a>
                     @endif
                     @if(Auth::user()->can("exportar_clientes"))
-                        <a href="{{URL::to('admin/exportar-personas')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Exportar Personas</a>
+                        <a href="{{URL::to('admin/exportar-personas')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>{{ Lang::get('menu_admin.exportar_personas') }}</a>
                     @endif
                     @if(Auth::user()->can("ver_menu_admin"))
-                        <a href="{{URL::to('admin/menu')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Menú</a>
+                        <a href="{{URL::to('admin/menu')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>{{ Lang::get('menu_admin.menu') }}</a>
                     @endif
                     @if(Auth::user()->can("ver_item_admin"))
-                        <a href="{{URL::to('admin/item')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Items</a>
+                        <a href="{{URL::to('admin/item')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>{{ Lang::get('menu_admin.items') }}</a>
                     @endif
                     @if(Auth::user()->can("ver_seccion_admin"))
-                        <a href="{{URL::to('admin/seccion')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Secciones</a>
+                        <a href="{{URL::to('admin/seccion')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>{{ Lang::get('menu_admin.secciones') }}</a>
                     @endif
                     @if(Auth::user()->can("agregar_slide"))
-                        <a href="{{URL::to('admin/slide/agregar/8/I')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Slide Home</a>
+                        <a href="{{URL::to('admin/slide/agregar/8/I')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>{{ Lang::get('menu_admin.slide_home') }}</a>
                     @endif
                     @if(Auth::user()->can("ver_marca_admin"))
-                        <a href="{{URL::to('admin/marca')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>Marcas</a>
+                        <a href="{{URL::to('admin/marca')}}" class="btnCalado"><i class="fa fa-pencil fa-lg"></i>{{ Lang::get('menu_admin.marcas') }}</a>
                     @endif
                 </div>
                 @endif
@@ -95,7 +95,7 @@
                 @if(true)
                 <div class="divSalir">
                     <span class="nameAdmin btnCalado"><i class="fa fa-user fa-lg marginRight5"></i>{{Auth::user()->perfil()->name}}</span>
-                    <a href="{{URL::to('logout')}}" class="btnCalado"><i class="fa fa-share fa-lg"></i>Salir</a>
+                    <a href="{{URL::to('logout')}}" class="btnCalado"><i class="fa fa-share fa-lg"></i>{{ Lang::get('menu_admin.salir') }}</a>
                 </div>
                 @else
                 <div class="divSalir">
@@ -143,6 +143,14 @@
                     </div>
                 </div>
             </header>  
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Lang::get('locales.label') }} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    @foreach(Lang::get('locales.option') as $mKey => $mLanguage)
+                        <li>{{ HTML::linkAction('BaseController@setLocale', $mLanguage, array($mKey, $type, $ang)) }}</li>
+                    @endforeach
+                </ul>
+            </li>
 
             @yield('slide-estatico') 
 

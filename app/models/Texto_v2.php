@@ -1,11 +1,11 @@
 <?php
 
-class Texto extends Item {
+class Texto_v2 extends Item {
 
     //Tabla de la BD
     protected $table = 'texto';
     //Atributos que van a ser modificables
-    protected $fillable = array('item_id');
+    protected $fillable = array('item_id', 'cuerpo');
     //Hace que no se utilicen los default: create_at y update_at
     public $timestamps = false;
 
@@ -35,23 +35,7 @@ class Texto extends Item {
             $texto = false;
             $respuesta['mensaje'] = $item['mensaje'];
         } else {
-            $texto = static::create(['item_id' => $item['data']->id]);
-
-            $datos_lang = array(
-                'cuerpo' => $cuerpo,
-            );
-
-            $idiomas = Idioma::where('estado', 'A')->get();
-
-            foreach ($idiomas as $idioma) {
-                /*
-                  if ($idioma->codigo != Config::get('app.locale')) {
-                  $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                  }
-                 * 
-                 */
-                $texto->idiomas()->attach($idioma->id, $datos_lang);
-            }
+            $texto = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
         }
 
         if ($texto) {
@@ -83,18 +67,9 @@ class Texto extends Item {
 
             $texto = Texto::find($input['texto_id']);
 
-//            $texto->cuerpo = $input['cuerpo'];
-//
-//            $texto->save();
-            $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+            $texto->cuerpo = $input['cuerpo'];
 
-                $texto_lang = Texto::join('texto_lang', 'texto_lang.texto_id', '=', 'texto.id')->where('texto_lang.lang_id', $lang->id)->where('texto.id', $texto->id)->first();
-
-                $datos = array(
-                    'cuerpo' => $input['cuerpo'],
-                );
-
-                $texto_modificacion = DB::table('texto_lang')->where('id', $texto_lang->id)->update($datos);
+            $texto->save();
 
             if (isset($input['descripcion'])) {
 
@@ -127,24 +102,6 @@ class Texto extends Item {
 
     public static function buscar($item_id) {
         return Texto::where('item_id', $item_id)->first();
-    }
-    
-    public function idiomas() {
-        return $this->belongsToMany('Idioma', 'texto_lang', 'texto_id', 'lang_id');
-    }
-
-    public function lang() {
-        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-
-        $texto = Texto::join('texto_lang', 'texto_lang.texto_id', '=', 'texto.id')->where('texto_lang.lang_id', $lang->id)->where('texto.id', $this->id)->first();
-
-        if (is_null($texto)) {
-            echo "Por null";
-            $lang = Idioma::where('codigo', 'es')->where('estado', 'A')->first();
-            $texto = Texto::join('texto_lang', 'texto_lang.texto_id', '=', 'texto.id')->where('texto_lang.lang_id', $lang->id)->where('texto.id', $this->id)->first();
-        }
-
-        return $texto;
     }
 
 }

@@ -1,11 +1,11 @@
-@foreach($menu -> secciones as $seccion)
+@foreach($menu_basic -> secciones as $seccion)
     @if((count($seccion->items) > 0) || (Auth::check()))
         <div class="row @if(Auth::check()) divListadoItems @endif">
-                <div  class="col-md-12" id="{{$menu->estado.$menu->id}}">
-                    @if(($seccion->titulo != "") || (Auth::check()))
+                <div  class="col-md-12" id="{{$menu_basic->estado.$menu->menu_id}}">
+                    @if(($seccion->lang()->titulo != "") || (Auth::check()))
                         <h3 class="pull-left" id="{{$seccion->estado.$seccion->id}}">
-                            @if($seccion->titulo != "")
-                                {{ $seccion -> titulo }}
+                            @if($seccion->lang()->titulo != "")
+                                {{ $seccion->lang()->titulo }}
                             {{-- @else 
                                 @if(Auth::check()) 
                                     Sección sin título {{ $seccion->id }}
@@ -17,13 +17,13 @@
                     
                     @if(Auth::check())
                         @if(Auth::user()->can("editar_seccion"))
-                            <a href="{{URL::to('admin/seccion/editar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btn popup-seccion iconoBtn-texto"><i class="fa fa-pencil fa-lg"></i>Cambiar nombre</a>
+                            <a href="{{URL::to($prefijo.'/admin/seccion/editar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btn popup-seccion iconoBtn-texto"><i class="fa fa-pencil fa-lg"></i>Cambiar nombre</a>
                         @endif
                         @if(Auth::user()->can("borrar_seccion"))
                             <a onclick="borrarData('{{URL::to('admin/seccion/borrar')}}', '{{$seccion->id}}');" class="btn iconoBtn-texto"><i class="fa fa-times fa-lg"></i>Eliminar sección</a>
                         @endif
                         @if(Auth::user()->can("agregar_item"))
-                            <a href="{{URL::to('admin/'.$menu->modulo()->nombre.'/agregar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btn btn-primary pull-right "><i class="fa fa-plus fa-lg"></i>{{$texto_agregar}}</a>
+                            <a href="{{URL::to('admin/'.$menu_basic->modulo()->nombre.'/agregar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btn btn-primary pull-right "><i class="fa fa-plus fa-lg"></i>{{$texto_agregar}}</a>
                         @endif
                     @endif
                     <div class="clearfix"></div>

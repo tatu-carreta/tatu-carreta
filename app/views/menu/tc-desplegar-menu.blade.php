@@ -18,7 +18,7 @@
                 @foreach($menus as $m)
                     @if(count($m->children) > 0)
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{$m->nombre}} <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{$m->lang()->nombre}} <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <?php $i = 1; ?>
                                 @foreach($m->children as $c)
@@ -26,14 +26,14 @@
                                         {{-- Si el hijo tiene mas hijos --}}
                                     @else
                                         <li>
-                                            <a href="{{URL::to('/'.$c->url)}}">{{$c->nombre}}</a>
+                                            <a href="{{URL::to($prefijo.'/'.$c->lang()->url)}}">{{$c->lang()->nombre}}</a>
                                         </li>
                                     @endif
                                 @endforeach
                             </ul>
                     @else
                         <li>
-                            <a href="{{URL::to('/'.$m->url)}}" class="btn1">{{$m->nombre}}</a>
+                            <a href="{{URL::to($prefijo.'/'.$m->lang()->url)}}" class="btn1">{{$m->lang()->nombre}}</a>
                     @endif
                     </li>
                 @endforeach

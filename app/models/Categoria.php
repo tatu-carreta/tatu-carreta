@@ -3,7 +3,7 @@
 class Categoria extends Eloquent {
 
     protected $table = 'categoria';
-    protected $fillable = array('nombre', 'url', 'estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
+    protected $fillable = array('estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
     public $timestamps = false;
 
     public static function agregarCategoria($input) {
@@ -12,7 +12,7 @@ class Categoria extends Eloquent {
 
         //Se definen las reglas para los datos ingresados
         $reglas = array(
-            'nombre' => array('required', 'max:50', 'unique:categoria'),
+            'nombre' => array('required', 'max:50', 'unique:categoria_lang'),
         );
 
         //Se realiza la validacion efectiva de los datos con las reglas
@@ -25,8 +25,8 @@ class Categoria extends Eloquent {
 
             //Se definen los datos para crear la categoria
             $datos = array(
-                'nombre' => $input['nombre'],
-                'url' => Str::slug($input['nombre']),
+//                'nombre' => $input['nombre'],
+//                'url' => Str::slug($input['nombre']),
                 'estado' => 'A',
                 'fecha_carga' => date("Y-m-d H:i:s"),
                 'usuario_id_carga' => Auth::user()->id
@@ -41,6 +41,26 @@ class Categoria extends Eloquent {
                 'nombre' => $input['nombre'],
                 'categoria_id' => $categoria->id
             );
+
+            $datos_lang = array(
+                'nombre' => $input['nombre'],
+                'url' => Str::slug($input['nombre']),
+                'estado' => 'A',
+                'fecha_carga' => date("Y-m-d H:i:s"),
+                'usuario_id_carga' => Auth::user()->id
+            );
+
+            $idiomas = Idioma::where('estado', 'A')->get();
+
+            foreach ($idiomas as $idioma) {
+                /*
+                  if ($idioma->codigo != Config::get('app.locale')) {
+                  $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
+                  }
+                 * 
+                 */
+                $categoria->idiomas()->attach($idioma->id, $datos_lang);
+            }
 
             //En caso de que la categoria creada, sea hija de alguien
             //se procede a asociar la nueva categoria con la categoria padre
@@ -88,26 +108,41 @@ class Categoria extends Eloquent {
             $respuesta['error'] = true;
         } else {
 
-            $categoria = Categoria::find($input['id']);
+//            $categoria = Categoria::find($input['id']);
+//
+//            $anterior = array(
+//                'categoria_id' => $categoria->id,
+//                'nombre' => $categoria->nombre,
+//                'url' => $categoria->url,
+//                'fecha_modificacion' => date("Y-m-d H:i:s"),
+//                'usuario_id_modificacion' => Auth::user()->id
+//            );
+//
+//            $categoria->nombre = $input['nombre'];
+//            $categoria->url = Str::slug($input['nombre']);
+//            $categoria->fecha_modificacion = date("Y-m-d H:i:s");
+//
+//            $categoria->save();
+            
+            $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
 
-            $anterior = array(
-                'categoria_id' => $categoria->id,
-                'nombre' => $categoria->nombre,
-                'url' => $categoria->url,
-                'fecha_modificacion' => date("Y-m-d H:i:s"),
-                'usuario_id_modificacion' => Auth::user()->id
+            $categoria = Categoria::join('categoria_lang', 'categoria_lang.categoria_id', '=', 'categoria.id')->where('categoria_lang.lang_id', $lang->id)->where('categoria_lang.estado', 'A')->where('categoria.id', $input['id'])->first();
+
+            $datos = array(
+                'nombre' => $input['nombre'],
+                'url' => Str::slug($input['nombre']),
+                'fecha_modificacion' => date("Y-m-d H:i:s")
             );
-
-            $categoria->nombre = $input['nombre'];
-            $categoria->url = Str::slug($input['nombre']);
-            $categoria->fecha_modificacion = date("Y-m-d H:i:s");
-
-            $categoria->save();
-
-            foreach ($categoria->menu as $menu) {
+            
+            $categoria_basic = Categoria::find($input['id']);
+            
+            foreach ($categoria_basic->menu as $menu) {
                 $menu_id = $menu->id;
             }
 
+//            echo $menu_id;
+//            die();
+//            
             $dato_menu = array(
                 'id' => $menu_id,
                 'nombre' => $input['nombre'],
@@ -120,7 +155,7 @@ class Categoria extends Eloquent {
                 $dato_menu['editar_asociado'] = true;
 
                 if ($input['categoria_id'] != -1) {
-                    $categoria->parent()->attach($input['categoria_id'], array('estado' => 'A'));
+                    $categoria_basic->parent()->attach($input['categoria_id'], array('estado' => 'A'));
 
                     $categoria_padre = Categoria::find($input['categoria_id']);
 
@@ -135,7 +170,8 @@ class Categoria extends Eloquent {
 
             Menu::editarMenu($dato_menu);
 
-            $categoria_modificacion = DB::table('categoria_modificacion')->insert($anterior);
+            //$categoria_modificacion = DB::table('categoria_modificacion')->insert($anterior);
+            $categoria_modificacion = DB::table('categoria_lang')->where('id', $categoria->id)->update($datos);
 
             $respuesta['mensaje'] = 'Categoría modificada.';
             $respuesta['error'] = false;
@@ -158,17 +194,40 @@ class Categoria extends Eloquent {
             $respuesta['error'] = true;
         } else {
 
-            $categoria = Categoria::find($input['id']);
+            $categoria_basic = Categoria::find($input['id']);
 
-            $categoria->fecha_baja = date("Y-m-d H:i:s");
-            $categoria->nombre = $categoria->nombre . "-borrado";
-            $categoria->url = $categoria->url . "-borrado";
-            $categoria->estado = 'B';
-            $categoria->usuario_id_baja = Auth::user()->id;
+            $categoria_basic->fecha_baja = date("Y-m-d H:i:s");
+//            $categoria_basic->nombre = $categoria->nombre . "-borrado";
+//            $categoria_basic->url = $categoria->url . "-borrado";
+            $categoria_basic->estado = 'B';
+            $categoria_basic->usuario_id_baja = Auth::user()->id;
 
-            $categoria->save();
+            $categoria_basic->save();
 
-            foreach ($categoria->menu as $menu) {
+            $idiomas = Idioma::where('estado', 'A')->get();
+
+            foreach ($idiomas as $idioma) {
+                /*
+                  if ($idioma->codigo != Config::get('app.locale')) {
+                  $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
+                  }
+                 * 
+                 */
+                //$menu->idiomas()->attach($idioma->id, $datos_lang);
+                
+                $categoria = Categoria::join('categoria_lang', 'categoria_lang.categoria_id', '=', 'categoria.id')->where('categoria_lang.lang_id', $idioma->id)->where('categoria_lang.estado', 'A')->where('categoria.id', $input['id'])->first();
+            
+                $datos = array(
+                    'nombre' => $categoria->nombre . "-borrado",
+                    'url' => $categoria->url . "-borrado",
+                    'fecha_baja' => date("Y-m-d H:i:s"),
+                    'usuario_id_baja' => Auth::user()->id,
+                    'estado' => 'B'
+                );
+                $categoria_lang_baja = DB::table('categoria_lang')->where('id', $categoria->id)->update($datos);
+            }
+            
+            foreach ($categoria_basic->menu as $menu) {
                 $menu_id = $menu->id;
             }
 
@@ -176,7 +235,7 @@ class Categoria extends Eloquent {
 
             $respuesta['mensaje'] = 'Categoría eliminada.';
             $respuesta['error'] = false;
-            $respuesta['data'] = $categoria;
+            $respuesta['data'] = $categoria_basic;
         }
 
         return $respuesta;
@@ -197,44 +256,24 @@ class Categoria extends Eloquent {
     public function parent(){
     return $this->belongsToMany('Categoria', 'categoria_asociada', 'categoria_id_asociada');
 
+    }
 
+public function idiomas() {
+    return $this->belongsToMany('Idioma', 'categoria_lang', 'categoria_id', 'lang_id');
+}
 
+public function lang() {
+    $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
 
+    $categoria = Categoria::join('categoria_lang', 'categoria_lang.categoria_id', '=', 'categoria.id')->where('categoria_lang.lang_id', $lang->id)->where('categoria_lang.estado', 'A')->where('categoria.id', $this->id)->first();
 
+    if (is_null($categoria)) {
+        echo "Por null";
+        $lang = Idioma::where('codigo', 'es')->where('estado', 'A')->first();
+        $categoria = Categoria::join('categoria_lang', 'categoria_lang.categoria_id', '=', 'categoria.id')->where('categoria_lang.lang_id', $lang->id)->where('categoria_lang.estado', 'A')->where('categoria.id', $this->id)->first();
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    return $categoria;
 }
 
 }

@@ -24,12 +24,12 @@ class SeccionController extends BaseController {
         $respuesta = Seccion::agregarSeccion(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
+            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
-            $menu = $respuesta['data']->menuSeccion()->url;
+            $menu = $respuesta['data']->menuSeccion()->lang()->url;
             $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
+            return Redirect::to($this->array_view['prefijo'].'/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -58,12 +58,12 @@ class SeccionController extends BaseController {
         $respuesta = Seccion::editarSeccion(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
+            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
-            $menu = $respuesta['data']->menuSeccion()->url;
+            $menu = $respuesta['data']->menuSeccion()->lang()->url;
             $ancla = '#' . $respuesta['data']->estado . $respuesta['data']->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
+            return Redirect::to($this->array_view['prefijo'].'/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 

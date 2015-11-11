@@ -46,6 +46,9 @@ return array(
       |
      */
     'locale' => 'es',
+    'alt_langs' => array ('en'),
+    'locale_prefix' => '',
+    'languages' => array('es', 'en'),
     /*
       |--------------------------------------------------------------------------
       | Application Fallback Locale

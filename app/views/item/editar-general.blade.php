@@ -4,10 +4,10 @@
     @yield('funcs')
     <section class="container"  id="ng-app" ng-app="app">    
         <div ng-controller="ImagenMultiple" nv-file-drop="" uploader="uploader" filters="customFilter, sizeLimit">
-        {{ Form::open(array('url' => 'admin/'.$modulo_pagina_nombre.'/editar', 'files' => true, 'role' => 'form', 'onsubmit' => 'return validatePrecioProd(this);')) }}
+        {{ Form::open(array('url' => $prefijo.'/admin/'.$modulo_pagina_nombre.'/editar', 'files' => true, 'role' => 'form', 'onsubmit' => 'return validatePrecioProd(this);')) }}
         <h2><span>{{ $titulo_texto }}</span></h2>
         <div class="marginBottom2">
-            <a class="volveraSeccion" href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif"><i class="fa fa-caret-left"></i>Volver a @if($seccion_next != 'null'){{ Seccion::find($seccion_next) -> menuSeccion() -> nombre }}@else Home @endif</a>
+            <a class="volveraSeccion" href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion()->lang() -> url)}}@else{{URL::to('/')}}@endif"><i class="fa fa-caret-left"></i>Volver a @if($seccion_next != 'null'){{ Seccion::find($seccion_next) -> menuSeccion()->lang() -> nombre }}@else Home @endif</a>
         </div>
 
         <div class="row">
@@ -16,7 +16,7 @@
             <div class="col-md-6 divDatos divCargaTitulo">
                 <h3>@section('titulo_nombre') Nombre @show</h3>
                 <div class="form-group fondoDestacado">
-                    <input class="form-control" type="text" name="titulo" placeholder="{{$placeholder_nombre or 'Ingrese un nombre'}}" required="true" maxlength="{{$max_length or ''}}" value="{{ $item->titulo }}">
+                    <input class="form-control" type="text" name="titulo" placeholder="{{$placeholder_nombre or 'Ingrese un nombre'}}" required="true" maxlength="{{$max_length or ''}}" value="{{ $item->lang()->titulo }}">
                     <p class="infoTxt"><i class="fa fa-info-circle"></i>@section('info_nombre')No puede haber dos productos con igual nombre. Máximo {{ $max_length or '...' }} caracteres.@show</p>
                 </div>
             </div>
@@ -66,8 +66,8 @@
                             <div class="col-md-2 imgSelecDestacada">
                                 <div class="thumbnail">
                                     <input type="hidden" name="imagen_crop_editar[]" value="{{$item->imagen_destacada()->id}}">
-                                    <img class="marginBottom1" src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->titulo}}">
-                                    <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$item->imagen_destacada()->epigrafe}}">
+                                    <img class="marginBottom1" src="{{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}" alt="{{$item->lang()->titulo}}">
+                                    <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$item->imagen_destacada()->lang()->epigrafe}}">
                                     <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$item->imagen_destacada()->id}}');" class="fa fa-times-circle fa-lg"></i>
                                 </div>
                             </div>
@@ -78,8 +78,8 @@
                                 <div class="col-md-2">
                                     <div class="thumbnail">
                                         <input type="hidden" name="imagen_crop_editar[]" value="{{$img->id}}">
-                                        <img class="marginBottom1" src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
-                                        <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$img->epigrafe}}">
+                                        <img class="marginBottom1" src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->lang()->titulo}}">
+                                        <input class="form-control" type="text" name="epigrafe_imagen_crop_editar[]" value="{{$img->lang()->epigrafe}}">
                                         <i onclick="borrarImagenReload('{{ URL::to('admin/imagen/borrar') }}', '{{$img->id}}');" class="fa fa-times-circle fa-lg"></i>
                                     </div>
                                 </div>
@@ -140,7 +140,7 @@
             <div class="col-md-12">
                 <div class="border-top">
                     <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
-                    <a href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> url)}}@else{{URL::to('/')}}@endif" class="btn btn-default">Cancelar</a>
+                    <a href="@if($seccion_next != 'null'){{URL::to('/'.Seccion::find($seccion_next) -> menuSeccion() -> lang() -> url)}}@else{{URL::to('/')}}@endif" class="btn btn-default">Cancelar</a>
                 </div>
             </div>
         </div>

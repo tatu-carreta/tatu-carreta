@@ -3,12 +3,12 @@
 // import the Intervention Image Manager Class
 use Intervention\Image\ImageManagerStatic as Image;
 
-class Imagen extends Eloquent {
+class Imagen_v2 extends Eloquent {
 
     //Tabla de la BD
     protected $table = 'imagen';
     //Atributos que van a ser modificables
-    protected $fillable = array('nombre', 'carpeta', 'tipo', 'ampliada', 'estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
+    protected $fillable = array('nombre', 'epigrafe', 'carpeta', 'tipo', 'ampliada', 'estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
     //Hace que no se utilicen los default: create_at y update_at
     public $timestamps = false;
 
@@ -63,7 +63,7 @@ class Imagen extends Eloquent {
                     })->save($directory . $filename)) {
                 $datos = array(
                     'nombre' => $filename,
-                    //'epigrafe' => $epigrafe,
+                    'epigrafe' => $epigrafe,
                     'carpeta' => $carpeta,
                     'tipo' => 'G',
                     'ampliada' => '',
@@ -73,25 +73,6 @@ class Imagen extends Eloquent {
                 );
 
                 $imagen = static::create($datos);
-
-                $datos_lang = array(
-                    'epigrafe' => $epigrafe,
-                    'estado' => 'A',
-                    'fecha_carga' => date("Y-m-d H:i:s"),
-                    'usuario_id_carga' => Auth::user()->id
-                );
-
-                $idiomas = Idioma::where('estado', 'A')->get();
-
-                foreach ($idiomas as $idioma) {
-                    /*
-                      if ($idioma->codigo != Config::get('app.locale')) {
-                      $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                      }
-                     * 
-                     */
-                    $imagen->idiomas()->attach($idioma->id, $datos_lang);
-                }
 
                 $temporary = Image::make($file)->resize(null, 250, function ($constraint) {
                             $constraint->aspectRatio();
@@ -172,7 +153,7 @@ class Imagen extends Eloquent {
             if ($upload) {
                 $datos = array(
                     'nombre' => $filename,
-                    //'epigrafe' => $epigrafe,
+                    'epigrafe' => $epigrafe,
                     'carpeta' => $carpeta,
                     'tipo' => 'C',
                     'ampliada' => $imagen_ampliada,
@@ -182,25 +163,6 @@ class Imagen extends Eloquent {
                 );
 
                 $imagen = static::create($datos);
-
-                $datos_lang = array(
-                    'epigrafe' => $epigrafe,
-                    'estado' => 'A',
-                    'fecha_carga' => date("Y-m-d H:i:s"),
-                    'usuario_id_carga' => Auth::user()->id
-                );
-
-                $idiomas = Idioma::where('estado', 'A')->get();
-
-                foreach ($idiomas as $idioma) {
-                    /*
-                      if ($idioma->codigo != Config::get('app.locale')) {
-                      $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                      }
-                     * 
-                     */
-                    $imagen->idiomas()->attach($idioma->id, $datos_lang);
-                }
 
                 //Mensaje correspondiente a la agregacion exitosa
                 $respuesta['mensaje'] = 'Imagen creada.';
@@ -227,7 +189,7 @@ class Imagen extends Eloquent {
 
         $datos_ampliada = array(
             'nombre' => $ampliada,
-            //'epigrafe' => $epigrafe_imagen_portada,
+            'epigrafe' => $epigrafe_imagen_portada,
             'carpeta' => $carpeta,
             'tipo' => 'G',
             'ampliada' => '',
@@ -238,28 +200,9 @@ class Imagen extends Eloquent {
 
         $imagen = static::create($datos_ampliada);
 
-        $datos_lang = array(
-            'epigrafe' => $epigrafe_imagen_portada,
-            'estado' => 'A',
-            'fecha_carga' => date("Y-m-d H:i:s"),
-            'usuario_id_carga' => Auth::user()->id
-        );
-
-        $idiomas = Idioma::where('estado', 'A')->get();
-
-        foreach ($idiomas as $idioma) {
-            /*
-              if ($idioma->codigo != Config::get('app.locale')) {
-              $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-              }
-             * 
-             */
-            $imagen->idiomas()->attach($idioma->id, $datos_lang);
-        }
-
         $datos_chica = array(
             'nombre' => $imagen_portada_crop,
-            //'epigrafe' => $epigrafe_imagen_portada,
+            'epigrafe' => $epigrafe_imagen_portada,
             'carpeta' => $carpeta,
             'tipo' => 'C',
             'ampliada' => $imagen->id,
@@ -269,25 +212,6 @@ class Imagen extends Eloquent {
         );
 
         $imagen_chica = static::create($datos_chica);
-
-        $datos_lang = array(
-            'epigrafe' => $epigrafe_imagen_portada,
-            'estado' => 'A',
-            'fecha_carga' => date("Y-m-d H:i:s"),
-            'usuario_id_carga' => Auth::user()->id
-        );
-
-        $idiomas = Idioma::where('estado', 'A')->get();
-
-        foreach ($idiomas as $idioma) {
-            /*
-              if ($idioma->codigo != Config::get('app.locale')) {
-              $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-              }
-             * 
-             */
-            $imagen_chica->idiomas()->attach($idioma->id, $datos_lang);
-        }
 
         //Mensaje correspondiente a la agregacion exitosa
         $respuesta['mensaje'] = 'Imagen creada.';
@@ -323,9 +247,9 @@ class Imagen extends Eloquent {
         })->save($directory . $filename, 60);
 
         $imagen_crop_name = "small_" . $filename;
-
+        
         Image::make($imagen_crop)->save($directory . $imagen_crop_name, 80);
-
+        
 
         //$imagen_crop->move($directory, $imagen_crop_name);
         $answer = array('answer' => 'File transfer completed', 'imagen_path' => $imagen_crop_name, 'imagen_ampliada' => $filename);
@@ -370,7 +294,7 @@ class Imagen extends Eloquent {
 
         $datos = array(
             'nombre' => $imagen,
-            //'epigrafe' => $epigrafe,
+            'epigrafe' => $epigrafe,
             'carpeta' => $carpeta,
             'tipo' => 'G',
             'ampliada' => '',
@@ -380,25 +304,6 @@ class Imagen extends Eloquent {
         );
 
         $imagen = static::create($datos);
-
-        $datos_lang = array(
-            'epigrafe' => $epigrafe,
-            'estado' => 'A',
-            'fecha_carga' => date("Y-m-d H:i:s"),
-            'usuario_id_carga' => Auth::user()->id
-        );
-
-        $idiomas = Idioma::where('estado', 'A')->get();
-
-        foreach ($idiomas as $idioma) {
-            /*
-              if ($idioma->codigo != Config::get('app.locale')) {
-              $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-              }
-             * 
-             */
-            $imagen->idiomas()->attach($idioma->id, $datos_lang);
-        }
 
         //Mensaje correspondiente a la agregacion exitosa
         $respuesta['mensaje'] = 'Imagen creada.';
@@ -459,7 +364,7 @@ class Imagen extends Eloquent {
                     })->save($directory . $filename)) {
                 $datos = array(
                     'nombre' => $filename,
-                    //'epigrafe' => $epigrafe,
+                    'epigrafe' => $epigrafe,
                     'carpeta' => $carpeta,
                     'tipo' => 'G',
                     'ampliada' => '',
@@ -469,25 +374,6 @@ class Imagen extends Eloquent {
                 );
 
                 $imagen = static::create($datos);
-
-                $datos_lang = array(
-                    'epigrafe' => $epigrafe,
-                    'estado' => 'A',
-                    'fecha_carga' => date("Y-m-d H:i:s"),
-                    'usuario_id_carga' => Auth::user()->id
-                );
-
-                $idiomas = Idioma::where('estado', 'A')->get();
-
-                foreach ($idiomas as $idioma) {
-                    /*
-                      if ($idioma->codigo != Config::get('app.locale')) {
-                      $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                      }
-                     * 
-                     */
-                    $imagen->idiomas()->attach($idioma->id, $datos_lang);
-                }
 
                 //Mensaje correspondiente a la agregacion exitosa
                 $respuesta['mensaje'] = 'Imagen creada.';
@@ -522,26 +408,15 @@ class Imagen extends Eloquent {
 
             $imagen = Imagen::find($input['id']);
 
-            //$imagen->epigrafe = $input['epigrafe'];
+            $imagen->epigrafe = $input['epigrafe'];
             $imagen->fecha_modificacion = date("Y-m-d H:i:s");
 
             $imagen->save();
 
-            $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-
-            $imagen_lang = Imagen::join('imagen_lang', 'imagen_lang.imagen_id', '=', 'imagen.id')->where('imagen_lang.lang_id', $lang->id)->where('imagen_lang.estado', 'A')->where('imagen.id', $imagen->id)->first();
-
-            $datos = array(
-                'epigrafe' => $input['epigrafe'],
-                'fecha_modificacion' => date("Y-m-d H:i:s")
-            );
-
-            $imagen_modificacion = DB::table('imagen_lang')->where('id', $imagen_lang->id)->update($datos);
-
             if ($imagen->ampliada != 0) {
                 $datos = array(
                     'id' => $imagen->ampliada,
-                    'epigrafe' => $input['epigrafe']
+                    'epigrafe' => $imagen->epigrafe
                 );
                 $imagen = Imagen::editar($datos);
             }
@@ -638,7 +513,8 @@ class Imagen extends Eloquent {
     }
 
     public function ampliada() {
-        return Imagen::where('tipo', 'G')
+        return DB::table('imagen')
+                        ->where('tipo', 'G')
                         ->where('id', $this->ampliada)
                         ->where('estado', 'A')
                         ->first();
@@ -658,24 +534,6 @@ class Imagen extends Eloquent {
         return DB::table('imagen')
                         ->where('nombre', $nombre)
                         ->first();
-    }
-
-    public function idiomas() {
-        return $this->belongsToMany('Idioma', 'imagen_lang', 'imagen_id', 'lang_id');
-    }
-
-    public function lang() {
-        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-
-        $imagen = Imagen::join('imagen_lang', 'imagen_lang.imagen_id', '=', 'imagen.id')->where('imagen_lang.lang_id', $lang->id)->where('imagen_lang.estado', 'A')->where('imagen.id', $this->id)->first();
-
-        if (is_null($imagen)) {
-            echo "Por null";
-            $lang = Idioma::where('codigo', 'es')->where('estado', 'A')->first();
-            $imagen = Imagen::join('imagen_lang', 'imagen_lang.imagen_id', '=', 'imagen.id')->where('imagen_lang.lang_id', $lang->id)->where('imagen_lang.estado', 'A')->where('imagen.id', $this->id)->first();
-        }
-
-        return $imagen;
     }
 
 }

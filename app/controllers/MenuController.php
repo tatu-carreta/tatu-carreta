@@ -13,6 +13,7 @@ class MenuController extends BaseController {
         $modulos = Modulo::all();
 
         $this->array_view['modulos'] = $modulos;
+        //$this->array_view['prefijo'] = Config::get('app.locale_prefix');
 
         //return View::make('menu.lista', array('menus' => $menus, 'categorias' => $categorias));
         return View::make($this->folder_name . '.administrar', $this->array_view);
@@ -28,33 +29,38 @@ class MenuController extends BaseController {
         $respuesta = Menu::agregarMenu(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
+            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
-            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
+            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
         }
     }
 
     public function mostrarInfoMenu($url) {
 
-        $menu = Menu::where('url', $url)->where('estado', 'A')->first();
+        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+        
+        $menu = Menu::join('menu_lang', 'menu_lang.menu_id', '=', 'menu.id')->where('menu_lang.lang_id', $lang->id)->where('menu_lang.estado', 'A')->where('menu_lang.url', $url)->first();
+        //$menu = Menu::where('url', $url)->where('estado', 'A')->first();
 
         if ($menu) {
             $this->array_view['menu'] = $menu;
 
-            if (!is_null($menu->categoria())) {
+            $menu_basic = Menu::find($menu->menu_id);
+            
+            if (!is_null($menu_basic->categoria())) {
                 $this->array_view['ancla'] = Session::get('ancla');
 
                 $hay_datos = false;
-                foreach ($menu->secciones as $seccion) {
+                foreach ($menu_basic->secciones as $seccion) {
                     if (count($seccion->items) > 0) {
                         $hay_datos = true;
                     }
                 }
                 
-                switch ($menu->modulo()->nombre) {
+                switch ($menu_basic->modulo()->nombre) {
                     case "producto":
                         $marcas = array();
-                        foreach ($menu->secciones as $seccion) {
+                        foreach ($menu_basic->secciones as $seccion) {
                             if (count($seccion->items) > 0) {
                                 foreach ($seccion->items as $item) {
                                     if (!is_null($item->producto())) {
@@ -105,14 +111,24 @@ class MenuController extends BaseController {
                         break;
                 }
 
-                $this->array_view['html'] = $menu->modulo()->nombre . ".unidad-lista";
+                $this->array_view['html'] = $menu_basic->modulo()->nombre . ".unidad-lista";
                 $this->array_view['texto_agregar'] = $textoAgregar;
                 $this->array_view['texto_modulo'] = $texto_modulo;
                 
                 $this->array_view['hay_datos'] = $hay_datos;
 
+                $this->array_view['menu_basic'] = $menu_basic;
+                
+                $this->array_view['type'] = 'M';
+                $this->array_view['ang'] = $menu_basic->id;
+                
                 return View::make($this->folder_name . ".menu-contenedor", $this->array_view);
             } else {
+                $this->array_view['menu_basic'] = $menu_basic;
+                
+                $this->array_view['type'] = 'M';
+                $this->array_view['ang'] = $menu_basic->id;
+                
                 return View::make($this->folder_name . '.menu-estatico', $this->array_view);
             }
         } else {
@@ -160,7 +176,9 @@ class MenuController extends BaseController {
 
     public function vistaEditar($id) {
 
-        $menu = Menu::find($id);
+        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+        
+        $menu = Menu::join('menu_lang', 'menu_lang.menu_id', '=', 'menu.id')->where('menu_lang.lang_id', $lang->id)->where('menu_lang.estado', 'A')->where('menu.id', $id)->first();
 
         if ($menu) {
             $this->array_view['menu'] = $menu;
@@ -177,9 +195,9 @@ class MenuController extends BaseController {
         $respuesta = Menu::editarMenu(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
+            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
-            return Redirect::to('admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
+            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
         }
     }
 

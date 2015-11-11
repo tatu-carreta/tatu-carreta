@@ -37,9 +37,9 @@
                 <ul class="listaMenu">
                 @foreach($menus as $m)
                     <li>
-                        <span><a href="{{URL::to('/'.$m->url)}}">{{$m->nombre}}</a></span>
+                        <span><a href="{{URL::to('/'.$m->url)}}">{{$m->lang()->nombre}}</a></span>
                         @if(Auth::user()->can("editar_menu_principal"))
-                            <a data="@if(!is_null($m->categoria())) {{URL::to('admin/categoria/editar/'.$m->categoria()->id)}} @else {{URL::to('admin/menu/editar/'.$m->id)}} @endif" class="btnSec editarContenidoAdmin"><i class="fa fa-pencil fa-lg"></i></a>
+                            <a data="@if(!is_null($m->categoria())) {{URL::to($prefijo.'/admin/categoria/editar/'.$m->categoria()->id)}} @else {{URL::to($prefijo.'/admin/menu/editar/'.$m->id)}} @endif" class="btnSec editarContenidoAdmin"><i class="fa fa-pencil fa-lg"></i></a>
                         @endif
                         @if(Auth::user()->can("borrar_menu_principal"))
                             <a href="#" onclick="@if(!is_null($m->categoria())) borrarData('categoria/borrar', '{{$m->categoria()->id}}'); @else borrarData('menu/borrar', '{{$m->id}}'); @endif" class="btnSec"><i class="fa fa-times fa-lg"></i></a>
@@ -52,9 +52,9 @@
                         <ul>
                             @foreach($m->children as $menu2)
                                 <li>
-                                    <span><a href="{{URL::to('/'.$menu2->url)}}">{{$menu2->nombre}}</a></span>
+                                    <span><a href="{{URL::to('/'.$menu2->lang()->url)}}">{{$menu2->lang()->nombre}}</a></span>
                                     @if(Auth::user()->can("editar_menu_interno"))
-                                        <a data="@if(!is_null($menu2->categoria())) {{URL::to('admin/categoria/editar/'.$menu2->categoria()->id)}} @else {{URL::to('admin/menu/editar/'.$menu2->id)}} @endif" class="btnSec editarContenidoAdmin"><i class="fa fa-pencil fa-lg"></i></a>
+                                        <a data="@if(!is_null($menu2->categoria())) {{URL::to($prefijo.'/admin/categoria/editar/'.$menu2->categoria()->id)}} @else {{URL::to($prefijo.'/admin/menu/editar/'.$menu2->id)}} @endif" class="btnSec editarContenidoAdmin"><i class="fa fa-pencil fa-lg"></i></a>
                                     @endif
                                     @if(Auth::user()->can("borrar_menu_interno"))
                                         <a href="#" onclick="@if(!is_null($menu2->categoria())) borrarData('categoria/borrar', '{{$menu2->categoria()->id}}'); @else borrarData('menu/borrar', '{{$menu2->id}}'); @endif" class="btnSec"><i class="fa fa-times fa-lg"></i></a>
@@ -67,7 +67,7 @@
                                     <ul>
                                     @foreach($menu2->children as $menu3)
                                         <li>
-                                            <span><a href="{{URL::to('/'.$menu3->url)}}">{{$menu3->nombre}}</a></span>
+                                            <span><a href="{{URL::to('/'.$menu3->lang()->url)}}">{{$menu3->lang()->nombre}}</a></span>
                                             @if(Auth::user()->can("editar_menu_interno"))
                                                 <a data="@if(!is_null($menu3->categoria())) {{URL::to('admin/categoria/editar/'.$menu3->categoria()->id)}} @else {{URL::to('admin/menu/editar/'.$menu3->id)}} @endif" class="btnSec editarContenidoAdmin"><i class="fa fa-pencil fa-lg"></i></a>
                                             @endif

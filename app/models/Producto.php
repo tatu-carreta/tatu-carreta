@@ -5,7 +5,7 @@ class Producto extends Item {
     //Tabla de la BD
     protected $table = 'producto';
     //Atributos que van a ser modificables
-    protected $fillable = array('item_id', 'cuerpo');
+    protected $fillable = array('item_id');
     //Hace que no se utilicen los default: create_at y update_at
     public $timestamps = false;
 
@@ -17,7 +17,7 @@ class Producto extends Item {
         //Se definen las reglas con las que se van a validar los datos
         //del PRODUCTO
         $reglas = array(
-            'titulo' => array('required','max:9', 'unique:item'),
+            'titulo' => array('required', 'max:9', 'unique:item_lang'),
             'seccion_id' => array('integer'),
             'imagen_portada_crop' => array('required'),
         );
@@ -54,7 +54,23 @@ class Producto extends Item {
 
             if (!$item['error']) {
 
-                $producto = static::create(['item_id' => $item['data']->id, 'cuerpo' => $cuerpo]);
+                $producto = static::create(['item_id' => $item['data']->id]);
+
+                $datos_lang = array(
+                    'cuerpo' => $cuerpo,
+                );
+
+                $idiomas = Idioma::where('estado', 'A')->get();
+
+                foreach ($idiomas as $idioma) {
+                    /*
+                      if ($idioma->codigo != Config::get('app.locale')) {
+                      $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
+                      }
+                     * 
+                     */
+                    $producto->idiomas()->attach($idioma->id, $datos_lang);
+                }
 
                 if ($producto) {
                     if (isset($input['precio']) && ($input['precio'] != "")) {
@@ -165,9 +181,19 @@ class Producto extends Item {
                 $cuerpo = NULL;
             }
 
-            $producto->cuerpo = $cuerpo;
+//            $producto->cuerpo = $cuerpo;
+//
+//            $producto->save();
 
-            $producto->save();
+            $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+
+            $producto_lang = Producto::join('producto_lang', 'producto_lang.producto_id', '=', 'producto.id')->where('producto_lang.lang_id', $lang->id)->where('producto.id', $producto->id)->first();
+
+            $datos = array(
+                'cuerpo' => $cuerpo,
+            );
+
+            $producto_modificacion = DB::table('producto_lang')->where('id', $producto_lang->id)->update($datos);
 
             if (isset($input['precio']) && ($input['precio'] != "")) {
 
@@ -527,6 +553,24 @@ class Producto extends Item {
             return true;
         }
         return false;
+    }
+
+    public function idiomas() {
+        return $this->belongsToMany('Idioma', 'producto_lang', 'producto_id', 'lang_id');
+    }
+
+    public function lang() {
+        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
+
+        $producto = Producto::join('producto_lang', 'producto_lang.producto_id', '=', 'producto.id')->where('producto_lang.lang_id', $lang->id)->where('producto.id', $this->id)->first();
+
+        if (is_null($producto)) {
+            echo "Por null";
+            $lang = Idioma::where('codigo', 'es')->where('estado', 'A')->first();
+            $producto = Producto::join('producto_lang', 'producto_lang.producto_id', '=', 'producto.id')->where('producto_lang.lang_id', $lang->id)->where('producto.id', $this->id)->first();
+        }
+
+        return $producto;
     }
 
 }

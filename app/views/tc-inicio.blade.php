@@ -82,7 +82,7 @@
                                         </div>
                                     </a>
                                     <div class="bandaInfoProd @if($item->producto()->nuevo()) nuevos @elseif($item->producto()->oferta()) ofertas @endif ">
-                                        <span class="pull-left">{{ $item->titulo }}</span>
+                                        <span class="pull-left">{{ $item->lang()->titulo }}</span>
                                         @if(!Auth::check())
                                             @if($c = Cart::search(array('id' => $item->producto()->id)))
                                                 <a href="{{URL::to('carrito/borrar/'.$item->producto()->id.'/'.$c[0].'/home/h')}}" class="carrito boton-presupuestar btn pull-right"><i class="fa fa-check-square-o"></i>Presupuestar</a>

@@ -8,9 +8,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Carga y modificación de secciones</h4>
     </div>
-    {{ Form::open(array('url' => 'admin/seccion/editar')) }}
+    {{ Form::open(array('url' => $prefijo.'/admin/seccion/editar')) }}
         <div class="modal-body">
-            <input class="form-control" type="text" name="titulo" value="{{ $seccion->titulo }}" placeholder="Nombre de la Sección">
+            <input class="form-control" type="text" name="titulo" value="{{ $seccion->lang()->titulo }}" placeholder="Nombre de la Sección">
             {{Form::hidden('id', $seccion->id)}}
         </div>
         <div class="modal-footer">

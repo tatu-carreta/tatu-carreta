@@ -26,7 +26,7 @@
 <div class="divCargaTxtDesc">
     <h3>Detalles técnicos</h3>
     <div class="divEditorTxt fondoDestacado">
-        <textarea id="texto" contenteditable="true" name="cuerpo">{{ $item->muestra()->cuerpo }}</textarea>
+        <textarea id="texto" contenteditable="true" name="cuerpo">{{ $item->muestra()->lang()->cuerpo }}</textarea>
     </div>
 </div>
 @stop

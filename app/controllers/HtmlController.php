@@ -27,10 +27,10 @@ class HtmlController extends BaseController {
         if ($respuesta['error'] == true) {
             return Redirect::to('admin/item')->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
-            $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
+            $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->lang()->url;
             $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
+            return Redirect::to($this->array_view['prefijo'].'/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -56,10 +56,10 @@ class HtmlController extends BaseController {
         if ($respuesta['error'] == true) {
             return Redirect::to('admin/item')->withErrors($respuesta['mensaje'])->withInput();
         } else {
-            $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
+            $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->lang()->url;
             $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
+            return Redirect::to($this->array_view['prefijo'].'/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla);
             //return Redirect::to('admin/item')->with('mensaje', $respuesta['mensaje']);
         }
     }

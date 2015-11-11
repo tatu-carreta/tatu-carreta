@@ -1,9 +1,9 @@
 <?php
 
-class Seccion extends Eloquent {
+class Seccion_v2 extends Eloquent {
 
     protected $table = 'seccion';
-    protected $fillable = array('estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
+    protected $fillable = array('titulo', 'estado', 'fecha_carga', 'fecha_modificacion', 'fecha_baja', 'usuario_id_carga', 'usuario_id_baja');
     public $timestamps = false;
 
     public static function agregarSeccion($input) {
@@ -22,7 +22,7 @@ class Seccion extends Eloquent {
         } else {
 
             $datos = array(
-                //'titulo' => $input['titulo'],
+                'titulo' => $input['titulo'],
                 'estado' => 'A',
                 'fecha_carga' => date("Y-m-d H:i:s"),
                 'usuario_id_carga' => Auth::user()->id
@@ -30,25 +30,6 @@ class Seccion extends Eloquent {
 
             $seccion = static::create($datos);
             $seccion->menu()->attach($input['menu_id']);
-
-            $datos_lang = array(
-                'titulo' => $input['titulo'],
-                'estado' => 'A',
-                'fecha_carga' => date("Y-m-d H:i:s"),
-                'usuario_id_carga' => Auth::user()->id
-            );
-
-            $idiomas = Idioma::where('estado', 'A')->get();
-
-            foreach ($idiomas as $idioma) {
-                /*
-                  if ($idioma->codigo != Config::get('app.locale')) {
-                  $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                  }
-                 * 
-                 */
-                $seccion->idiomas()->attach($idioma->id, $datos_lang);
-            }
 
             $respuesta['mensaje'] = 'Sección creada.';
             $respuesta['error'] = false;
@@ -74,22 +55,11 @@ class Seccion extends Eloquent {
 
             $seccion = Seccion::find($input['id']);
 
-            //$seccion->titulo = $input['titulo'];
+            $seccion->titulo = $input['titulo'];
             $seccion->fecha_modificacion = date("Y-m-d H:i:s");
 
             $seccion->save();
-            
-            $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
 
-            $seccion_lang = Seccion::join('seccion_lang', 'seccion_lang.seccion_id', '=', 'seccion.id')->where('seccion_lang.lang_id', $lang->id)->where('seccion_lang.estado', 'A')->where('seccion.id', $input['id'])->first();
-
-            $datos = array(
-                'titulo' => $input['titulo'],
-                'fecha_modificacion' => date("Y-m-d H:i:s")
-            );
-
-            $seccion_modificacion = DB::table('seccion_lang')->where('id', $seccion_lang->id)->update($datos);
-            
             $respuesta['mensaje'] = 'Sección modificada.';
             $respuesta['error'] = false;
             $respuesta['data'] = $seccion;
@@ -118,27 +88,6 @@ class Seccion extends Eloquent {
             $seccion->usuario_id_baja = Auth::user()->id;
 
             $seccion->save();
-            
-            $idiomas = Idioma::where('estado', 'A')->get();
-
-            foreach ($idiomas as $idioma) {
-                /*
-                  if ($idioma->codigo != Config::get('app.locale')) {
-                  $datos_lang['url'] = $idioma->codigo . "/" . $datos_lang['url'];
-                  }
-                 * 
-                 */
-                //$menu->idiomas()->attach($idioma->id, $datos_lang);
-                
-                $seccion_lang = Seccion::join('seccion_lang', 'seccion_lang.seccion_id', '=', 'seccion.id')->where('seccion_lang.lang_id', $idioma->id)->where('seccion_lang.estado', 'A')->where('seccion.id', $input['id'])->first();
-            
-                $datos = array(
-                    'fecha_baja' => date("Y-m-d H:i:s"),
-                    'usuario_id_baja' => Auth::user()->id,
-                    'estado' => 'B'
-                );
-                $seccion_lang_baja = DB::table('seccion_lang')->where('id', $seccion_lang->id)->update($datos);
-            }
 
             $respuesta['mensaje'] = 'Sección eliminada.';
             $respuesta['error'] = false;
@@ -161,10 +110,10 @@ class Seccion extends Eloquent {
             $categoria_id = $categoria->id;
         }
 
-        if ($seccion->lang()->titulo != "") {
-            $nombre = $seccion->lang()->titulo;
+        if ($seccion->titulo != "") {
+            $nombre = $seccion->titulo;
         } else {
-            $nombre = $menu->lang()->nombre;
+            $nombre = $menu->nombre;
         }
 
         $datosCategoria = array(
@@ -289,24 +238,6 @@ class Seccion extends Eloquent {
         );
 
         return $result;
-    }
-
-    public function idiomas() {
-        return $this->belongsToMany('Idioma', 'seccion_lang', 'seccion_id', 'lang_id');
-    }
-
-    public function lang() {
-        $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-
-        $seccion = Seccion::join('seccion_lang', 'seccion_lang.seccion_id', '=', 'seccion.id')->where('seccion_lang.lang_id', $lang->id)->where('seccion_lang.estado', 'A')->where('seccion.id', $this->id)->first();
-
-        if (is_null($seccion)) {
-            echo "Por null";
-            $lang = Idioma::where('codigo', 'es')->where('estado', 'A')->first();
-            $seccion = Seccion::join('seccion_lang', 'seccion_lang.seccion_id', '=', 'seccion.id')->where('seccion_lang.lang_id', $lang->id)->where('seccion_lang.estado', 'A')->where('seccion.id', $this->id)->first();
-        }
-
-        return $seccion;
     }
 
 }

@@ -26,14 +26,14 @@ class TextoController extends BaseController {
 
         if ($respuesta['error'] == true) {
             $seccion = Seccion::find(Input::get('seccion_id'));
-            $menu = $seccion->menuSeccion()->url;
+            $menu = $seccion->menuSeccion()->lang()->url;
             $ancla = '#' . $seccion->estado . $seccion->id;
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('error', true);
+            return Redirect::to($this->array_view['prefijo'].'/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('error', true);
         } else {
-            $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
+            $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->lang()->url;
             $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
+            return Redirect::to($this->array_view['prefijo'].'/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
@@ -58,10 +58,10 @@ class TextoController extends BaseController {
         if ($respuesta['error'] == true) {
             return Redirect::to('admin/item')->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
-            $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->url;
+            $menu = $respuesta['data']->item()->seccionItem()->menuSeccion()->lang()->url;
             $ancla = '#' . $respuesta['data']->item()->seccionItem()->estado . $respuesta['data']->item()->seccionItem()->id;
 
-            return Redirect::to('/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
+            return Redirect::to($this->array_view['prefijo'].'/' . $menu)->with('mensaje', $respuesta['mensaje'])->with('ancla', $ancla)->with('ok', true);
         }
     }
 
