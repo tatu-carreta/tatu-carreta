@@ -34,7 +34,7 @@ class PedidoController extends BaseController {
             } elseif ($messages->has('telefono')) {
                 $mensaje = $messages->first('telefono');
             } else {
-                $mensaje = 'Los datos de contacto para el envio del presupuesto son erróneos.';
+                $mensaje = Lang::get('controllers.pedido.datos_consulta_contacto_incorrectos');
             }
 
             return Redirect::to('/carrito')->with('mensaje', $mensaje)->with('error', true)->withInput();
@@ -65,7 +65,7 @@ class PedidoController extends BaseController {
 
 
             if (count($productos) == 0) {
-                $mensaje = 'Para realizar el presupuesto debe seleccionar al menos un producto.';
+                $mensaje = Lang::get('controllers.pedido.debe_tener_producto');
                 return Redirect::to('/carrito')->with('mensaje', $mensaje)->with('error', true)->withInput();
             } else {
 
@@ -82,7 +82,7 @@ class PedidoController extends BaseController {
                 $persona = Persona::agregar($datos_persona);
 
                 if ($persona['error']) {
-                    $mensaje = 'Hubo un error al realizar el pedido. Vuelva a intentarlo en unos minutos.';
+                    $mensaje = Lang::get('controllers.pedido.error_realizar_pedido');
                     return Redirect::to('/carrito')->with('mensaje', $mensaje)->with('error', true);
                 } else {
 
@@ -115,11 +115,11 @@ class PedidoController extends BaseController {
 
                             Session::forget('carrito');
 
-                            $mensaje = 'El presupuesto fue enviado.';
+                            $mensaje = Lang::get('controllers.pedido.presupuesto_enviado');
 
                             return Redirect::to('/')->with('mensaje', $mensaje)->with('ok', true);
                         } else {
-                            $mensaje = 'El mail con el resumen de su presupuesto no pudo enviarse correctamente. Vuelva a intentarlo en unos minutos.';
+                            $mensaje = Lang::get('controllers.pedido.presupuesto_no_enviado');
                             return Redirect::to('/carrito')->with('mensaje', $mensaje)->with('error', true);
                         }
                     }

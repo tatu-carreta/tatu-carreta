@@ -44,7 +44,7 @@ class GaleriaController extends BaseController {
             $this->array_view['galeria'] = $galeria;
             return View::make('item.' . $this->folder_name . '.editar', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Error al cargar la página.';
+            $this->array_view['texto'] = Lang::get('controllers.error_carga_pagina');
             return View::make($this->project_name . '-error', $this->array_view);
         }
     }

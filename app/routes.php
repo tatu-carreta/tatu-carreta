@@ -23,6 +23,8 @@ Route::group(array('prefix' => Config::get('app.locale_prefix')), function() {
     Route::get('/', 'HomeController@inicio');
 
     Route::get('/contacto', 'HomeController@contacto');
+    
+    Route::get('/contact', 'HomeController@contacto');
 
     Route::group(array('before' => 'guest'), function() {
 
@@ -425,5 +427,5 @@ App::missing(function($exception) {
 
     // shows an error page (app/views/error.blade.php)
     // returns a page not found error
-    return Redirect::to(Config::get('app.locale_prefix'), 'jma-error')->with('texto', 'Está intentado acceder a un lugar indebido.');
+    return Redirect::to(Config::get('app.locale_prefix'), 'tc-error')->with('texto', 'Está intentado acceder a un lugar indebido.');
 });

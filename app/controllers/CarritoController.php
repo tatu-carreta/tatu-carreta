@@ -33,7 +33,7 @@ class CarritoController extends BaseController {
                 $producto_carrito_subido = true;
             }
         } else {
-            $respuesta['mensaje'] = "El máximo permitido para el presupuesto es de 6 productos.";
+            $respuesta['mensaje'] = Lang::get('controllers.carrito.maximo_permitido', ['cant' => 6]);
             $estado = 'error';
             $error = true;
             $producto_carrito_subido = false;
@@ -59,7 +59,7 @@ class CarritoController extends BaseController {
 
                     if ($seccion) {
 
-                        $menu = $seccion->menuSeccion()->url;
+                        $menu = $seccion->menuSeccion()->lang()->url;
                         $ancla = '#' . $producto->item()->seccionItem()->estado . $producto->item()->seccionItem()->id;
 
                         $anclaProd = '#Pr' . $producto->id;
@@ -146,7 +146,7 @@ class CarritoController extends BaseController {
 
                     if ($seccion) {
 
-                        $menu = $seccion->menuSeccion()->url;
+                        $menu = $seccion->menuSeccion()->lang()->url;
                         $ancla = '#' . $producto->item()->seccionItem()->estado . $producto->item()->seccionItem()->id;
 
                         $anclaProd = '#Pr' . $producto->id;

@@ -39,7 +39,7 @@
                                 <img src="{{ URL::to($img->carpeta.$img->nombre) }}" />
                             </div>
                             <div class="flex-caption">
-                                <p>{{ $img->epigrafe }}</p>
+                                <p>{{ $img->lang()->epigrafe }}</p>
                             </div>
                             <div class="clearfix"></div>
                         </li>

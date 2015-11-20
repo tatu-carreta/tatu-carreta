@@ -44,7 +44,7 @@ class ClienteController extends BaseController {
             } /*elseif ($messages->has('telefono')) {
                 $mensaje = $messages->first('telefono');
             } */else {
-                $mensaje = 'Los datos de contacto para el envio del presupuesto son erróneos.';
+                $mensaje = Lang::get('controllers.cliente.datos_consulta_contacto_incorrectos');
             }
 
             return Redirect::to('/contacto')->with('mensaje', $mensaje)->with('error', true)->withInput();
@@ -60,7 +60,7 @@ class ClienteController extends BaseController {
         });
 
         if (count(Mail::failures()) > 0) {
-            $mensaje = 'El mail no pudo enviarse.';
+            $mensaje = Lang::get('controllers.cliente.consulta_no_enviada');
         } else {
 
                 $datos_persona = array(
@@ -72,7 +72,7 @@ class ClienteController extends BaseController {
 
                 Persona::agregar($datos_persona);
 
-            $mensaje = 'El mail se envió correctamente';
+            $mensaje = Lang::get('controllers.cliente.consulta_enviada');
         }
 
         if (isset($data['continue']) && ($data['continue'] != "")) {

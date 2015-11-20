@@ -46,7 +46,7 @@ class Pedido extends Eloquent {
             }
 
             //Mensaje correspondiente a la agregacion exitosa
-            $respuesta['mensaje'] = 'El presupuesto fue enviado.';
+            $respuesta['mensaje'] = Lang::get('models.pedido.presupuesto_enviado');
             $respuesta['error'] = false;
             $respuesta['data'] = $pedido;
         }

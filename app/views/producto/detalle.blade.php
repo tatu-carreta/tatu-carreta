@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-md-12 marginBottom2">
             <h2>{{ $item -> seccionItem() -> lang() -> titulo }}</h2>
-            <a class="volveraSeccion" href="{{URL::to($prefijo.'/'.$item -> seccionItem() -> menuSeccion() -> lang() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ $item -> seccionItem() -> menuSeccion() -> lang() -> nombre }}</a>
+            <a class="volveraSeccion" href="{{URL::to($prefijo.'/'.$item -> seccionItem() -> menuSeccion() -> lang() -> url)}}"><i class="fa fa-caret-left"></i>{{ Lang::get('html.volver_a') }} {{ $item -> seccionItem() -> menuSeccion() -> lang() -> nombre }}</a>
         </div>
     </div>
     
@@ -40,8 +40,8 @@
                 @foreach($item->imagenes_producto_editar() as $img)
                 <div class="col-md-6">
                     <div class="divImgItem">
-                        <img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->titulo}}">
-                        <p>{{$img->epigrafe}}</p>
+                        <img src="{{ URL::to($img->carpeta.$img->nombre) }}" alt="{{$item->lang()->titulo}}">
+                        <p>{{$img->lang()->epigrafe}}</p>
                     </div>
                 </div>
                 @endforeach
@@ -66,26 +66,26 @@
             @if($item->producto()->oferta())
             <div class="row">
                 <div class="col-md-12">
-                    <span>OFERTA: ${{$item->producto()->precio(1)}} <span>(antes: ${{$item->producto()->precio(2)}})</span></span>
+                    <span>{{ Str::upper(Lang::get('html.oferta')) }}: ${{$item->producto()->precio(1)}} <span>({{ Str::lower(Lang::get('html.oferta_antes')) }}: ${{$item->producto()->precio(2)}})</span></span>
                 </div>
             </div>
             @elseif($item->producto()->nuevo())
             <div class="row">
                 <div class="col-md-12">
-                    <span>NUEVO</span>
+                    <span>{{ Str::upper(Lang::get('html.nuevo')) }}</span>
                 </div>
             </div>
             @elseif($item->producto()->precio(2) != 0)
             <div class="row marginBottom2">
                 <div class="col-md-12">
-                    <span class="precio-detProd">PRECIO: ${{ $item->producto()->precio(2) }}</span>
+                    <span class="precio-detProd">{{ Str::upper(Lang::get('html.producto.precio')) }}: ${{ $item->producto()->precio(2) }}</span>
                 </div>
             </div>
             @endif
             @if($item->producto()->lang()->cuerpo != "")
             <div class="row marginBottom2">
                 <div class="col-md-12">
-                    <h4>Descripción técnica</h4>
+                    <h4>{{ Lang::get('html.producto.descripcion_tecnica') }}</h4>
                     <p>{{ $item->producto()->lang()->cuerpo }}</p>
                 </div>
             </div>
@@ -93,7 +93,7 @@
             @if(count($item->archivos) > 0)
             <div class="row marginBottom2">
                 <div class="col-md-12">
-                    <h4>Descargas PDF</h4>
+                    <h4>{{ Lang::get('html.descargas_pdf') }}</h4>
                 </div>
                 @foreach($item->archivos as $archivo)
                 <div class="col-md-12">

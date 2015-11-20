@@ -23,7 +23,7 @@ class Cliente extends Eloquent {
         $validator = Validator::make($input, $reglas);
 
         if ($validator->fails()) {
-            $respuesta['mensaje'] = "El email es inválido.";
+            $respuesta['mensaje'] = Lang::get('models.cliente.email_invalido');
 
             //Si está todo mal, carga lo que corresponde en el mensaje.
 
@@ -50,7 +50,7 @@ class Cliente extends Eloquent {
             $cliente = static::create($datos);
 
             //Mensaje correspondiente a la agregacion exitosa
-            $respuesta['mensaje'] = 'Cliente creado.';
+            $respuesta['mensaje'] = Lang::get('models.cliente.creado');
             $respuesta['error'] = false;
             $respuesta['data'] = $cliente;
         }

@@ -64,7 +64,7 @@ class CategoriaController extends BaseController {
         if ($categoria) {
             return View::make($this->folder_name . '.editar-boton-dinamico', $this->array_view);
         } else {
-            $this->array_view['texto'] = 'Error al cargar la página.';
+            $this->array_view['texto'] = Lang::get('controllers.error_carga_pagina');
             return View::make($this->project_name . '-error', $this->array_view);
         }
     }

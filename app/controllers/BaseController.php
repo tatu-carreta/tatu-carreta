@@ -162,13 +162,15 @@ class BaseController extends Controller {
         $items_destacados = DB::table('item')
                 ->join('item_seccion', 'item.id', '=', 'item_seccion.item_id')
                 ->join('seccion', 'item_seccion.seccion_id', '=', 'seccion.id')
+                ->join('item_lang', 'item.id', '=', 'item_lang.item_id')
+                ->join('lang', 'lang.id', '=', 'item_lang.lang_id')->where('lang.codigo', App::getLocale())->where('item_lang.estado', 'A')
                 ->where('item.estado', 'A')
                 ->where('item_seccion.estado', 'A')
                 ->where('item_seccion.destacado', 'A')
                 ->where('seccion.estado', 'A')
                 ->orderBy('item.id', 'desc')
                 ->limit(5)
-                ->select('item.id as item_id', 'item.titulo as item_titulo', 'item.descripcion as item_descripcion', 'item.url as item_url', 'seccion.id as seccion_id')
+                ->select('item.id as item_id', 'item_lang.titulo as item_titulo', 'item_lang.descripcion as item_descripcion', 'item_lang.url as item_url', 'seccion.id as seccion_id')
                 ->get();
 
         $items = $items_destacados;
@@ -193,13 +195,15 @@ class BaseController extends Controller {
                 ->join('item_seccion', 'item.id', '=', 'item_seccion.item_id')
                 ->join('seccion', 'item_seccion.seccion_id', '=', 'seccion.id')
                 ->join('producto', 'item.id', '=', 'producto.item_id')
+                ->join('item_lang', 'item.id', '=', 'item_lang.item_id')
+                ->join('lang', 'lang.id', '=', 'item_lang.lang_id')->where('lang.codigo', App::getLocale())->where('item_lang.estado', 'A')
                 ->where('item.estado', 'A')
                 ->where('item_seccion.estado', 'A')
                 ->where('item_seccion.destacado', 'N')
                 ->where('seccion.estado', 'A')
                 ->orderBy('item.id', 'desc')
                 ->limit($limit)
-                ->select('item.id as item_id', 'item.titulo as item_titulo', 'item.descripcion as item_descripcion', 'item.url as item_url', 'seccion.id as seccion_id')
+                ->select('item.id as item_id', 'item_lang.titulo as item_titulo', 'item_lang.descripcion as item_descripcion', 'item_lang.url as item_url', 'seccion.id as seccion_id')
                 ->get();
 
         $items = $items_destacados;
@@ -227,13 +231,15 @@ class BaseController extends Controller {
                 ->join('item_seccion', 'item.id', '=', 'item_seccion.item_id')
                 ->join('seccion', 'item_seccion.seccion_id', '=', 'seccion.id')
                 ->join('producto', 'item.id', '=', 'producto.item_id')
+                ->join('item_lang', 'item.id', '=', 'item_lang.item_id')
+                ->join('lang', 'lang.id', '=', 'item_lang.lang_id')->where('lang.codigo', App::getLocale())->where('item_lang.estado', 'A')
                 ->where('item.estado', 'A')
                 ->where('item_seccion.estado', 'A')
                 ->where('item_seccion.destacado', 'O')
                 ->where('seccion.estado', 'A')
                 ->orderBy('item.id', 'desc')
                 ->limit($limit)
-                ->select('item.id as item_id', 'item.titulo as item_titulo', 'item.descripcion as item_descripcion', 'item.url as item_url', 'seccion.id as seccion_id')
+                ->select('item.id as item_id', 'item_lang.titulo as item_titulo', 'item_lang.descripcion as item_descripcion', 'item_lang.url as item_url', 'seccion.id as seccion_id')
                 ->distinct()
                 ->get();
 
@@ -265,6 +271,8 @@ class BaseController extends Controller {
                     ->join('item_seccion', 'item.id', '=', 'item_seccion.item_id')
                     ->join('seccion', 'item_seccion.seccion_id', '=', 'seccion.id')
                     ->join('producto', 'item.id', '=', 'producto.item_id')
+                    ->join('item_lang', 'item.id', '=', 'item_lang.item_id')
+                ->join('lang', 'lang.id', '=', 'item_lang.lang_id')->where('lang.codigo', App::getLocale())->where('item_lang.estado', 'A')
                     ->where('item.estado', 'A')
                     ->where('item_seccion.estado', 'A')
                     ->whereNull('item_seccion.destacado')
@@ -272,7 +280,7 @@ class BaseController extends Controller {
                     ->whereNotIn('item.id', $destacados)
                     ->orderBy('item.fecha_modificacion', 'desc')
                     //->limit($limit)
-                    ->select('item.id as item_id', 'item.titulo as item_titulo', 'item.descripcion as item_descripcion', 'item.url as item_url', 'seccion.id as seccion_id')
+                    ->select('item.id as item_id', 'item_lang.titulo as item_titulo', 'item_lang.descripcion as item_descripcion', 'item_lang.url as item_url', 'seccion.id as seccion_id')
                     ->distinct()
                     ->get();
         } else {
@@ -280,13 +288,15 @@ class BaseController extends Controller {
                     ->join('item_seccion', 'item.id', '=', 'item_seccion.item_id')
                     ->join('seccion', 'item_seccion.seccion_id', '=', 'seccion.id')
                     ->join('producto', 'item.id', '=', 'producto.item_id')
+                    ->join('item_lang', 'item.id', '=', 'item_lang.item_id')
+                ->join('lang', 'lang.id', '=', 'item_lang.lang_id')->where('lang.codigo', App::getLocale())->where('item_lang.estado', 'A')
                     ->where('item.estado', 'A')
                     ->where('item_seccion.estado', 'A')
                     ->whereNull('item_seccion.destacado')
                     ->where('seccion.estado', 'A')
                     ->orderBy('item.fecha_modificacion', 'desc')
                     //->limit($limit)
-                    ->select('item.id as item_id', 'item.titulo as item_titulo', 'item.descripcion as item_descripcion', 'item.url as item_url', 'seccion.id as seccion_id')
+                    ->select('item.id as item_id', 'item_lang.titulo as item_titulo', 'item_lang.descripcion as item_descripcion', 'item_lang.url as item_url', 'seccion.id as seccion_id')
                     ->distinct()
                     ->get();
         }

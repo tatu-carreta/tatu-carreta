@@ -111,8 +111,8 @@
                         <div class="col-md-12">
                             <h1 class="logo pull-left"><a href="{{URL::to('/')}}" >Tatú Carreta</a></h1>
                              <!-- B T N   C A R R I T O -->
-                            {{--<a href="{{URL::to('carrito')}}" class="btnCarrito active"><span>Presupuesto: {{Cart::count(false)}}</span><i class="fa fa-shopping-cart fa-lg"></i></a>
-                            --}}
+                            <a href="{{URL::to('carrito')}}" class="btnCarrito active"><span>{{ Lang::get('html.presupuesto') }}: {{Cart::count(false)}}</span><i class="fa fa-shopping-cart fa-lg"></i></a>
+                            
                             <?php
                             /*
                             <!-- VENTANA CARRITO -->
@@ -168,7 +168,7 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-10 col-xs-12">
                                 <div class="clearfix"></div>
-                                <p class="firmalaura">Copyright © TATU 2015 - Desarrollo web: <a href="http://www.laurachuburu.com.ar/" target="_blank">www.laurachuburu.com.ar</a></p>
+                                <p class="firmalaura">{{ Lang::get('html.copyright') }} <a href="http://www.laurachuburu.com.ar/" target="_blank">www.laurachuburu.com.ar</a></p>
                             </div>
                         </div>
 

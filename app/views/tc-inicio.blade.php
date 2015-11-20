@@ -25,7 +25,7 @@
     <section class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="presentacion">INICIO</h2>
+                <h2 class="presentacion">{{ Lang::get('html.titulo_inicio') }}</h2>
             </div>  
         </div>
         @if(count($items_home) > 0)
@@ -75,9 +75,9 @@
                                         <div class="divImgItem">
                                             <img class="lazy" src="@if(!is_null($item->imagen_destacada())){{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$item->titulo}}">
                                             @if($item->producto()->oferta())
-                                                <span class="bandaOfertas">OFERTA: ${{$item->producto()->precio(2)}} <span>(antes: ${{$item->producto()->precio(1)}})</span></span>
+                                                <span class="bandaOfertas">{{ Str::upper(Lang::get('html.oferta')) }}: ${{$item->producto()->precio(2)}} <span>({{ Str::lower(Lang::get('html.oferta_antes')) }}: ${{$item->producto()->precio(1)}})</span></span>
                                             @elseif($item->producto()->nuevo())
-                                                <span class="bandaNuevos">NUEVO</span>
+                                                <span class="bandaNuevos">{{ Str::upper(Lang::get('html.nuevo')) }}</span>
                                             @endif
                                         </div>
                                     </a>
@@ -85,9 +85,9 @@
                                         <span class="pull-left">{{ $item->lang()->titulo }}</span>
                                         @if(!Auth::check())
                                             @if($c = Cart::search(array('id' => $item->producto()->id)))
-                                                <a href="{{URL::to('carrito/borrar/'.$item->producto()->id.'/'.$c[0].'/home/h')}}" class="carrito boton-presupuestar btn pull-right"><i class="fa fa-check-square-o"></i>Presupuestar</a>
+                                                <a href="{{URL::to('carrito/borrar/'.$item->producto()->id.'/'.$c[0].'/home/h')}}" class="carrito boton-presupuestar btn pull-right"><i class="fa fa-check-square-o"></i>{{ Lang::get('html.presupuestar') }}</a>
                                             @else
-                                                <a href="{{URL::to('carrito/agregar/'.$item->producto()->id.'/home/h')}}" class="btn boton-presupuestar pull-right"><i class="fa fa-square-o"></i>Presupuestar</a>
+                                                <a href="{{URL::to('carrito/agregar/'.$item->producto()->id.'/home/h')}}" class="btn boton-presupuestar pull-right"><i class="fa fa-square-o"></i>{{ Lang::get('html.presupuestar') }}</a>
                                             @endif
                                         @endif
                                         <div class="clearfix"></div>

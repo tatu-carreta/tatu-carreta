@@ -17,10 +17,10 @@
                     
                     @if(Auth::check())
                         @if(Auth::user()->can("editar_seccion"))
-                            <a href="{{URL::to($prefijo.'/admin/seccion/editar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btn popup-seccion iconoBtn-texto"><i class="fa fa-pencil fa-lg"></i>Cambiar nombre</a>
+                            <a href="{{URL::to($prefijo.'/admin/seccion/editar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btn popup-seccion iconoBtn-texto"><i class="fa fa-pencil fa-lg"></i>{{ Lang::get('html.contenedor.cambiar_nombre') }}</a>
                         @endif
                         @if(Auth::user()->can("borrar_seccion"))
-                            <a onclick="borrarData('{{URL::to('admin/seccion/borrar')}}', '{{$seccion->id}}');" class="btn iconoBtn-texto"><i class="fa fa-times fa-lg"></i>Eliminar sección</a>
+                            <a onclick="borrarData('{{URL::to('admin/seccion/borrar')}}', '{{$seccion->id}}');" class="btn iconoBtn-texto"><i class="fa fa-times fa-lg"></i>{{ Lang::get('html.contenedor.eliminar_seccion') }}</a>
                         @endif
                         @if(Auth::user()->can("agregar_item"))
                             <a href="{{URL::to('admin/'.$menu_basic->modulo()->nombre.'/agregar/'.$seccion->id)}}" data='{{ $seccion->id }}' class="btn btn-primary pull-right "><i class="fa fa-plus fa-lg"></i>{{$texto_agregar}}</a>
@@ -55,7 +55,7 @@
             @if(Auth::check())
             <div class="row">
                 <div class="col-md-3">
-                    <div class="sinContenido">Sin {{$texto_modulo}}</div>
+                    <div class="sinContenido">{{ Lang::get('html.contenedor.sin_contenido', ['texto_modulo' => $texto_modulo]) }}</div>
                 </div>
             </div>
             

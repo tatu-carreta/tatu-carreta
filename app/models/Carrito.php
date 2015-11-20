@@ -117,10 +117,10 @@ class Carrito extends Eloquent {
 
 
 
-            Cart::associate('Producto')->add($producto->id, $producto->item()->titulo, $cantidad, $producto->precio(2));
+            Cart::associate('Producto')->add($producto->id, $producto->item()->lang()->titulo, $cantidad, $producto->precio(2));
 
             //Mensaje correspondiente a la agregacion exitosa
-            $respuesta['mensaje'] = 'El producto fue agregado al presupuesto.';
+            $respuesta['mensaje'] = Lang::get('models.carrito.agregado_presupuesto');
             $respuesta['error'] = false;
             $respuesta['data'] = $carrito;
         }
@@ -206,7 +206,7 @@ class Carrito extends Eloquent {
 
             Cart::remove($input['rowId']);
 
-            $respuesta['mensaje'] = 'El producto fue quitado del presupuesto.';
+            $respuesta['mensaje'] = Lang::get('models.carrito.quitado_presupuesto');
             $respuesta['error'] = false;
             $respuesta['data'] = $carrito;
         }

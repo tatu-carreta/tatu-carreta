@@ -37,14 +37,14 @@
                     <div class="pull-right">
                     @if(count($menu_basic->secciones) >= 2)
                         @if(Auth::user()->can("convertir_subcategoria"))
-                            <a  onclick="pasarSeccionesCategoria('../admin/menu/pasar-secciones-categoria', '{{$menu->menu_id}}');" class="btn"><i class="icon-subcategoria"></i>Convertir en subcategorías</a>
+                            <a  onclick="pasarSeccionesCategoria('../admin/menu/pasar-secciones-categoria', '{{$menu->menu_id}}');" class="btn"><i class="icon-subcategoria"></i>{{ Lang::get('html.contenedor.convertir_a_categoria') }}</a>
                         @endif
                         @if(Auth::user()->can("ordenar_seccion_dinamica"))
-                            <a href="{{URL::to('admin/seccion/ordenar-por-menu/'.$menu->menu_id)}}" class="btn popup-nueva-seccion"><i class="fa fa-exchange fa-lg"></i>Ordenar secciones</a>
+                            <a href="{{URL::to('admin/seccion/ordenar-por-menu/'.$menu->menu_id)}}" class="btn popup-nueva-seccion"><i class="fa fa-exchange fa-lg"></i>{{ Lang::get('html.contenedor.ordenar_seccion') }}</a>
                         @endif
                     @endif
                     @if(Auth::user()->can("agregar_seccion"))
-                        <a href="{{URL::to('admin/seccion/agregar/'.$menu->menu_id)}}" class="btn btn-primary popup-nueva-seccion"><i class="fa fa-plus fa-lg"></i>Nueva sección</a>
+                        <a href="{{URL::to('admin/seccion/agregar/'.$menu->menu_id)}}" class="btn btn-primary popup-nueva-seccion"><i class="fa fa-plus fa-lg"></i>{{ Lang::get('html.contenedor.nueva_seccion') }}</a>
                     @endif
                     </div>
                     <div class="clearfix"></div>
@@ -55,7 +55,7 @@
             @if((!$hay_datos) && (!Auth::check()))
                 <div class="row">
                     <div class="col-md-12">
-                        No hay {{$texto_modulo}} aún.
+                        {{ Lang::get('html.contenedor.no_items', ['texto_modulo' => $texto_modulo]) }}
                     </div>
                 </div>
             @else
