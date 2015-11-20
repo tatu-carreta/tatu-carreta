@@ -18,13 +18,13 @@
             @endif
         </div>
 
-        <div class="cargaContenidoAdmin bgGris floatLeft col50">
+        <div class="cargaContenidoAdmin bgGris pull-left col50">
             @if(Auth::user()->can("agregar_menu_categoria"))
                 @include('categoria.agregar-boton-dinamico')
             @endif
         </div>
 
-        <div class="col50 floatRight">
+        <div class="col-md-6 pull-right">
             <h3>Menú Categorías</h3>
 
             <div class="grupoMenuAdmin">

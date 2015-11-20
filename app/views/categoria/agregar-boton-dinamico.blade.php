@@ -6,7 +6,7 @@
     @endif
     <div class="grupoForm marginBottom2">
         <p class="consigna"><label for="nombre">1. Defina el nombre de la Categoría</label></p>
-        <input type="text" name="nombre" id="nombre" placeholder="Nombre de la Categoría" required="true">
+        <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Nombre de la Categoría" required="true">
     </div>
 
     @if($errors -> has('nombre'))
@@ -21,7 +21,7 @@
         <div class="grupoForm marginBottom2">
             <p class="consigna"><label for="">2. Defina el tipo de contenido que tendrá la página nueva</label></p>
             <select class="form-control" name="modulo_id" required="true">
-                <option value="">Seleccione un Módulo</option>
+                <option value="">Seleccione un módulo</option>
                 @foreach($modulos as $modulo)
                 <option value="{{$modulo->id}}">{{$modulo->nombre}}</option>
                 @endforeach
@@ -58,8 +58,8 @@
         </div>
     @endif
 
-    <div class="floatRight">
-        {{Form::submit('Guardar', array('class' => 'btn'))}}
+    <div class="pull-right">
+        {{Form::submit('Guardar', array('class' => 'btn btn-primary'))}}
     </div>
 
 {{Form::close()}}
