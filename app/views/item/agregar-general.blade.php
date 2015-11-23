@@ -124,7 +124,7 @@
             <div class="col-md-12">
                 <div class="border-top">                
                     <input type="submit" value="Publicar" class="btn btn-primary marginRight5">
-                    <a href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion() -> url)}}" class="btn btn-default">Cancelar</a>
+                    <a href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion()->lang() -> url)}}" class="btn btn-default">Cancelar</a>
                 </div>
             </div>
         </div>
