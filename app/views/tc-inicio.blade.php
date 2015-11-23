@@ -85,9 +85,9 @@
                                         <span class="pull-left">{{ $item->lang()->titulo }}</span>
                                         @if(!Auth::check())
                                             @if($c = Cart::search(array('id' => $item->producto()->id)))
-                                            <a href="{{URL::to('carrito/borrar/'.$item->producto()->id.'/'.$c[0].'/home/h')}}" class="carrito boton-presupuestar btn pull-right" <!--onclick="ShowLoading()"-->><i class="fa fa-check-square-o"></i>{{ Lang::get('html.presupuestar') }}</a>
+                                            <a href="{{URL::to('carrito/borrar/'.$item->producto()->id.'/'.$c[0].'/home/h')}}" class="carrito boton-presupuestar btn pull-right" onclick="ShowLoading()"> <!--onclick="ShowLoading()"--><i class="fa fa-check-square-o"></i>{{ Lang::get('html.presupuestar') }}</a>
                                             @else
-                                            <a href="{{URL::to('carrito/agregar/'.$item->producto()->id.'/home/h')}}" class="btn boton-presupuestar pull-right" <!--onclick="ShowLoading()"-->><i class="fa fa-square-o"></i>{{ Lang::get('html.presupuestar') }}</a>
+                                            <a href="{{URL::to('carrito/agregar/'.$item->producto()->id.'/home/h')}}" class="btn boton-presupuestar pull-right" onclick="ShowLoading()"><!--onclick="ShowLoading()"--><i class="fa fa-square-o"></i>{{ Lang::get('html.presupuestar') }}</a>
                                             @endif
                                         @endif
                                         <div class="clearfix"></div>
