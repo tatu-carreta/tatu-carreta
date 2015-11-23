@@ -145,10 +145,18 @@ footer {margin-top: 1em; padding: 4em 0}
 
 // Agregar Productos
 .divCargaTitProd, .divEstado  {}
-.divEstadoNuevo  {border-bottom: 1px solid #F4F4EF}
-.divEstadoOferta  {
+.divEstadoNuevo {border-bottom: 1px solid #F4F4EF;
+	label {padding-left:0;
+		input[type=checkbox] {position: relative; top: 3px; margin-right: 7px;}
+		i {color: #B6B6B6}
+	}
+}
+.radio label {padding-left:0}
+.divEstadoOferta {
 	label {font-weight:normal;
 			span{margin-right: 0.5em;}
+			input[type=checkbox] {position: relative; top: 3px; margin-right: 7px;}
+			i {color: #B6B6B6}
 		}
 	input[type=text]{width: 60px; display: inline-block;}
 }

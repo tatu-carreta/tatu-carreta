@@ -312,11 +312,33 @@ section * > * > * {
 .divEstadoNuevo {
   border-bottom: 1px solid #f4f4ef;
 }
+.divEstadoNuevo label {
+  padding-left: 0;
+}
+.divEstadoNuevo label input[type=checkbox] {
+  position: relative;
+  top: 3px;
+  margin-right: 7px;
+}
+.divEstadoNuevo label i {
+  color: #b6b6b6;
+}
+.radio label {
+  padding-left: 0;
+}
 .divEstadoOferta label {
   font-weight: normal;
 }
 .divEstadoOferta label span {
   margin-right: 0.5em;
+}
+.divEstadoOferta label input[type=checkbox] {
+  position: relative;
+  top: 3px;
+  margin-right: 7px;
+}
+.divEstadoOferta label i {
+  color: #b6b6b6;
 }
 .divEstadoOferta input[type=text] {
   width: 60px;

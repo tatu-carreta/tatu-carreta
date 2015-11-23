@@ -22,10 +22,10 @@
 
 @section('bloque-2')
     <!-- Fuente -->
-    <div class="col-md-6 divDatos divCargaPrecio">
+    <div class="col-md-6 divDatos">
         <h3>Fuente de la noticia</h3>
         <div class="form-group fondoDestacado">
-            <input id="" class="form-control inputWidth60 precio-number" type="text" name="fuente" placeholder="Fuente de la noticia" maxlength="100">
+            <input id="" class="form-control" type="text" name="fuente" placeholder="Fuente de la noticia" maxlength="100">
         </div>
     </div>
     
@@ -34,10 +34,10 @@
 @section('bloque-3')
     
     <!-- Bajada -->
-    <div class="col-md-6 divDatos divCargaPrecio">
+    <div class="col-md-6 divDatos">
         <h3>Bajada de la noticia</h3>
         <div class="form-group fondoDestacado">
-            <input id="" class="form-control inputWidth60 precio-number" type="text" name="descripcion" placeholder="Bajada de la noticia" maxlength="100">
+            <input id="" class="form-control" type="text" name="descripcion" placeholder="Bajada de la noticia" maxlength="100">
         </div>
     </div>
 @stop
@@ -58,7 +58,7 @@
 @stop
 
 @section('mas-datos')
-    <div class="col-md-6 divDatos">
+    <div class="col-md-12 divDatos">
         <!-- Cuerpo de la noticia -->
         <div class="divCargaTxtDesc">
             <h3>Cuerpo de la noticia</h3>
