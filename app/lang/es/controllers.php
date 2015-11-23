@@ -23,4 +23,36 @@ return array(
         'presupuesto_enviado' => 'El presupuesto fue enviado.',
         'presupuesto_no_enviado' => 'El mail con el resumen de su presupuesto no pudo enviarse correctamente. Vuelva a intentarlo en unos minutos.',
     ),
+    'menu' => array(
+        'mostrar_info' => array(
+            'producto' => array(
+                'texto_agregar' => 'Nuevo Producto',
+                'texto_modulo' => 'productos'
+            ),
+            'noticia' => array(
+                'texto_agregar' => 'Nueva Noticia',
+                'texto_modulo' => 'noticias'
+            ),
+            'evento' => array(
+                'texto_agregar' => 'Nuevo Evento',
+                'texto_modulo' => 'eventos'
+            ),
+            'portfolio_simple' => array(
+                'texto_agregar' => 'Nuevo Portfolio Simple',
+                'texto_modulo' => 'obras'
+            ),
+            'portfolio_completo' => array(
+                'texto_agregar' => 'Nuevo Portfolio Completo',
+                'texto_modulo' => 'obras'
+            ),
+            'muestra' => array(
+                'texto_agregar' => 'Nueva Muestra',
+                'texto_modulo' => 'muestras'
+            ),
+            'default' => array(
+                'texto_agregar' => 'Nuevo Item',
+                'texto_modulo' => 'items'
+            ),
+        ),
+    ),
 );

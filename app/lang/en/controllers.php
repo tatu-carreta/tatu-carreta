@@ -23,4 +23,36 @@ return array(
         'presupuesto_enviado' => 'The budget was sent.',
         'presupuesto_no_enviado' => 'The mail with the summary of its budget could not be sent correctly. Please try again in a few minutes.',
     ),
+    'menu' => array(
+        'mostrar_info' => array(
+            'producto' => array(
+                'texto_agregar' => 'New Product',
+                'texto_modulo' => 'products'
+            ),
+            'noticia' => array(
+                'texto_agregar' => 'New News',
+                'texto_modulo' => 'news'
+            ),
+            'evento' => array(
+                'texto_agregar' => 'New Event',
+                'texto_modulo' => 'events'
+            ),
+            'portfolio_simple' => array(
+                'texto_agregar' => 'New Simple Portfolio',
+                'texto_modulo' => 'works'
+            ),
+            'portfolio_completo' => array(
+                'texto_agregar' => 'New Complete Portfolio',
+                'texto_modulo' => 'works'
+            ),
+            'muestra' => array(
+                'texto_agregar' => 'New Exhibition',
+                'texto_modulo' => 'exhibitions'
+            ),
+            'default' => array(
+                'texto_agregar' => 'New Item',
+                'texto_modulo' => 'items'
+            ),
+        ),
+    ),
 );

@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-12 marginBottom2">
             <h2>{{ $item ->lang() -> titulo }}</h2>
-            <a class="volveraSeccion" href="{{URL::to($prefijo.'/'.$item -> seccionItem() -> menuSeccion() ->lang() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ $item -> seccionItem() -> menuSeccion()->lang() -> nombre }}</a>
+            <a class="volveraSeccion" href="{{URL::to($prefijo.'/'.$item -> seccionItem() -> menuSeccion() ->lang() -> url)}}"><i class="fa fa-caret-left"></i>{{ Lang::get('html.volver_a') }} {{ $item -> seccionItem() -> menuSeccion()->lang() -> nombre }}</a>
             @if(Auth::check())
                 @if(Auth::user()->can("editar_item"))
                 <a href="{{URL::to('admin/muestra/editar/'.$item->muestra()->id)}}" data='{{$item -> seccionItem() -> id}}' style="display:none">Editar<i class="fa fa-pencil fa-lg"></i></a>

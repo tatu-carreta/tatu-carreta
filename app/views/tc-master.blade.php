@@ -3,13 +3,13 @@
     <head>
         @section('head')
         <meta charset="UTF-8">
-        <title>Tatú Carreta</title>
-
+        <title>{{ Lang::get('html.head.title') }}</title>
+        
         <!-- abre LINK -->
         <link href="favicon.ico" rel="shortcut icon">
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700' rel='stylesheet' type='text/css'>
-        <meta name="description" content="">
-        <meta name="Keywords" content="">
+        <meta name="description" content="{{ Lang::get('html.head.description') }}">
+        <meta name="Keywords" content="{{ Lang::get('html.head.keywords') }}">
         <meta property="og:image" content="" />
         <meta name="viewport" content="width = device-width, initial-scale=1, maximum-scale=1">
         
@@ -124,7 +124,7 @@
                                         <a href="{{URL::to('carrito')}}" class="">
                                         {{--<img class="imgArtPedido" src="@if(!is_null(Session::get('producto_carrito')->item()->imagen_destacada())){{ URL::to(Session::get('producto_carrito')->item()->imagen_destacada()->carpeta.Session::get('producto_carrito')->item()->imagen_destacada()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="">--}}
                                         <i class="fa fa-shopping-cart fa-2x"></i>
-                                        <p>El producto fue agregado. <br>Ingrese a PRESUPUESTO<br> para finalizar.</p>
+                                        <p>{{ Lang::get('html.ventana_producto') }}</p>
                                         {{--<span>Cod: {{ Session::get('producto_carrito')->item()->titulo }}</span>--}}
                                         </a>
                                         <div class="cerrarEmergente cerrarVentanaCarrito"><i class="fa fa-times fa-lg"></i></div>

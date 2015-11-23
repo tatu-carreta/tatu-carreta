@@ -42,20 +42,20 @@
                                             <span class="pull-left">
                                                 @if(!$item->producto()->nuevo())
                                                     @if(Auth::user()->can("destacar_item"))
-                                                        <a class="btn @if($item->producto()->oferta()) disabled @endif" @if(!$item->producto()->oferta()) onclick="destacarItemSeccion('{{URL::to('admin/producto/nuevo')}}', 'null', '{{$item->id}}');" @endif ><i class="fa fa-tag fa-lg"></i>Nuevo</a>
+                                                        <a class="btn @if($item->producto()->oferta()) disabled @endif" @if(!$item->producto()->oferta()) onclick="destacarItemSeccion('{{URL::to('admin/producto/nuevo')}}', 'null', '{{$item->id}}');" @endif ><i class="fa fa-tag fa-lg"></i>{{ Lang::get('html.nuevo') }}</a>
                                                     @endif
                                                 @else
                                                     @if(Auth::user()->can("quitar_destacado_item"))
-                                                        <a class="btn" onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', 'null', '{{$item->id}}');" ><i class="fa fa-tag prodDestacado fa-lg"></i>Nuevo</a>
+                                                        <a class="btn" onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', 'null', '{{$item->id}}');" ><i class="fa fa-tag prodDestacado fa-lg"></i>{{ Lang::get('html.nuevo') }}</a>
                                                     @endif
                                                 @endif
                                                 @if(!$item->producto()->oferta())
                                                     @if(Auth::user()->can("destacar_item"))
-                                                        <a href="{{URL::to('admin/producto/oferta/'.$item->producto()->id.'/null/home')}}" class="btn popup-nueva-seccion"><i  class="fa fa-shopping-cart fa-lg"></i>Oferta</a>
+                                                        <a href="{{URL::to('admin/producto/oferta/'.$item->producto()->id.'/null/home')}}" class="btn popup-nueva-seccion"><i  class="fa fa-shopping-cart fa-lg"></i>{{ Lang::get('html.oferta') }}</a>
                                                     @endif
                                                 @else
                                                     @if(Auth::user()->can("quitar_destacado_item"))
-                                                        <a onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', 'null', '{{$item->id}}');" class="btn"><i class="fa fa-shopping-cart prodDestacado fa-lg"></i>Oferta</a>
+                                                        <a onclick="destacarItemSeccion('{{URL::to('admin/item/quitar-destacado')}}', 'null', '{{$item->id}}');" class="btn"><i class="fa fa-shopping-cart prodDestacado fa-lg"></i>{{ Lang::get('html.oferta') }}</a>
                                                     @endif
                                                 @endif
                                             </span>
@@ -71,9 +71,9 @@
                                         </div>
                                     @endif
                                     
-                                    <a class="fancybox" href="@if(!is_null($item->imagen_destacada())){{URL::to($item->imagen_destacada()->ampliada()->carpeta.$item->imagen_destacada()->ampliada()->nombre)}}@else{{URL::to('images/sinImg.gif')}}@endif" title="{{$item->titulo}} @if(!is_null($item->imagen_destacada())){{ $item->imagen_destacada()->ampliada()->epigrafe }}@endif" rel='group'> 
+                                    <a class="fancybox" href="@if(!is_null($item->imagen_destacada())){{URL::to($item->imagen_destacada()->ampliada()->carpeta.$item->imagen_destacada()->ampliada()->nombre)}}@else{{URL::to('images/sinImg.gif')}}@endif" title="{{$item->lang()->titulo}} @if(!is_null($item->imagen_destacada())){{ $item->imagen_destacada()->ampliada()->lang()->epigrafe }}@endif" rel='group'> 
                                         <div class="divImgItem">
-                                            <img class="lazy" src="@if(!is_null($item->imagen_destacada())){{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$item->titulo}}">
+                                            <img class="lazy" src="@if(!is_null($item->imagen_destacada())){{ URL::to($item->imagen_destacada()->carpeta.$item->imagen_destacada()->nombre) }}@else{{URL::to('images/sinImg.gif')}}@endif" alt="{{$item->lang()->titulo}}">
                                             @if($item->producto()->oferta())
                                                 <span class="bandaOfertas">{{ Str::upper(Lang::get('html.oferta')) }}: ${{$item->producto()->precio(2)}} <span>({{ Str::lower(Lang::get('html.oferta_antes')) }}: ${{$item->producto()->precio(1)}})</span></span>
                                             @elseif($item->producto()->nuevo())
@@ -85,9 +85,9 @@
                                         <span class="pull-left">{{ $item->lang()->titulo }}</span>
                                         @if(!Auth::check())
                                             @if($c = Cart::search(array('id' => $item->producto()->id)))
-                                                <a href="{{URL::to('carrito/borrar/'.$item->producto()->id.'/'.$c[0].'/home/h')}}" class="carrito boton-presupuestar btn pull-right"><i class="fa fa-check-square-o"></i>{{ Lang::get('html.presupuestar') }}</a>
+                                            <a href="{{URL::to('carrito/borrar/'.$item->producto()->id.'/'.$c[0].'/home/h')}}" class="carrito boton-presupuestar btn pull-right" <!--onclick="ShowLoading()"-->><i class="fa fa-check-square-o"></i>{{ Lang::get('html.presupuestar') }}</a>
                                             @else
-                                                <a href="{{URL::to('carrito/agregar/'.$item->producto()->id.'/home/h')}}" class="btn boton-presupuestar pull-right"><i class="fa fa-square-o"></i>{{ Lang::get('html.presupuestar') }}</a>
+                                            <a href="{{URL::to('carrito/agregar/'.$item->producto()->id.'/home/h')}}" class="btn boton-presupuestar pull-right" <!--onclick="ShowLoading()"-->><i class="fa fa-square-o"></i>{{ Lang::get('html.presupuestar') }}</a>
                                             @endif
                                         @endif
                                         <div class="clearfix"></div>

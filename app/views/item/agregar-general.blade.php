@@ -7,7 +7,7 @@
         {{ Form::open(array('url' => 'admin/'.$modulo_pagina_nombre.'/agregar', 'files' => true, 'role' => 'form')) }}
         <h2><span>{{ $titulo_texto }}</span></h2>
         <div class="marginBottom2">
-            <a class="volveraSeccion" href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion()->lang() -> url)}}"><i class="fa fa-caret-left"></i>Volver a {{ Seccion::find($seccion_id) -> menuSeccion()->lang() -> nombre }}</a>
+            <a class="volveraSeccion" href="{{URL::to('/'.Seccion::find($seccion_id) -> menuSeccion()->lang() -> url)}}"><i class="fa fa-caret-left"></i>{{ Lang::get('html.volver_a') }} {{ Seccion::find($seccion_id) -> menuSeccion()->lang() -> nombre }}</a>
         </div>
 
         <div class="row">

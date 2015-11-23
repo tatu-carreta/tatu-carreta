@@ -7,8 +7,14 @@ return array(
       |--------------------------------------------------------------------------
       |
      */
+    'head' => array(
+        'title' => 'TATU CARRETA',
+        'description' => '',
+        'keywords' => '',
+    ),
     'copyright' => 'Copyright © OFFITEC 2015 - Desarrollo web:',
     'presupuesto' => 'Presupuesto',
+    'ventana_producto' => 'El producto fue agregado. <br> Ingrese a PRESUPUESTO<br> para finalizar.',
     'titulo_inicio' => 'Inicio',
     'oferta' => 'Oferta',
     'oferta_ahora' => 'Ahora',
@@ -29,6 +35,7 @@ return array(
         'productos_seleccionados' => 'Productos seleccionados',
         'no_productos' => 'No hay productos seleccionados.',
         'complete_datos' => 'Complete sus datos',
+        'texto_carrito' => '<strong>CONSULTE PRESUPUESTO:</strong> 1) seleccione hasta 6 productos del catálogo e indique cantidad  2) complete sus datos, detalle su consulta si es necesario y presione enviar 3) Le entregaremos el presupuesto detallado por email.',
     ),
     'contenedor' => array(
         'no_items' => 'No hay :texto_modulo aún.',
@@ -46,5 +53,6 @@ return array(
         
     ),
     'descargas_pdf' => 'Descargas PDF',
+    'texto_loading' => 'Por favor aguarde...',
     
 );

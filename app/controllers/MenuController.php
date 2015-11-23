@@ -14,7 +14,6 @@ class MenuController extends BaseController {
 
         $this->array_view['modulos'] = $modulos;
         //$this->array_view['prefijo'] = Config::get('app.locale_prefix');
-
         //return View::make('menu.lista', array('menus' => $menus, 'categorias' => $categorias));
         return View::make($this->folder_name . '.administrar', $this->array_view);
     }
@@ -29,16 +28,16 @@ class MenuController extends BaseController {
         $respuesta = Menu::agregarMenu(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
+            return Redirect::to($this->array_view['prefijo'] . '/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
-            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
+            return Redirect::to($this->array_view['prefijo'] . '/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
         }
     }
 
     public function mostrarInfoMenu($url) {
 
         $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-        
+
         $menu = Menu::join('menu_lang', 'menu_lang.menu_id', '=', 'menu.id')->where('menu_lang.lang_id', $lang->id)->where('menu_lang.estado', 'A')->where('menu_lang.url', $url)->first();
         //$menu = Menu::where('url', $url)->where('estado', 'A')->first();
 
@@ -46,7 +45,7 @@ class MenuController extends BaseController {
             $this->array_view['menu'] = $menu;
 
             $menu_basic = Menu::find($menu->menu_id);
-            
+
             if (!is_null($menu_basic->categoria())) {
                 $this->array_view['ancla'] = Session::get('ancla');
 
@@ -56,7 +55,7 @@ class MenuController extends BaseController {
                         $hay_datos = true;
                     }
                 }
-                
+
                 switch ($menu_basic->modulo()->nombre) {
                     case "producto":
                         $marcas = array();
@@ -80,55 +79,32 @@ class MenuController extends BaseController {
 
                         $this->array_view['marcas_principales'] = $marcas_principales;
 
-                        $textoAgregar = "Nuevo Producto";
-                        $texto_modulo = "productos";
-                        break;
-                    case "noticia":
-                        //$this->array_view['ancla'] = "#" . $menu->estado . $menu->id;
-
-                        $textoAgregar = "Nueva Noticia";
-                        $texto_modulo = "noticias";
-                        break;
-                    case "evento":
-                        $textoAgregar = "Nuevo Evento";
-                        $texto_modulo = "eventos";
-                        break;
-                    case "portfolio_simple":
-                        $textoAgregar = "Nuevo Portfolio Simple";
-                        $texto_modulo = "obras";
-                        break;
-                    case "portfolio_completo":
-                        $textoAgregar = "Nuevo Portfolio Completo";
-                        $texto_modulo = "obras";
-                        break;
-                    case "muestra":
-                        $textoAgregar = "Nueva Muestra";
-                        $texto_modulo = "muestras";
                         break;
                     default :
-                        $textoAgregar = "Nuevo Item";
-                        $texto_modulo = "items";
+                        $menu_basic->modulo()->nombre = 'default';
                         break;
                 }
+                $textoAgregar = Lang::get('controllers.menu.mostrar_info.' . $menu_basic->modulo()->nombre . '.texto_agregar');
+                $texto_modulo = Lang::get('controllers.menu.mostrar_info.' . $menu_basic->modulo()->nombre . '.texto_modulo');
 
                 $this->array_view['html'] = $menu_basic->modulo()->nombre . ".unidad-lista";
                 $this->array_view['texto_agregar'] = $textoAgregar;
                 $this->array_view['texto_modulo'] = $texto_modulo;
-                
+
                 $this->array_view['hay_datos'] = $hay_datos;
 
                 $this->array_view['menu_basic'] = $menu_basic;
-                
+
                 $this->array_view['type'] = 'M';
                 $this->array_view['ang'] = $menu_basic->id;
-                
+
                 return View::make($this->folder_name . ".menu-contenedor", $this->array_view);
             } else {
                 $this->array_view['menu_basic'] = $menu_basic;
-                
+
                 $this->array_view['type'] = 'M';
                 $this->array_view['ang'] = $menu_basic->id;
-                
+
                 return View::make($this->folder_name . '.menu-estatico', $this->array_view);
             }
         } else {
@@ -177,7 +153,7 @@ class MenuController extends BaseController {
     public function vistaEditar($id) {
 
         $lang = Idioma::where('codigo', App::getLocale())->where('estado', 'A')->first();
-        
+
         $menu = Menu::join('menu_lang', 'menu_lang.menu_id', '=', 'menu.id')->where('menu_lang.lang_id', $lang->id)->where('menu_lang.estado', 'A')->where('menu.id', $id)->first();
 
         if ($menu) {
@@ -195,9 +171,9 @@ class MenuController extends BaseController {
         $respuesta = Menu::editarMenu(Input::all());
 
         if ($respuesta['error'] == true) {
-            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
+            return Redirect::to($this->array_view['prefijo'] . '/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('error', true);
         } else {
-            return Redirect::to($this->array_view['prefijo'].'/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
+            return Redirect::to($this->array_view['prefijo'] . '/admin/' . $this->folder_name)->with('mensaje', $respuesta['mensaje'])->with('ok', true);
         }
     }
 
